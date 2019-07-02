@@ -3,10 +3,10 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\dev\SDL2-2.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;C:\Users\cat\Darkplaces-Rust\darkplaces-src-dependencies\SDL2-devel-2.0.9-VC\SDL2-2.0.9\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;C:\dev\SDL2-2.0\lib\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;C:\Users\cat\Darkplaces-Rust\darkplaces-src-dependencies\SDL2-devel-2.0.9-VC\SDL2-2.0.9\\lib\x64;$(LibraryPath)</LibraryPath>
     <_PropertySheetDisplayName>vs2012_win64</_PropertySheetDisplayName>
   </PropertyGroup>
   <ItemDefinitionGroup />
