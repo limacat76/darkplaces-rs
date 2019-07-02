@@ -374,3 +374,4 @@ MigrationBackup/
 Debug-darkplaces*
 *.exp
 /ID1
+*.tlog
