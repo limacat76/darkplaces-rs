@@ -227,7 +227,6 @@ extern prvm_eval_t prvm_badvalue;
 #define PRVM_menuglobalfunction(fieldname)    (PRVM_GLOBALFIELDFUNCTION(prog->globaloffsets.fieldname))
 #define PRVM_menufunction(funcname)           (prog->funcoffsets.funcname)
 
-#if 1
 #define PRVM_EDICTFIELDVALUE(ed, fieldoffset)    ((fieldoffset) < 0 ? Con_Printf("Invalid fieldoffset at %s:%i\n", __FILE__, __LINE__), &prvm_badvalue : (prvm_eval_t *)((ed)->fields.fp + (fieldoffset)))
 #define PRVM_EDICTFIELDFLOAT(ed, fieldoffset)    (PRVM_EDICTFIELDVALUE(ed, fieldoffset)->_float)
 #define PRVM_EDICTFIELDVECTOR(ed, fieldoffset)   (PRVM_EDICTFIELDVALUE(ed, fieldoffset)->vector)
@@ -240,20 +239,6 @@ extern prvm_eval_t prvm_badvalue;
 #define PRVM_GLOBALFIELDSTRING(fieldoffset)      (PRVM_GLOBALFIELDVALUE(fieldoffset)->string)
 #define PRVM_GLOBALFIELDEDICT(fieldoffset)       (PRVM_GLOBALFIELDVALUE(fieldoffset)->edict)
 #define PRVM_GLOBALFIELDFUNCTION(fieldoffset)    (PRVM_GLOBALFIELDVALUE(fieldoffset)->function)
-#else
-#define PRVM_EDICTFIELDVALUE(ed, fieldoffset) ((prvm_eval_t *)(ed->fields.fp + fieldoffset))
-#define PRVM_EDICTFIELDFLOAT(ed, fieldoffset) (((prvm_eval_t *)(ed->fields.fp + fieldoffset))->_float)
-#define PRVM_EDICTFIELDVECTOR(ed, fieldoffset) (((prvm_eval_t *)(ed->fields.fp + fieldoffset))->vector)
-#define PRVM_EDICTFIELDSTRING(ed, fieldoffset) (((prvm_eval_t *)(ed->fields.fp + fieldoffset))->string)
-#define PRVM_EDICTFIELDEDICT(ed, fieldoffset) (((prvm_eval_t *)(ed->fields.fp + fieldoffset))->edict)
-#define PRVM_EDICTFIELDFUNCTION(ed, fieldoffset) (((prvm_eval_t *)(ed->fields.fp + fieldoffset))->function)
-#define PRVM_GLOBALFIELDVALUE(fieldoffset) ((prvm_eval_t *)(prog->globals.fp + fieldoffset))
-#define PRVM_GLOBALFIELDFLOAT(fieldoffset) (((prvm_eval_t *)(prog->globals.fp + fieldoffset))->_float)
-#define PRVM_GLOBALFIELDVECTOR(fieldoffset) (((prvm_eval_t *)(prog->globals.fp + fieldoffset))->vector)
-#define PRVM_GLOBALFIELDSTRING(fieldoffset) (((prvm_eval_t *)(prog->globals.fp + fieldoffset))->string)
-#define PRVM_GLOBALFIELDEDICT(fieldoffset) (((prvm_eval_t *)(prog->globals.fp + fieldoffset))->edict)
-#define PRVM_GLOBALFIELDFUNCTION(fieldoffset) (((prvm_eval_t *)(prog->globals.fp + fieldoffset))->function)
-#endif
 
 //============================================================================
 #define PRVM_OP_STATE		1

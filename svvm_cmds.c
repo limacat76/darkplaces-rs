@@ -883,12 +883,7 @@ static void VM_SV_checkpvs(prvm_prog_t *prog)
 {
 	vec3_t viewpos, absmin, absmax;
 	prvm_edict_t *viewee;
-#if 1
 	unsigned char *pvs;
-#else
-	int fatpvsbytes;
-	unsigned char fatpvs[MAX_MAP_LEAFS/8];
-#endif
 
 	VM_SAFEPARMCOUNT(2, VM_SV_checkpvs);
 	VectorCopy(PRVM_G_VECTOR(OFS_PARM0), viewpos);
@@ -901,7 +896,6 @@ static void VM_SV_checkpvs(prvm_prog_t *prog)
 		return;
 	}
 
-#if 1
 	if(!sv.worldmodel || !sv.worldmodel->brush.GetPVS || !sv.worldmodel->brush.BoxTouchingPVS)
 	{
 		// no PVS support on this worldmodel... darn
@@ -918,25 +912,6 @@ static void VM_SV_checkpvs(prvm_prog_t *prog)
 	VectorCopy(PRVM_serveredictvector(viewee, absmin), absmin);
 	VectorCopy(PRVM_serveredictvector(viewee, absmax), absmax);
 	PRVM_G_FLOAT(OFS_RETURN) = sv.worldmodel->brush.BoxTouchingPVS(sv.worldmodel, pvs, absmin, absmax);
-#else
-	// using fat PVS like FTEQW does (slow)
-	if(!sv.worldmodel || !sv.worldmodel->brush.FatPVS || !sv.worldmodel->brush.BoxTouchingPVS)
-	{
-		// no PVS support on this worldmodel... darn
-		PRVM_G_FLOAT(OFS_RETURN) = 3;
-		return;
-	}
-	fatpvsbytes = sv.worldmodel->brush.FatPVS(sv.worldmodel, viewpos, 8, fatpvs, sizeof(fatpvs), false);
-	if(!fatpvsbytes)
-	{
-		// viewpos isn't in any PVS... darn
-		PRVM_G_FLOAT(OFS_RETURN) = 2;
-		return;
-	}
-	VectorCopy(PRVM_serveredictvector(viewee, absmin), absmin);
-	VectorCopy(PRVM_serveredictvector(viewee, absmax), absmax);
-	PRVM_G_FLOAT(OFS_RETURN) = sv.worldmodel->brush.BoxTouchingPVS(sv.worldmodel, fatpvs, absmin, absmax);
-#endif
 }
 
 

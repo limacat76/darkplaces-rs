@@ -189,7 +189,6 @@ static void SVBSP_InsertOccluderPolygonNodes(svbsp_t *b, int *parentnodenumpoint
 	// insertion
 	for (i = 0, p = poly->numpoints - 1;i < poly->numpoints;p = i, i++)
 	{
-#if 1
 		// see if a parent plane describes this side
 		for (j = parentnodenum;j >= 0;j = b->nodes[j].parent)
 		{
@@ -201,7 +200,6 @@ static void SVBSP_InsertOccluderPolygonNodes(svbsp_t *b, int *parentnodenumpoint
 		}
 		if (j >= 0)
 			continue; // already have a matching parent plane
-#endif
 		// create a side plane
 		// anything infront of this is not inside the shadow volume
 		node = b->nodes + b->numnodes++;
@@ -238,10 +236,8 @@ static void SVBSP_InsertOccluderPolygonNodes(svbsp_t *b, int *parentnodenumpoint
 		parentnodenumpointer = &node->children[1];
 	}
 
-#if 1
 	// skip the face plane if it lies on a parent plane
 	if (!poly->facesplitflag)
-#endif
 	{
 		// add the face-plane node
 		// infront is empty, behind is shadow
@@ -331,15 +327,7 @@ static int SVBSP_AddPolygonNode(svbsp_t *b, int *parentnodenumpointer, int paren
 			continue;
 		case 3:
 			// lies on both sides of the plane, we need to split it
-#if 1
 			SVBSP_DividePolygon(poly, plane, &front, &back, dists, sides);
-#else
-			PolygonF_Divide(poly->numpoints, poly->points[0], plane[0], plane[1], plane[2], plane[3], SVBSP_CLIP_EPSILON, MAX_SVBSP_POLYGONPOINTS, front.points[0], &front.numpoints, MAX_SVBSP_POLYGONPOINTS, back.points[0], &back.numpoints, NULL);
-			if (front.numpoints > MAX_SVBSP_POLYGONPOINTS)
-				front.numpoints = MAX_SVBSP_POLYGONPOINTS;
-			if (back.numpoints > MAX_SVBSP_POLYGONPOINTS)
-				back.numpoints = MAX_SVBSP_POLYGONPOINTS;
-#endif
 			front.facesplitflag = facesplitflag;
 			back.facesplitflag = facesplitflag;
 			// recurse the sides and return the resulting occlusion flags

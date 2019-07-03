@@ -629,7 +629,6 @@ void Host_Savegame_to(prvm_prog_t *prog, const char *name)
 		PRVM_ED_Write (prog, f, PRVM_EDICT_NUM(i));
 	}
 
-#if 1
 	FS_Printf(f,"/*\n");
 	FS_Printf(f,"// DarkPlaces extended savegame\n");
 	// darkplaces extension - extra lightstyles, support for color lightstyles
@@ -694,7 +693,6 @@ void Host_Savegame_to(prvm_prog_t *prog, const char *name)
 		}
 	}
 	FS_Printf(f,"*/\n");
-#endif
 
 	FS_Close (f);
 	Con_Print("done.\n");

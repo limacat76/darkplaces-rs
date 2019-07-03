@@ -16,7 +16,6 @@ static void Image_CopyAlphaFromBlueBGRA(unsigned char *outpixels, const unsigned
 		outpixels[4*i+3] = inpixels[4*i]; // blue channel
 }
 
-#if 1
 // written by LordHavoc in a readable way, optimized by Vic, further optimized by LordHavoc (the non-special index case), readable version preserved below this
 void Image_CopyMux(unsigned char *outpixels, const unsigned char *inpixels, int inputwidth, int inputheight, qboolean inputflipx, qboolean inputflipy, qboolean inputflipdiagonal, int numoutputcomponents, int numinputcomponents, int *outputinputcomponentindices)
 {
@@ -65,50 +64,6 @@ void Image_CopyMux(unsigned char *outpixels, const unsigned char *inpixels, int 
 		}
 	}
 }
-#else
-// intentionally readable version
-void Image_CopyMux(unsigned char *outpixels, const unsigned char *inpixels, int inputwidth, int inputheight, qboolean inputflipx, qboolean inputflipy, qboolean inputflipdiagonal, int numoutputcomponents, int numinputcomponents, int *outputinputcomponentindices)
-{
-	int index, c, x, y;
-	const unsigned char *in, *inrow, *incolumn;
-	if (inputflipdiagonal)
-	{
-		for (x = 0;x < inputwidth;x++)
-		{
-			for (y = 0;y < inputheight;y++)
-			{
-				in = inpixels + ((inputflipy ? inputheight - 1 - y : y) * inputwidth + (inputflipx ? inputwidth - 1 - x : x)) * numinputcomponents;
-				for (c = 0;c < numoutputcomponents;c++)
-				{
-					index = outputinputcomponentindices[c];
-					if (index & 0x80000000)
-						*outpixels++ = index;
-					else
-						*outpixels++ = in[index];
-				}
-			}
-		}
-	}
-	else
-	{
-		for (y = 0;y < inputheight;y++)
-		{
-			for (x = 0;x < inputwidth;x++)
-			{
-				in = inpixels + ((inputflipy ? inputheight - 1 - y : y) * inputwidth + (inputflipx ? inputwidth - 1 - x : x)) * numinputcomponents;
-				for (c = 0;c < numoutputcomponents;c++)
-				{
-					index = outputinputcomponentindices[c];
-					if (index & 0x80000000)
-						*outpixels++ = index;
-					else
-						*outpixels++ = in[index];
-				}
-			}
-		}
-	}
-}
-#endif
 
 void Image_GammaRemapRGB(const unsigned char *in, unsigned char *out, int pixels, const unsigned char *gammar, const unsigned char *gammag, const unsigned char *gammab)
 {

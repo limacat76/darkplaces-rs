@@ -732,7 +732,6 @@ Key_Console (int key, int unicode)
 		if ((cbd = Sys_GetClipboardData()) != 0)
 		{
 			int i;
-#if 1
 			p = cbd;
 			while (*p)
 			{
@@ -745,9 +744,6 @@ Key_Console (int key, int unicode)
 					*p++ = ';';
 				p++;
 			}
-#else
-			strtok(cbd, "\n\r\b");
-#endif
 			i = (int)strlen(cbd);
 			if (i + key_linepos >= MAX_INPUTLINE)
 				i= MAX_INPUTLINE - key_linepos - 1;

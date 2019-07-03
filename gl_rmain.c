@@ -11965,35 +11965,13 @@ static void R_DecalSystem_SplatEntity(entity_render_t *ent, const vec3_t worldor
 	planes[4][3] = DotProduct(planes[4], localorigin) - localsize;
 	planes[5][3] = DotProduct(planes[5], localorigin) - localsize;
 
-#if 1
 // works
 {
 	matrix4x4_t forwardprojection;
 	Matrix4x4_CreateFromQuakeEntity(&forwardprojection, localorigin[0], localorigin[1], localorigin[2], angles[0], angles[1], angles[2], localsize);
 	Matrix4x4_Invert_Simple(&projection, &forwardprojection);
 }
-#else
-// broken
-{
-	float projectionvector[4][3];
-	VectorScale(planes[0], ilocalsize, projectionvector[0]);
-	VectorScale(planes[2], ilocalsize, projectionvector[1]);
-	VectorScale(planes[4], ilocalsize, projectionvector[2]);
-	projectionvector[0][0] = planes[0][0] * ilocalsize;
-	projectionvector[0][1] = planes[1][0] * ilocalsize;
-	projectionvector[0][2] = planes[2][0] * ilocalsize;
-	projectionvector[1][0] = planes[0][1] * ilocalsize;
-	projectionvector[1][1] = planes[1][1] * ilocalsize;
-	projectionvector[1][2] = planes[2][1] * ilocalsize;
-	projectionvector[2][0] = planes[0][2] * ilocalsize;
-	projectionvector[2][1] = planes[1][2] * ilocalsize;
-	projectionvector[2][2] = planes[2][2] * ilocalsize;
-	projectionvector[3][0] = -(localorigin[0]*projectionvector[0][0]+localorigin[1]*projectionvector[1][0]+localorigin[2]*projectionvector[2][0]);
-	projectionvector[3][1] = -(localorigin[0]*projectionvector[0][1]+localorigin[1]*projectionvector[1][1]+localorigin[2]*projectionvector[2][1]);
-	projectionvector[3][2] = -(localorigin[0]*projectionvector[0][2]+localorigin[1]*projectionvector[1][2]+localorigin[2]*projectionvector[2][2]);
-	Matrix4x4_FromVectors(&projection, projectionvector[0], projectionvector[1], projectionvector[2], projectionvector[3]);
-}
-#endif
+
 
 	dynamic = model->surfmesh.isanimated;
 	numsurfacelist = model->nummodelsurfaces;

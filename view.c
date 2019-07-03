@@ -565,10 +565,8 @@ void V_CalcRefdefUsing (const matrix4x4_t *entrendermatrix, const vec3_t clviewa
 
 			if (chase_overhead.integer)
 			{
-#if 1
 				vec3_t offset;
 				vec3_t bestvieworg;
-#endif
 				vec3_t up;
 				viewangles[PITCH] = 0;
 				AngleVectors(viewangles, forward, NULL, up);

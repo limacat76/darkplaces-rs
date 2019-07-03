@@ -2082,7 +2082,6 @@ static void DPSOFTRAST_Draw_Span_FinishBGRA8(DPSOFTRAST_State_Thread *thread, co
 		if (!pixelmask[x])
 		{
 			x++;
-#if 1
 			if (x + 8 < endx)
 			{
 				// the 4-item search must be aligned or else it stalls badly
@@ -2104,7 +2103,6 @@ static void DPSOFTRAST_Draw_Span_FinishBGRA8(DPSOFTRAST_State_Thread *thread, co
 				while (*(unsigned int *)&pixelmask[x] == 0x00000000)
 					x += 4;
 			}
-#endif
 			for (;!pixelmask[x];x++)
 				;
 			// rather than continue the loop, just check the end variable
@@ -2114,7 +2112,6 @@ static void DPSOFTRAST_Draw_Span_FinishBGRA8(DPSOFTRAST_State_Thread *thread, co
 	endmasked:
 		// find length of subspan
 		subx = x + 1;
-#if 1
 		if (subx + 8 < endx)
 		{
 			if (subx & 3)
@@ -2135,7 +2132,6 @@ static void DPSOFTRAST_Draw_Span_FinishBGRA8(DPSOFTRAST_State_Thread *thread, co
 			while (*(unsigned int *)&pixelmask[subx] == 0x01010101)
 				subx += 4;
 		}
-#endif
 		for (;pixelmask[subx];subx++)
 			;
 		// the checks can overshoot, so make sure to clip it...

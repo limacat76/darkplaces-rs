@@ -767,11 +767,7 @@ void VM_dprint(prvm_prog_t *prog)
 	char string[VM_STRINGTEMP_LENGTH];
 	VM_SAFEPARMCOUNTRANGE(1, 8, VM_dprint);
 	VM_VarString(prog, 0, string, sizeof(string));
-#if 1
 	Con_DPrintf("%s", string);
-#else
-	Con_DPrintf("%s: %s", prog->name, string);
-#endif
 }
 
 /*
