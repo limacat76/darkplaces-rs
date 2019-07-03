@@ -2402,158 +2402,6 @@ static void Mod_Q1BSP_LoadTexinfo(sizebuf_t *sb)
 	}
 }
 
-#if 0
-void BoundPoly(int numverts, float *verts, vec3_t mins, vec3_t maxs)
-{
-	int		i, j;
-	float	*v;
-
-	mins[0] = mins[1] = mins[2] = 9999;
-	maxs[0] = maxs[1] = maxs[2] = -9999;
-	v = verts;
-	for (i = 0;i < numverts;i++)
-	{
-		for (j = 0;j < 3;j++, v++)
-		{
-			if (*v < mins[j])
-				mins[j] = *v;
-			if (*v > maxs[j])
-				maxs[j] = *v;
-		}
-	}
-}
-
-#define MAX_SUBDIVPOLYTRIANGLES 4096
-#define MAX_SUBDIVPOLYVERTS(MAX_SUBDIVPOLYTRIANGLES * 3)
-
-static int subdivpolyverts, subdivpolytriangles;
-static int subdivpolyindex[MAX_SUBDIVPOLYTRIANGLES][3];
-static float subdivpolyvert[MAX_SUBDIVPOLYVERTS][3];
-
-static int subdivpolylookupvert(vec3_t v)
-{
-	int i;
-	for (i = 0;i < subdivpolyverts;i++)
-		if (subdivpolyvert[i][0] == v[0]
-		 && subdivpolyvert[i][1] == v[1]
-		 && subdivpolyvert[i][2] == v[2])
-			return i;
-	if (subdivpolyverts >= MAX_SUBDIVPOLYVERTS)
-		Host_Error("SubDividePolygon: ran out of vertices in buffer, please increase your r_subdivide_size");
-	VectorCopy(v, subdivpolyvert[subdivpolyverts]);
-	return subdivpolyverts++;
-}
-
-static void SubdividePolygon(int numverts, float *verts)
-{
-	int		i, i1, i2, i3, f, b, c, p;
-	vec3_t	mins, maxs, front[256], back[256];
-	float	m, *pv, *cv, dist[256], frac;
-
-	if (numverts > 250)
-		Host_Error("SubdividePolygon: ran out of verts in buffer");
-
-	BoundPoly(numverts, verts, mins, maxs);
-
-	for (i = 0;i < 3;i++)
-	{
-		m = (mins[i] + maxs[i]) * 0.5;
-		m = r_subdivide_size.value * floor(m/r_subdivide_size.value + 0.5);
-		if (maxs[i] - m < 8)
-			continue;
-		if (m - mins[i] < 8)
-			continue;
-
-		// cut it
-		for (cv = verts, c = 0;c < numverts;c++, cv += 3)
-			dist[c] = cv[i] - m;
-
-		f = b = 0;
-		for (p = numverts - 1, c = 0, pv = verts + p * 3, cv = verts;c < numverts;p = c, c++, pv = cv, cv += 3)
-		{
-			if (dist[p] >= 0)
-			{
-				VectorCopy(pv, front[f]);
-				f++;
-			}
-			if (dist[p] <= 0)
-			{
-				VectorCopy(pv, back[b]);
-				b++;
-			}
-			if (dist[p] == 0 || dist[c] == 0)
-				continue;
-			if ((dist[p] > 0) != (dist[c] > 0) )
-			{
-				// clip point
-				frac = dist[p] / (dist[p] - dist[c]);
-				front[f][0] = back[b][0] = pv[0] + frac * (cv[0] - pv[0]);
-				front[f][1] = back[b][1] = pv[1] + frac * (cv[1] - pv[1]);
-				front[f][2] = back[b][2] = pv[2] + frac * (cv[2] - pv[2]);
-				f++;
-				b++;
-			}
-		}
-
-		SubdividePolygon(f, front[0]);
-		SubdividePolygon(b, back[0]);
-		return;
-	}
-
-	i1 = subdivpolylookupvert(verts);
-	i2 = subdivpolylookupvert(verts + 3);
-	for (i = 2;i < numverts;i++)
-	{
-		if (subdivpolytriangles >= MAX_SUBDIVPOLYTRIANGLES)
-		{
-			Con_Print("SubdividePolygon: ran out of triangles in buffer, please increase your r_subdivide_size\n");
-			return;
-		}
-
-		i3 = subdivpolylookupvert(verts + i * 3);
-		subdivpolyindex[subdivpolytriangles][0] = i1;
-		subdivpolyindex[subdivpolytriangles][1] = i2;
-		subdivpolyindex[subdivpolytriangles][2] = i3;
-		i2 = i3;
-		subdivpolytriangles++;
-	}
-}
-
-//Breaks a polygon up along axial 64 unit
-//boundaries so that turbulent and sky warps
-//can be done reasonably.
-static void Mod_Q1BSP_GenerateWarpMesh(msurface_t *surface)
-{
-	int i, j;
-	surfvertex_t *v;
-	surfmesh_t *mesh;
-
-	subdivpolytriangles = 0;
-	subdivpolyverts = 0;
-	SubdividePolygon(surface->num_vertices, (surface->mesh->data_vertex3f + 3 * surface->num_firstvertex));
-	if (subdivpolytriangles < 1)
-		Host_Error("Mod_Q1BSP_GenerateWarpMesh: no triangles?");
-
-	surface->mesh = mesh = Mem_Alloc(loadmodel->mempool, sizeof(surfmesh_t) + subdivpolytriangles * sizeof(int[3]) + subdivpolyverts * sizeof(surfvertex_t));
-	mesh->num_vertices = subdivpolyverts;
-	mesh->num_triangles = subdivpolytriangles;
-	mesh->vertex = (surfvertex_t *)(mesh + 1);
-	mesh->index = (int *)(mesh->vertex + mesh->num_vertices);
-	memset(mesh->vertex, 0, mesh->num_vertices * sizeof(surfvertex_t));
-
-	for (i = 0;i < mesh->num_triangles;i++)
-		for (j = 0;j < 3;j++)
-			mesh->index[i*3+j] = subdivpolyindex[i][j];
-
-	for (i = 0, v = mesh->vertex;i < subdivpolyverts;i++, v++)
-	{
-		VectorCopy(subdivpolyvert[i], v->v);
-		v->st[0] = DotProduct(v->v, surface->lightmapinfo->texinfo->vecs[0]);
-		v->st[1] = DotProduct(v->v, surface->lightmapinfo->texinfo->vecs[1]);
-	}
-}
-#endif
-
 extern cvar_t gl_max_lightmapsize;
 static void Mod_Q1BSP_LoadFaces(sizebuf_t *sb)
 {
@@ -3265,97 +3113,6 @@ static void Mod_Q1BSP_AssignNoShadowSkySurfaces(dp_model_t *mod)
 
 static void Mod_Q1BSP_LoadMapBrushes(void)
 {
-#if 0
-// unfinished
-	int submodel, numbrushes;
-	qboolean firstbrush;
-	char *text, *maptext;
-	char mapfilename[MAX_QPATH];
-	FS_StripExtension (loadmodel->name, mapfilename, sizeof (mapfilename));
-	strlcat (mapfilename, ".map", sizeof (mapfilename));
-	maptext = (unsigned char*) FS_LoadFile(mapfilename, tempmempool, false, NULL);
-	if (!maptext)
-		return;
-	text = maptext;
-	if (!COM_ParseToken_Simple(&data, false, false, true))
-		return; // error
-	submodel = 0;
-	for (;;)
-	{
-		if (!COM_ParseToken_Simple(&data, false, false, true))
-			break;
-		if (com_token[0] != '{')
-			return; // error
-		// entity
-		firstbrush = true;
-		numbrushes = 0;
-		maxbrushes = 256;
-		brushes = Mem_Alloc(loadmodel->mempool, maxbrushes * sizeof(mbrush_t));
-		for (;;)
-		{
-			if (!COM_ParseToken_Simple(&data, false, false, true))
-				return; // error
-			if (com_token[0] == '}')
-				break; // end of entity
-			if (com_token[0] == '{')
-			{
-				// brush
-				if (firstbrush)
-				{
-					if (submodel)
-					{
-						if (submodel > loadmodel->brush.numsubmodels)
-						{
-							Con_Printf("Mod_Q1BSP_LoadMapBrushes: .map has more submodels than .bsp!\n");
-							model = NULL;
-						}
-						else
-							model = loadmodel->brush.submodels[submodel];
-					}
-					else
-						model = loadmodel;
-				}
-				for (;;)
-				{
-					if (!COM_ParseToken_Simple(&data, false, false, true))
-						return; // error
-					if (com_token[0] == '}')
-						break; // end of brush
-					// each brush face should be this format:
-					// ( x y z ) ( x y z ) ( x y z ) texture scroll_s scroll_t rotateangle scale_s scale_t
-					// FIXME: support hl .map format
-					for (pointnum = 0;pointnum < 3;pointnum++)
-					{
-						COM_ParseToken_Simple(&data, false, false, true);
-						for (componentnum = 0;componentnum < 3;componentnum++)
-						{
-							COM_ParseToken_Simple(&data, false, false, true);
-							point[pointnum][componentnum] = atof(com_token);
-						}
-						COM_ParseToken_Simple(&data, false, false, true);
-					}
-					COM_ParseToken_Simple(&data, false, false, true);
-					strlcpy(facetexture, com_token, sizeof(facetexture));
-					COM_ParseToken_Simple(&data, false, false, true);
-					//scroll_s = atof(com_token);
-					COM_ParseToken_Simple(&data, false, false, true);
-					//scroll_t = atof(com_token);
-					COM_ParseToken_Simple(&data, false, false, true);
-					//rotate = atof(com_token);
-					COM_ParseToken_Simple(&data, false, false, true);
-					//scale_s = atof(com_token);
-					COM_ParseToken_Simple(&data, false, false, true);
-					//scale_t = atof(com_token);
-					TriangleNormal(point[0], point[1], point[2], planenormal);
-					VectorNormalizeDouble(planenormal);
-					planedist = DotProduct(point[0], planenormal);
-					//ChooseTexturePlane(planenormal, texturevector[0], texturevector[1]);
-				}
-				continue;
-			}
-		}
-	}
-#endif
 }
 
 
@@ -5261,16 +5018,11 @@ static void Mod_Q3BSP_LoadEntities(lump_t *l)
 #if _MSC_VER >= 1400
 #define sscanf sscanf_s
 #endif
-#if 0
-				if (sscanf(value, "%f %f %f", &v[0], &v[1], &v[2]) == 3 && v[0] != 0 && v[1] != 0 && v[2] != 0)
-					VectorCopy(v, loadmodel->brushq3.num_lightgrid_cellsize);
-#else
 				VectorSet(v, 64, 64, 128);
 				if(sscanf(value, "%f %f %f", &v[0], &v[1], &v[2]) != 3)
 					Con_Printf("Mod_Q3BSP_LoadEntities: funny gridsize \"%s\" in %s, interpreting as \"%f %f %f\" to match q3map2's parsing\n", value, loadmodel->name, v[0], v[1], v[2]);
 				if (v[0] != 0 && v[1] != 0 && v[2] != 0)
 					VectorCopy(v, loadmodel->brushq3.num_lightgrid_cellsize);
-#endif
 			}
 			else if (!strcmp("deluxeMaps", key))
 			{
@@ -7258,46 +7010,16 @@ qboolean Mod_CollisionBIH_TraceLineOfSight(struct model_s *model, const vec3_t s
 
 void Mod_CollisionBIH_TracePoint_Mesh(dp_model_t *model, const frameblend_t *frameblend, const skeleton_t *skeleton, trace_t *trace, const vec3_t start, int hitsupercontentsmask, int skipsupercontentsmask, int skipmaterialflagsmask)
 {
-#if 0
-	// broken - needs to be modified to count front faces and backfaces to figure out if it is in solid
-	vec3_t end;
-	int hitsupercontents;
-	VectorSet(end, start[0], start[1], model->normalmins[2]);
-#endif
 	memset(trace, 0, sizeof(*trace));
 	trace->fraction = 1;
 	trace->hitsupercontentsmask = hitsupercontentsmask;
 	trace->skipsupercontentsmask = skipsupercontentsmask;
 	trace->skipmaterialflagsmask = skipmaterialflagsmask;
-#if 0
-	Mod_CollisionBIH_TraceLine(model, frameblend, skeleton, trace, start, end, hitsupercontentsmask, skipsupercontentsmask, skipmaterialflagsmask);
-	hitsupercontents = trace->hitsupercontents;
-	memset(trace, 0, sizeof(*trace));
-	trace->fraction = 1;
-	trace->hitsupercontentsmask = hitsupercontentsmask;
-	trace->skipsupercontentsmask = skipsupercontentsmask;
-	trace->skipmaterialflagsmask = skipmaterialflagsmask;
-	trace->startsupercontents = hitsupercontents;
-#endif
 }
 
 int Mod_CollisionBIH_PointSuperContents_Mesh(struct model_s *model, int frame, const vec3_t start)
 {
-#if 0
-	// broken - needs to be modified to count front faces and backfaces to figure out if it is in solid
-	trace_t trace;
-	vec3_t end;
-	VectorSet(end, start[0], start[1], model->normalmins[2]);
-	memset(&trace, 0, sizeof(trace));
-	trace.fraction = 1;
-	trace.hitsupercontentsmask = hitsupercontentsmask;
-	trace.skipsupercontentsmask = skipsupercontentsmask;
-	trace.skipmaterialflagsmask = skipmaterialflagsmask;
-	Mod_CollisionBIH_TraceLine(model, frameblend, skeleton, trace, start, end, hitsupercontentsmask, skipsupercontentsmask, skipmaterialflagsmask);
-	return trace.hitsupercontents;
-#else
 	return 0;
-#endif
 }
 
 static void Mod_Q3BSP_TracePoint_RecursiveBSPNode(trace_t *trace, dp_model_t *model, mnode_t *node, const vec3_t point, int markframe)
@@ -7333,12 +7055,6 @@ static void Mod_Q3BSP_TraceLine_RecursiveBSPNode(trace_t *trace, dp_model_t *mod
 	// walk the tree until we hit a leaf, recursing for any split cases
 	while (node->plane)
 	{
-#if 0
-		if (!BoxesOverlap(segmentmins, segmentmaxs, node->mins, node->maxs))
-			return;
-		Mod_Q3BSP_TraceLine_RecursiveBSPNode(trace, model, node->children[0], start, end, startfrac, endfrac, linestart, lineend, markframe, segmentmins, segmentmaxs);
-		node = node->children[1];
-#else
 		// abort if this part of the bsp tree can not be hit by this trace
 //		if (!(node->combinedsupercontents & trace->hitsupercontentsmask))
 //			return;
@@ -7377,7 +7093,6 @@ static void Mod_Q3BSP_TraceLine_RecursiveBSPNode(trace_t *trace, dp_model_t *mod
 				Mod_Q3BSP_TraceLine_RecursiveBSPNode(trace, model, node->children[endside], mid, end, midfrac, endfrac, linestart, lineend, markframe, segmentmins, segmentmaxs);
 			return;
 		}
-#endif
 	}
 	// abort if this part of the bsp tree can not be hit by this trace
 //	if (!(node->combinedsupercontents & trace->hitsupercontentsmask))
@@ -7391,10 +7106,6 @@ static void Mod_Q3BSP_TraceLine_RecursiveBSPNode(trace_t *trace, dp_model_t *mod
 	nodesegmentmaxs[2] = max(start[2], end[2]) + 1;
 	// line trace the brushes
 	leaf = (mleaf_t *)node;
-#if 0
-	if (!BoxesOverlap(segmentmins, segmentmaxs, leaf->mins, leaf->maxs))
-		return;
-#endif
 	for (i = 0;i < leaf->numleafbrushes;i++)
 	{
 		brush = model->brush.data_brushes[leaf->firstleafbrush[i]].colbrushf;
@@ -7432,12 +7143,6 @@ static void Mod_Q3BSP_TraceBrush_RecursiveBSPNode(trace_t *trace, dp_model_t *mo
 	// walk the tree until we hit a leaf, recursing for any split cases
 	while (node->plane)
 	{
-#if 0
-		if (!BoxesOverlap(segmentmins, segmentmaxs, node->mins, node->maxs))
-			return;
-		Mod_Q3BSP_TraceBrush_RecursiveBSPNode(trace, model, node->children[0], thisbrush_start, thisbrush_end, markframe, segmentmins, segmentmaxs);
-		node = node->children[1];
-#else
 		// abort if this part of the bsp tree can not be hit by this trace
 //		if (!(node->combinedsupercontents & trace->hitsupercontentsmask))
 //			return;
@@ -7472,7 +7177,6 @@ static void Mod_Q3BSP_TraceBrush_RecursiveBSPNode(trace_t *trace, dp_model_t *mo
 			return; // ERROR: NAN bounding box!
 		// take whichever side the segment box is on
 		node = node->children[sides - 1];
-#endif
 	}
 	// abort if this part of the bsp tree can not be hit by this trace
 //	if (!(node->combinedsupercontents & trace->hitsupercontentsmask))
@@ -7485,10 +7189,6 @@ static void Mod_Q3BSP_TraceBrush_RecursiveBSPNode(trace_t *trace, dp_model_t *mo
 	nodesegmentmaxs[2] = min(segmentmaxs[2], node->maxs[2] + 1);
 	// hit a leaf
 	leaf = (mleaf_t *)node;
-#if 0
-	if (!BoxesOverlap(segmentmins, segmentmaxs, leaf->mins, leaf->maxs))
-		return;
-#endif
 	for (i = 0;i < leaf->numleafbrushes;i++)
 	{
 		brush = model->brush.data_brushes[leaf->firstleafbrush[i]].colbrushf;
