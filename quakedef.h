@@ -22,10 +22,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef QUAKEDEF_H
 #define QUAKEDEF_H
 
+// TODO LTX Remove
 #ifdef __APPLE__
 # include <TargetConditionals.h>
 #endif
 
+// TODO LTX Move this under its own file and under the standard includes
 #if defined(__GNUC__) && (__GNUC__ > 2)
 #define DP_FUNC_PRINTF(n) __attribute__ ((format (printf, n, n+1)))
 #define DP_FUNC_PURE      __attribute__ ((pure))
@@ -46,8 +48,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <limits.h>
 #include <setjmp.h>
 
-#include "qtypes.h"
+#include "qtypes.h"	// 17711
 
+// TODO LTX move this in lt_engine.h
 extern const char *buildstring;
 extern char engineversion[128];
 
@@ -55,6 +58,7 @@ extern char engineversion[128];
 
 #define MAX_NUM_ARGVS	50
 
+// TODO LTX move this in lt_dpmemory.h
 #ifdef DP_SMALLMEMORY
 #define	MAX_INPUTLINE			1024
 #define	CON_TEXTSIZE			16384
@@ -201,7 +205,7 @@ extern char engineversion[128];
 
 #define CMD_TOKENIZELENGTH (MAX_INPUTLINE + MAX_ARGS) ///< maximum tokenizable commandline length (counting trailing 0)
 
-
+// limaCAT: hey guys, seriously?
 #define	MAX_QPATH		128			///< max length of a quake game pathname
 #ifdef PATH_MAX
 #define	MAX_OSPATH		PATH_MAX
@@ -211,6 +215,7 @@ extern char engineversion[128];
 #define	MAX_OSPATH		1024		///< max length of a filesystem pathname
 #endif
 
+// TODO move this and the stats under lt_gameconstants.h
 #define	ON_EPSILON		0.1			///< point on plane side epsilon
 
 #define	NET_MINRATE		1000 ///< limits "rate" and "sv_maxrate" cvars
@@ -370,41 +375,45 @@ extern char engineversion[128];
 
 //===========================================
 
-#include "zone.h"
-#include "fs.h"
-#include "common.h"
-#include "cvar.h"
-#include "bspfile.h"
-#include "sys.h"
-#include "vid.h"
-#include "mathlib.h"
+#include "zone.h"	//  23 Errors
+#include "fs.h"		//   7 Errors
+#include "common.h" //  21 Errors
+#include "cvar.h"	// 404 Errors
+#include "bspfile.h" // 0 Errors?
+#include "sys.h"		// 1495 Errors
+#include "vid.h"		// 2054 Errors
+#include "mathlib.h"	// 405 Errors
 
-#include "r_textures.h"
+#include "r_textures.h"		// 17692 Errors
 
-#include "crypto.h"
-#include "draw.h"
-#include "screen.h"
-#include "netconn.h"
-#include "protocol.h"
-#include "cmd.h"
-#include "sbar.h"
-#include "sound.h"
-#include "model_shared.h"
-#include "world.h"
-#include "client.h"
-#include "render.h"
-#include "progs.h"
-#include "progsvm.h"
-#include "server.h"
+#include "crypto.h" // 10590 Errors
 
-#include "input.h"
-#include "keys.h"
-#include "console.h"
+#include "draw.h"   // 3236 Errors
+
+#include "screen.h"  // 372 Errors
+
+#include "netconn.h"	// 8805
+#include "protocol.h"  // 17652 
+#include "cmd.h"		// 338 Errors
+#include "sbar.h"		// 6 Errors
+#include "sound.h"		// 17643
+#include "model_shared.h" // 17705
+#include "world.h"		// 17633
+#include "client.h"     // 17654
+#include "render.h"		// 1833
+#include "progs.h"		// 17638
+#include "progsvm.h"	// 17675
+#include "server.h"		// 2496
+
+#include "input.h"		// 178
+#include "keys.h"		// 1112
+#include "console.h"	// 298
 #ifdef CONFIG_MENU
-#include "menu.h"
+#include "menu.h"		// 226
 #endif
-#include "csprogs.h"
+#include "csprogs.h"	// 2
 
+// TODO move these under lt_cheats.h
 extern qboolean noclip_anglehack;
 
 extern cvar_t developer;
@@ -413,8 +422,10 @@ extern cvar_t developer_insane;
 extern cvar_t developer_loadfile;
 extern cvar_t developer_loading;
 
+// TODO I don't know if this is an lt_cheat but move it there.
 extern cvar_t sessionid;
 
+// TODO move these under ltx_platform.h
 #define STARTCONFIGFILENAME "quake.rc"
 #define CONFIGFILENAME "config.cfg"
 
@@ -514,10 +525,12 @@ qboolean Sys_HaveSSE2(void);
 #define Sys_HaveSSE2() false
 #endif
 
-#include "glquake.h"
+#include "glquake.h"	// 1595
+#include "palette.h"	// 202
+#if 0
+#endif
 
-#include "palette.h"
-
+// TODO put these on lt_network.h or something
 /// incremented every frame, never reset
 extern int host_framecount;
 /// not bounded in any way, changed at start of every frame, never reset
@@ -543,6 +556,7 @@ void Host_AbortCurrentFrame(void);
 /// skill level for currently loaded level (in case the user changes the cvar while the level is running, this reflects the level actually in use)
 extern int current_skill;
 
+// TODO ltx_chase.h
 //
 // chase
 //
@@ -553,10 +567,12 @@ void Chase_Init (void);
 void Chase_Reset (void);
 void Chase_Update (void);
 
+// TODO lt_fractalnoise.h
 void fractalnoise(unsigned char *noise, int size, int startgrid);
 void fractalnoisequick(unsigned char *noise, int size, int startgrid);
 float noise4f(float x, float y, float z, float w);
 
+// TODO lt_platform.h
 void Sys_Shared_Init(void);
 
 // Flag in size field of demos to indicate a client->server packet. Demo
