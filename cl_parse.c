@@ -954,13 +954,6 @@ void QW_CL_StartUpload(unsigned char *data, int size)
 	QW_CL_NextUpload();
 }
 
-#if 0
-qboolean QW_CL_IsUploading(void)
-{
-	return cls.qw_uploaddata != NULL;
-}
-#endif
-
 void QW_CL_StopUpload(void)
 {
 	if (cls.qw_uploaddata)

@@ -789,17 +789,6 @@ particle_t *CL_NewParticle(const vec3_t sortorigin, unsigned short ptypeindex, i
 			}
 		}
 	}
-#if 0
-	else if (part->bounce != 0 && part->gravity == 0 && part->typeindex != pt_snow)
-	{
-		float lifetime = part->alpha / (part->alphafade ? part->alphafade : 1);
-		vec3_t endvec;
-		trace_t trace;
-		VectorMA(part->org, lifetime, part->vel, endvec);
-		trace = CL_TraceLine(part->org, endvec, MOVE_NOMONSTERS, NULL, SUPERCONTENTS_SOLID | SUPERCONTENTS_BODY, true, false, NULL, false);
-		part->delayedcollisions = cl.time + lifetime * trace.fraction - 0.1;
-	}
-#endif
 
 	return part;
 }
@@ -2097,19 +2086,6 @@ static void particletextureblotch(unsigned char *data, float radius, float red, 
 		}
 	}
 }
-
-#if 0
-static void particletextureclamp(unsigned char *data, int minr, int ming, int minb, int maxr, int maxg, int maxb)
-{
-	int i;
-	for (i = 0;i < PARTICLETEXTURESIZE*PARTICLETEXTURESIZE;i++, data += 4)
-	{
-		data[0] = bound(minb, data[0], maxb);
-		data[1] = bound(ming, data[1], maxg);
-		data[2] = bound(minr, data[2], maxr);
-	}
-}
-#endif
 
 static void particletextureinvert(unsigned char *data)
 {

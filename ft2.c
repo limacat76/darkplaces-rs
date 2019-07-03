@@ -1083,23 +1083,6 @@ qboolean Font_GetKerningForMap(ft2_font_t *font, int map_index, float w, float h
 		FT_Vector kernvec;
 		FT_ULong ul, ur;
 
-		//if (qFT_Set_Pixel_Sizes((FT_Face)font->face, 0, fmap->size))
-#if 0
-		if (!Font_SetSize(font, w, h))
-		{
-			// this deserves an error message
-			Con_Printf("Failed to get kerning for %s\n", font->name);
-			return false;
-		}
-		ul = qFT_Get_Char_Index(font->face, left);
-		ur = qFT_Get_Char_Index(font->face, right);
-		if (qFT_Get_Kerning(font->face, ul, ur, FT_KERNING_DEFAULT, &kernvec))
-		{
-			if (outx) *outx = Font_SnapTo(kernvec.x * fmap->sfx, 1 / fmap->size);
-			if (outy) *outy = Font_SnapTo(kernvec.y * fmap->sfy, 1 / fmap->size);
-			return true;
-		}
-#endif
 		if (!Font_SetSize(font, fmap->intSize, fmap->intSize))
 		{
 			// this deserves an error message

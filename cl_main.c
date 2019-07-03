@@ -1037,14 +1037,6 @@ static void CL_UpdateNetworkEntity(entity_t *e, int recursionlimit, qboolean int
 		// interpolate the origin and angles
 		lerp = max(0, lerp);
 		VectorLerp(e->persistent.oldorigin, lerp, e->persistent.neworigin, origin);
-#if 0
-		// this fails at the singularity of euler angles
-		VectorSubtract(e->persistent.newangles, e->persistent.oldangles, delta);
-		if (delta[0] < -180) delta[0] += 360;else if (delta[0] >= 180) delta[0] -= 360;
-		if (delta[1] < -180) delta[1] += 360;else if (delta[1] >= 180) delta[1] -= 360;
-		if (delta[2] < -180) delta[2] += 360;else if (delta[2] >= 180) delta[2] -= 360;
-		VectorMA(e->persistent.oldangles, lerp, delta, angles);
-#else
 		{
 			vec3_t f0, u0, f1, u1;
 			AngleVectors(e->persistent.oldangles, f0, NULL, u0);
@@ -1053,7 +1045,6 @@ static void CL_UpdateNetworkEntity(entity_t *e, int recursionlimit, qboolean int
 			VectorMAM(1-lerp, u0, lerp, u1, u0);
 			AnglesFromVectors(angles, f0, u0, false);
 		}
-#endif
 	}
 	else
 	{

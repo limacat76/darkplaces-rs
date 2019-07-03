@@ -824,19 +824,6 @@ static void R_Viewport_ApplyNearClipPlaneFloatGL(const r_viewport_t *v, float *m
 	// FIXME: LordHavoc: I think this can be done more efficiently somehow but I can't remember the technique
 	clipPlane[3] = -DotProduct(v4, clipPlane);
 
-#if 0
-{
-	// testing code for comparing results
-	float clipPlane2[4];
-	VectorCopy4(clipPlane, clipPlane2);
-	R_EntityMatrix(&identitymatrix);
-	VectorSet(q, normal[0], normal[1], normal[2], -dist);
-	qglClipPlane(GL_CLIP_PLANE0, q);
-	qglGetClipPlane(GL_CLIP_PLANE0, q);
-	VectorCopy4(q, clipPlane);
-}
-#endif
-
 	// Calculate the clip-space corner point opposite the clipping plane
 	// as (sgn(clipPlane.x), sgn(clipPlane.y), 1, 1) and
 	// transform it into camera space by multiplying it
@@ -903,15 +890,6 @@ void R_Viewport_InitOrtho(r_viewport_t *v, const matrix4x4_t *cameramatrix, int 
 
 	Matrix4x4_FromArrayFloatGL(&v->projectmatrix, m);
 
-#if 0
-	{
-		vec4_t test1;
-		vec4_t test2;
-		Vector4Set(test1, (x1+x2)*0.5f, (y1+y2)*0.5f, 0.0f, 1.0f);
-		R_Viewport_TransformToScreen(v, test1, test2);
-		Con_Printf("%f %f %f -> %f %f %f\n", test1[0], test1[1], test1[2], test2[0], test2[1], test2[2]);
-	}
-#endif
 }
 
 void R_Viewport_InitPerspective(r_viewport_t *v, const matrix4x4_t *cameramatrix, int x, int y, int width, int height, float frustumx, float frustumy, float nearclip, float farclip, const float *nearplane)
@@ -2860,44 +2838,6 @@ void R_Mesh_Draw(int firstvertex, int numvertices, int firsttriangle, int numtri
 	if (gl_paranoid.integer)
 	{
 		unsigned int i;
-		// LordHavoc: disabled this - it needs to be updated to handle components and gltype and stride in each array
-#if 0
-		unsigned int j, size;
-		const int *p;
-		// note: there's no validation done here on buffer objects because it
-		// is somewhat difficult to get at the data, and gl_paranoid can be
-		// used without buffer objects if the need arises
-		// (the data could be gotten using glMapBuffer but it would be very
-		//  slow due to uncachable video memory reads)
-		if (!qglIsEnabled(GL_VERTEX_ARRAY))
-			Con_Print("R_Mesh_Draw: vertex array not enabled\n");
-		CHECKGLERROR
-		if (gl_state.pointer_vertex_pointer)
-			for (j = 0, size = numvertices * 3, p = (int *)((float *)gl_state.pointer_vertex + firstvertex * 3);j < size;j++, p++)
-				paranoidblah += *p;
-		if (gl_state.pointer_color_enabled)
-		{
-			if (!qglIsEnabled(GL_COLOR_ARRAY))
-				Con_Print("R_Mesh_Draw: color array set but not enabled\n");
-			CHECKGLERROR
-			if (gl_state.pointer_color && gl_state.pointer_color_enabled)
-				for (j = 0, size = numvertices * 4, p = (int *)((float *)gl_state.pointer_color + firstvertex * 4);j < size;j++, p++)
-					paranoidblah += *p;
-		}
-		for (i = 0;i < vid.texarrayunits;i++)
-		{
-			if (gl_state.units[i].arrayenabled)
-			{
-				GL_ClientActiveTexture(i);
-				if (!qglIsEnabled(GL_TEXTURE_COORD_ARRAY))
-					Con_Print("R_Mesh_Draw: texcoord array set but not enabled\n");
-				CHECKGLERROR
-				if (gl_state.units[i].pointer_texcoord && gl_state.units[i].arrayenabled)
-					for (j = 0, size = numvertices * gl_state.units[i].arraycomponents, p = (int *)((float *)gl_state.units[i].pointer_texcoord + firstvertex * gl_state.units[i].arraycomponents);j < size;j++, p++)
-						paranoidblah += *p;
-			}
-		}
-#endif
 		if (element3i)
 		{
 			for (i = 0;i < (unsigned int) numtriangles * 3;i++)

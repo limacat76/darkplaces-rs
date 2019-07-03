@@ -74,14 +74,6 @@ static void Collision_ValidateBrush(colbrushf_t *brush)
 		Con_Print("Collision_ValidateBrush: brush with no points!\n");
 		printbrush = true;
 	}
-#if 0
-	// it's ok for a brush to have one point and no planes...
-	if (brush->numplanes == 0 && brush->numpoints != 1)
-	{
-		Con_Print("Collision_ValidateBrush: brush with no planes and more than one point!\n");
-		printbrush = true;
-	}
-#endif
 	if (brush->numplanes)
 	{
 		pointsoffplanes = 0;
@@ -178,15 +170,6 @@ colbrushf_t *Collision_NewBrushFromPlanes(mempool_t *mempool, int numoriginalpla
 	int pmaxpoints = 64;
 	int pnumpoints;
 	double p[2][3*64];
-#if 0
-	// enable these if debugging to avoid seeing garbage in unused data-
-	memset(pointsbuf, 0, sizeof(pointsbuf));
-	memset(edgedirsbuf, 0, sizeof(edgedirsbuf));
-	memset(planesbuf, 0, sizeof(planesbuf));
-	memset(elementsbuf, 0, sizeof(elementsbuf));
-	memset(polypointbuf, 0, sizeof(polypointbuf));
-	memset(p, 0, sizeof(p));
-#endif
 
 	// check if there are too many planes and skip the brush
 	if (numoriginalplanes >= maxplanesbuf)

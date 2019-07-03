@@ -302,55 +302,6 @@ static void IN_BestWeapon (void)
 	// if we couldn't find any of the weapons, there's nothing more we can do...
 }
 
-#if 0
-void IN_CycleWeapon (void)
-{
-	int i, n;
-	int first = -1;
-	qboolean found = false;
-	const char *t;
-	if (Cmd_Argc() < 2)
-	{
-		Con_Printf("bestweapon requires 1 or more parameters\n");
-		return;
-	}
-	for (i = 1;i < Cmd_Argc();i++)
-	{
-		t = Cmd_Argv(i);
-		// figure out which weapon this character refers to
-		for (n = 0;n < IN_BESTWEAPON_MAX && in_bestweapon_info[n].impulse;n++)
-		{
-			if (!strcmp(in_bestweapon_info[n].name, t))
-			{
-				// we found out what weapon this character refers to
-				// check if the inventory contains the weapon and enough ammo
-				if ((cl.stats[STAT_ITEMS] & in_bestweapon_info[n].weaponbit) && (cl.stats[in_bestweapon_info[n].ammostat] >= in_bestweapon_info[n].ammomin))
-				{
-					// we found one of the weapons the player wanted
-					if(first == -1)
-						first = n;
-					if(found)
-					{
-						in_impulse = in_bestweapon_info[n].impulse;
-						return;
-					}
-					if(cl.stats[STAT_ACTIVEWEAPON] == in_bestweapon_info[n].activeweaponcode)
-						found = true;
-				}
-				break;
-			}
-		}
-		// if we couldn't identify the weapon we just ignore it and continue checking for other weapons
-	}
-	if(first != -1)
-	{
-		in_impulse = in_bestweapon_info[first].impulse;
-		return;
-	}
-	// if we couldn't find any of the weapons, there's nothing more we can do...
-}
-#endif
-
 /*
 ===============
 CL_KeyState
@@ -1122,16 +1073,9 @@ static void CL_ClientMovement_Physics_CPM_PM_Aircontrol(cl_clientmovement_state_
 {
 	vec_t zspeed, speed, dot, k;
 
-#if 0
-	// this doesn't play well with analog input
-	if(s->cmd.forwardmove == 0 || s->cmd.sidemove != 0)
-		return;
-	k = 32;
-#else
 	k = 32 * (2 * CL_IsMoveInDirection(s->cmd.forwardmove, s->cmd.sidemove, 0) - 1);
 	if(k <= 0)
 		return;
-#endif
 
 	k *= bound(0, wishspeed / cl.movevars_maxairspeed, 1);
 
@@ -2229,9 +2173,6 @@ void CL_InitInput (void)
 
 	// LordHavoc: added bestweapon command
 	Cmd_AddCommand ("bestweapon", IN_BestWeapon, "send an impulse number to server to select the first usable weapon out of several (example: 8 7 6 5 4 3 2 1)");
-#if 0
-	Cmd_AddCommand ("cycleweapon", IN_CycleWeapon, "send an impulse number to server to select the next usable weapon out of several (example: 9 4 8) if you are holding one of these, and choose the first one if you are holding none of these");
-#endif
 	Cmd_AddCommand ("register_bestweapon", IN_BestWeapon_Register_f, "(for QC usage only) change weapon parameters to be used by bestweapon; stuffcmd this in ClientConnect");
 
 	Cvar_RegisterVariable(&cl_movecliptokeyboard);

@@ -688,18 +688,6 @@ void SCR_CaptureVideo_Avi_BeginVideo(void)
 		SCR_CaptureVideo_RIFF_WriteTerminatedString(engineversion);
 		SCR_CaptureVideo_RIFF_Pop();
 		// enable this junk filler if you like the LIST movi to always begin at 4KB in the file (why?)
-#if 0
-		SCR_CaptureVideo_RIFF_Push("JUNK", NULL);
-		x = 4096 - SCR_CaptureVideo_RIFF_GetPosition();
-		while (x > 0)
-		{
-			const char *junkfiller = "[ DarkPlaces junk data ]";
-			int i = min(x, (int)strlen(junkfiller));
-			SCR_CaptureVideo_RIFF_WriteBytes((const unsigned char *)junkfiller, i);
-			x -= i;
-		}
-		SCR_CaptureVideo_RIFF_Pop();
-#endif
 		SCR_CaptureVideo_RIFF_Pop();
 		// begin the actual video section now
 		SCR_CaptureVideo_RIFF_Push("LIST", "movi", format->canseek ? -1 : 0);

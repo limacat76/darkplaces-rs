@@ -684,14 +684,6 @@ static void GL_Texture_CalcImageSize(int texturetype, int flags, int miplevel, i
 	case RENDERPATH_GLES2:
 		break;
 	case RENDERPATH_D3D9:
-#if 0
-		// for some reason the REF rasterizer (and hence the PIX debugger) does not like small textures...
-		if (texturetype == GLTEXTURETYPE_2D)
-		{
-			width2 = max(width2, 2);
-			height2 = max(height2, 2);
-		}
-#endif
 		break;
 	}
 

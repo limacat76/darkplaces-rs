@@ -950,26 +950,6 @@ size_t JPEG_SaveImage_to_Buffer (char *jpegbuf, size_t jpegsize, int width, int 
 
 	qjpeg_create_compress (&cinfo);
 
-#if 0
-	// used to get the formula below
-	{
-		char buf[1048576];
-		unsigned char *img;
-		int i;
-
-		img = Mem_Alloc(tempmempool, width * height * 3);
-		for(i = 0; i < width * height * 3; ++i)
-			img[i] = rand() & 0xFF;
-
-		for(i = 0; i <= 100; ++i)
-		{
-			Con_Printf("! %d %d %d %d\n", width, height, i, (int) JPEG_try_SaveImage_to_Buffer(&cinfo, buf, sizeof(buf), i, width, height, img));
-		}
-
-		Mem_Free(img);
-	}
-#endif
-
 	//quality_guess = (int)((100 * jpegsize - 41000) / (width*height) + 2); // fits random data
 	quality_guess   = (int)((256 * jpegsize - 81920) / (width*height) - 8); // fits Nexuiz's/Xonotic's map pictures
 

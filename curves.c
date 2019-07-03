@@ -118,22 +118,6 @@ void Q3PatchTesselateFloat(int numcomponents, int outputstride, float *outputver
 			}
 		}
 	}
-#if 0
-	// enable this if you want results printed out
-	printf("vertices[%i][%i] =\n{\n", (patchheight-1)*tesselationheight+1, (patchwidth-1)*tesselationwidth+1);
-	for (y = 0;y < (patchheight-1)*tesselationheight+1;y++)
-	{
-		for (x = 0;x < (patchwidth-1)*tesselationwidth+1;x++)
-		{
-			printf("(");
-			for (component = 0;component < numcomponents;component++)
-				printf("%f ", outputvertices[(y*((patchwidth-1)*tesselationwidth+1)+x)*numcomponents+component]);
-			printf(") ");
-		}
-		printf("\n");
-	}
-	printf("}\n");
-#endif
 }
 
 static int Q3PatchTesselation(float largestsquared3xcurvearea, float tolerance)
@@ -158,22 +142,6 @@ static int Q3PatchTesselation(float largestsquared3xcurvearea, float tolerance)
 
 static float Squared3xCurveArea(const float *a, const float *control, const float *b, int components)
 {
-#if 0
-	// mimicing the old behaviour with the new code...
-
-	float deviation;
-	float quartercurvearea = 0;
-	int c;
-	for (c = 0;c < components;c++)
-	{
-		deviation = control[c] * 0.5f - a[c] * 0.25f - b[c] * 0.25f;
-		quartercurvearea += deviation*deviation;
-	}
-
-	// But as the new code now works on the squared 2x curve area, let's scale the value
-	return quartercurvearea * quartercurvearea * 64.0;
-
-#else
 	// ideally, we'd like the area between the spline a->control->b and the line a->b.
 	// but as this is hard to calculate, let's calculate an upper bound of it:
 	// the area of the triangle a->control->b->a.
@@ -226,7 +194,6 @@ static float Squared3xCurveArea(const float *a, const float *control, const floa
 	// 2x TRIANGLE area is sqrt(aa*bb - ab*ab)
 	// 3x CURVE area is sqrt(aa*bb - ab*ab)
 	return aa * bb - ab * ab;
-#endif
 }
 
 // returns how much tesselation of each segment is needed to remain under tolerance

@@ -777,26 +777,6 @@ static void CL_VM_UpdateCoopDeathmatchGlobals (int gametype)
 		CSQC_END
 	}
 }
-#if 0
-static float CL_VM_Event (float event)		//[515]: needed ? I'd say "YES", but don't know for what :D
-{
-	prvm_prog_t *prog = CLVM_prog;
-	float r = 0;
-	if(!cl.csqc_loaded)
-		return 0;
-	CSQC_BEGIN
-	if(PRVM_clientfunction(CSQC_Event))
-	{
-		PRVM_clientglobalfloat(time) = cl.time;
-		PRVM_clientglobaledict(self) = cl.csqc_server2csqcentitynumber[cl.playerentity];
-		PRVM_G_FLOAT(OFS_PARM0) = event;
-		prog->ExecuteProgram(prog, PRVM_clientfunction(CSQC_Event), "QC function CSQC_Event is missing");
-		r = CSQC_RETURNVAL;
-	}
-	CSQC_END
-	return r;
-}
-#endif
 
 void CSQC_ReadEntities (void)
 {

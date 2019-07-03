@@ -2018,23 +2018,6 @@ void Con_DrawConsole (int lines)
 	DrawQ_String(vid_conwidth.integer - DrawQ_TextWidth(engineversion, 0, con_textsize.value, con_textsize.value, false, FONT_CONSOLE), lines - con_textsize.value, engineversion, 0, con_textsize.value, con_textsize.value, 1, 0, 0, 1, 0, NULL, true, FONT_CONSOLE);
 
 // draw the text
-#if 0
-	{
-		int i;
-		int count = CON_LINES_COUNT;
-		float ymax = con_vislines - 2 * con_textsize.value;
-		float y = ymax + con_textsize.value * con_backscroll;
-		for (i = 0;i < count && y >= 0;i++)
-			y -= Con_DrawConsoleLine(mask_must, mask_mustnot, y - con_textsize.value, CON_LINES_COUNT - 1 - i, 0, ymax) * con_textsize.value;
-		// fix any excessive scrollback for the next frame
-		if (i >= count && y >= 0)
-		{
-			con_backscroll -= (int)(y / con_textsize.value);
-			if (con_backscroll < 0)
-				con_backscroll = 0;
-		}
-	}
-#else
 	if(CON_LINES_COUNT > 0)
 	{
 		int i, last, limitlast;
@@ -2059,7 +2042,6 @@ void Con_DrawConsole (int lines)
 			--i;
 		}
 	}
-#endif
 
 // draw the input prompt, user text, and cursor if desired
 	Con_DrawInput ();
