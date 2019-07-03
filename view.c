@@ -386,11 +386,6 @@ V_CalcRefdef
 
 ==================
 */
-#if 0
-static vec3_t eyeboxmins = {-16, -16, -24};
-static vec3_t eyeboxmaxs = { 16,  16,  32};
-#endif
-
 static vec_t lowpass(vec_t value, vec_t frac, vec_t *store)
 {
 	frac = bound(0, frac, 1);
@@ -481,12 +476,6 @@ void V_CalcRefdefUsing (const matrix4x4_t *entrendermatrix, const vec3_t clviewa
 	
 	static float viewheightavg;
 	float viewheight;	
-#if 0
-// begin of chase camera bounding box size for proper collisions by Alexander Zubov
-	vec3_t camboxmins = {-3, -3, -3};
-	vec3_t camboxmaxs = {3, 3, 3};
-// end of chase camera bounding box size for proper collisions by Alexander Zubov
-#endif
 	trace_t trace;
 
 	// react to clonground state changes (for gun bob)
@@ -587,23 +576,8 @@ void V_CalcRefdefUsing (const matrix4x4_t *entrendermatrix, const vec3_t clviewa
 				chase_dest[0] = vieworg[0] - forward[0] * camback + up[0] * camup;
 				chase_dest[1] = vieworg[1] - forward[1] * camback + up[1] * camup;
 				chase_dest[2] = vieworg[2] - forward[2] * camback + up[2] * camup;
-#if 0
-#if 1
-				//trace = CL_TraceLine(vieworg, eyeboxmins, eyeboxmaxs, chase_dest, MOVE_NOMONSTERS, NULL, SUPERCONTENTS_SOLID | SUPERCONTENTS_SKY, 0, true, false, NULL, false);
-				trace = CL_TraceLine(vieworg, camboxmins, camboxmaxs, chase_dest, MOVE_NOMONSTERS, NULL, SUPERCONTENTS_SOLID | SUPERCONTENTS_SKY, 0, true, false, NULL, false);
-#else
-				//trace = CL_TraceBox(vieworg, eyeboxmins, eyeboxmaxs, chase_dest, MOVE_NOMONSTERS, NULL, SUPERCONTENTS_SOLID | SUPERCONTENTS_SKY, 0, true, false, NULL, false);
-				trace = CL_TraceBox(vieworg, camboxmins, camboxmaxs, chase_dest, MOVE_NOMONSTERS, NULL, SUPERCONTENTS_SOLID | SUPERCONTENTS_SKY, 0, true, false, NULL, false);
-#endif
-				VectorCopy(trace.endpos, vieworg);
-				vieworg[2] -= 8;
-#else
 				// trace from first person view location to our chosen third person view location
-#if 1
 				trace = CL_TraceLine(vieworg, chase_dest, MOVE_NOMONSTERS, NULL, SUPERCONTENTS_SOLID | SUPERCONTENTS_SKY, 0, MATERIALFLAGMASK_TRANSLUCENT, collision_extendmovelength.value, true, false, NULL, false, true);
-#else
-				trace = CL_TraceBox(vieworg, camboxmins, camboxmaxs, chase_dest, MOVE_NOMONSTERS, NULL, SUPERCONTENTS_SOLID | SUPERCONTENTS_SKY, 0, MATERIALFLAGMASK_TRANSLUCENT, collision_extendmovelength.value, true, false, NULL, false);
-#endif
 				VectorCopy(trace.endpos, bestvieworg);
 				offset[2] = 0;
 				for (offset[0] = -16;offset[0] <= 16;offset[0] += 8)
@@ -614,18 +588,13 @@ void V_CalcRefdefUsing (const matrix4x4_t *entrendermatrix, const vec3_t clviewa
 						chase_dest[0] = vieworg[0] - forward[0] * camback + up[0] * camup + offset[0];
 						chase_dest[1] = vieworg[1] - forward[1] * camback + up[1] * camup + offset[1];
 						chase_dest[2] = vieworg[2] - forward[2] * camback + up[2] * camup + offset[2];
-#if 1
 						trace = CL_TraceLine(vieworg, chase_dest, MOVE_NOMONSTERS, NULL, SUPERCONTENTS_SOLID | SUPERCONTENTS_SKY, 0, MATERIALFLAGMASK_TRANSLUCENT, collision_extendmovelength.value, true, false, NULL, false, true);
-#else
-						trace = CL_TraceBox(vieworg, camboxmins, camboxmaxs, chase_dest, MOVE_NOMONSTERS, NULL, SUPERCONTENTS_SOLID | SUPERCONTENTS_SKY, 0, MATERIALFLAGMASK_TRANSLUCENT, collision_extendmovelength.value, true, false, NULL, false);
-#endif
 						if (bestvieworg[2] > trace.endpos[2])
 							bestvieworg[2] = trace.endpos[2];
 					}
 				}
 				bestvieworg[2] -= 8;
 				VectorCopy(bestvieworg, vieworg);
-#endif
 				viewangles[PITCH] = campitch;
 			}
 			else
