@@ -4,16 +4,17 @@ The idea behind this project is to shrink LordHavoc's Darkplaces
 codebase[1] (forked from the Xonotic Gitlab[2]) in order to be able to
 convert it, function by function, into Rust[3].
 
-For this the first phase is about removing all the build files from
-non windows /  non linux / non SDL, because I want to be able to work
-on a minimal set of files and without distractions. Also, for speed
-reasons, I will only work in Visual Studio 2017 and with the SDL code.
+The first phase is about removing all the build files from non windows
+/  non linux / non SDL, because I want to be able to work on a minimal
+set of files and without distractions. Also, for speed reasons, I will
+only work in Visual Studio 2017 and with the SDL code.
 
 If you want to play or modify xonotic or darkplaces this is not the
-best repository :). Again, this will not be multiplatform or multiplatformAnd also for eventual updates you'd better look
-at their download pages, since this is based on a code freeze. :)
+best repository :). For eventual engine updates you'd better look
+at their download pages, since this version is based on a code
+freeze. :)
 
-The rust code will be on a different repository (TBD).
+The rust code will be on a different repository (To be defined).
 
 [1] https://icculus.org/twilight/darkplaces/
 [2] https://gitlab.com/xonotic/darkplaces
@@ -24,10 +25,10 @@ The rust code will be on a different repository (TBD).
 
 #### General: Prepare the DP Engine
 
-Probably I will need to split the DP Engine between the core game
-and a library. Quake didn't need this complexity until now, but
-for good reasons (unit testing and the eventual phase out of C code)
-it needs to start thinking in DLLs.
+I need to split the DP Engine between the core game and a library.
+Quake didn't need this complexity until now, but for good reasons
+(unit testing and the eventual phase out of C code) it needs to
+start thinking in DLLs.
 
 #### Function Specific
 
