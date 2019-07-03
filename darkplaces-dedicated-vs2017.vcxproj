@@ -324,6 +324,15 @@
     <ClInclude Include="lhfont.h" />
     <ClInclude Include="lhnet.h" />
     <ClInclude Include="libcurl.h" />
+    <ClInclude Include="ltx_chase.h" />
+    <ClInclude Include="ltx_cheats.h" />
+    <ClInclude Include="ltx_dpfunctions.h" />
+    <ClInclude Include="ltx_dpmemory.h" />
+    <ClInclude Include="ltx_engine.h" />
+    <ClInclude Include="ltx_fractalnoise.h" />
+    <ClInclude Include="ltx_gameconstants.h" />
+    <ClInclude Include="ltx_network.h" />
+    <ClInclude Include="ltx_platform.h" />
     <ClInclude Include="mathlib.h" />
     <ClInclude Include="matrixlib.h" />
     <ClInclude Include="mdfour.h" />
