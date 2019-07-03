@@ -17,8 +17,11 @@ freeze. :)
 The rust code will be on a different repository (To be defined).
 
 [1] https://icculus.org/twilight/darkplaces/
+
 [2] https://gitlab.com/xonotic/darkplaces
+
 [3] https://www.rust-lang.org/
+
 [4] https://www.xonotic.org/
 
 ### Strangulation Plan
@@ -32,35 +35,35 @@ start thinking in DLLs.
 
 #### Function Specific
 
-..* Move the function into the DLL
-..* Build and run
+* Move the function into the DLL
+* Build and run
 
 #### Prepare the Rust Function
 
-..* Create RS tests for the function (it should give the same result 
+* Create RS tests for the function (it should give the same result 
 in C and RS)
-..* Create RS Benchmarks for the function (C and RS)
-..* Write the RS Code
-..* Make a C helper to invoke rust
+* Create RS Benchmarks for the function (C and RS)
+* Write the RS Code
+* Make a C helper to invoke rust
 
 #### Integrate the Rust Function
 
-..* Remove the call to C (make it so that with an #ifdef it calls rust)
-..* Build Darkplaces
-..* Run Darkplaces
+* Remove the call to C (make it so that with an #ifdef it calls rust)
+* Build Darkplaces
+* Run Darkplaces
 
 ### Phases
 
 This plan will probably change, but this is the initial lowdown.
 
-..* Basic "leaf" Code
-..* Core Logic
-..* Code Needing I/O
-..* 1.0 Release
-..* Multithreaded logic for the game engine (?)
-..* 2.0 Release
-..* Add a Vulkan Renderer
-..* 3.0 Release
+* Basic "leaf" Code
+* Core Logic
+* Code Needing I/O
+* 1.0 Release
+* Multithreaded logic for the game engine (?)
+* 2.0 Release
+* Add a Vulkan Renderer
+* 3.0 Release
 
 ### Diary
 
