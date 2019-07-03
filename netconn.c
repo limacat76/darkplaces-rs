@@ -556,27 +556,6 @@ void ServerList_GetPlayerStatistics(int *numplayerspointer, int *maxplayerspoint
 	*maxplayerspointer = maxplayers;
 }
 
-#if 0
-static void _ServerList_Test(void)
-{
-	int i;
-	if (serverlist_maxcachecount <= 1024)
-	{
-		serverlist_maxcachecount = 1024;
-		serverlist_cache = (serverlist_entry_t *)Mem_Realloc(netconn_mempool, (void *)serverlist_cache, sizeof(serverlist_entry_t) * serverlist_maxcachecount);
-	}
-	for( i = 0 ; i < 1024 ; i++ ) {
-		memset( &serverlist_cache[serverlist_cachecount], 0, sizeof( serverlist_entry_t ) );
-		serverlist_cache[serverlist_cachecount].info.ping = 1000 + 1024 - i;
-		dpsnprintf( serverlist_cache[serverlist_cachecount].info.name, sizeof(serverlist_cache[serverlist_cachecount].info.name), "Black's ServerList Test %i", i );
-		serverlist_cache[serverlist_cachecount].finished = true;
-		dpsnprintf( serverlist_cache[serverlist_cachecount].line1, sizeof(serverlist_cache[serverlist_cachecount].info.line1), "%i %s", serverlist_cache[serverlist_cachecount].info.ping, serverlist_cache[serverlist_cachecount].info.name );
-		ServerList_ViewList_Insert( &serverlist_cache[serverlist_cachecount] );
-		serverlist_cachecount++;
-	}
-}
-#endif
-
 void ServerList_QueryList(qboolean resetcache, qboolean querydp, qboolean queryqw, qboolean consoleoutput)
 {
 	masterquerytime = realtime;

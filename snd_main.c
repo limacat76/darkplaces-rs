@@ -625,21 +625,6 @@ void S_Startup (void)
 		fixed_width = true;
 	}
 
-#if 0
-	// LordHavoc: now you can with the resampler...
-	// You can't change sound speed after start time (not yet supported)
-	if (prev_render_format.speed != 0)
-	{
-		fixed_speed = true;
-		if (chosen_fmt.speed != prev_render_format.speed)
-		{
-			Con_Printf("S_Startup: sound speed has changed! This is NOT supported yet. Falling back to previous speed (%u Hz)\n",
-					   prev_render_format.speed);
-			chosen_fmt.speed = prev_render_format.speed;
-		}
-	}
-#endif
-
 	// Sanity checks
 	if (chosen_fmt.speed < SND_MIN_SPEED)
 	{

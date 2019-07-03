@@ -756,15 +756,6 @@ static void R_Q1BSP_RecursiveGetLightInfo_BSP(r_q1bsp_getlightinfo_t *info, qboo
 		plane = node->plane;
 		if (plane)
 		{
-			// node
-#if 0
-			if (!BoxesOverlap(info->lightmins, info->lightmaxs, node->mins, node->maxs))
-				continue;
-#endif
-#if 0
-			if (!r_shadow_compilingrtlight && R_CullBoxCustomPlanes(node->mins, node->maxs, rtlight->cached_numfrustumplanes, rtlight->cached_frustumplanes))
-				continue;
-#endif
 			// axial planes can be processed much more quickly
 			if (plane->type < 3)
 			{
@@ -1079,14 +1070,6 @@ static void R_Q1BSP_RecursiveGetLightInfo_BIH(r_q1bsp_getlightinfo_t *info, cons
 		else
 		{
 			axis = node->type - BIH_SPLITX;
-#if 0
-			if (!BoxesOverlap(info->lightmins, info->lightmaxs, node->mins, node->maxs))
-				continue;
-#endif
-#if 0
-			if (!r_shadow_compilingrtlight && R_CullBoxCustomPlanes(node->mins, node->maxs, rtlight->cached_numfrustumplanes, rtlight->cached_frustumplanes))
-				continue;
-#endif
 			if (info->lightmins[axis] <= node->backmax)
 			{
 				if (info->lightmaxs[axis] >= node->frontmin && nodestackpos < GETLIGHTINFO_MAXNODESTACK-1)
@@ -1628,20 +1611,6 @@ static void R_ListWorldTextures (void)
 		if (t->name[0] && strcasecmp(t->name, "NO TEXTURE FOUND"))
 			Con_Printf("%s\n", t->name);
 }
-
-#if 0
-static void gl_surf_start(void)
-{
-}
-
-static void gl_surf_shutdown(void)
-{
-}
-
-static void gl_surf_newmap(void)
-{
-}
-#endif
 
 void GL_Surf_Init(void)
 {

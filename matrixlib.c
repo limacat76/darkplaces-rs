@@ -1478,28 +1478,6 @@ void Matrix4x4_FromOriginQuat(matrix4x4_t *m, double ox, double oy, double oz, d
 // see http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/index.htm
 void Matrix4x4_ToOrigin3Quat4Float(const matrix4x4_t *m, float *origin, float *quat)
 {
-#if 0
-	float s;
-	quat[3] = sqrt(1.0f + m->m[0][0] + m->m[1][1] + m->m[2][2]) * 0.5f;
-	s = 0.25f / quat[3];
-#ifdef MATRIX4x4_OPENGLORIENTATION
-	origin[0] = m->m[3][0];
-	origin[1] = m->m[3][1];
-	origin[2] = m->m[3][2];
-	quat[0] = (m->m[1][2] - m->m[2][1]) * s;
-	quat[1] = (m->m[2][0] - m->m[0][2]) * s;
-	quat[2] = (m->m[0][1] - m->m[1][0]) * s;
-#else
-	origin[0] = m->m[0][3];
-	origin[1] = m->m[1][3];
-	origin[2] = m->m[2][3];
-	quat[0] = (m->m[2][1] - m->m[1][2]) * s;
-	quat[1] = (m->m[0][2] - m->m[2][0]) * s;
-	quat[2] = (m->m[1][0] - m->m[0][1]) * s;
-#endif
-
-#else
-
 #ifdef MATRIX4x4_OPENGLORIENTATION
 	float trace = m->m[0][0] + m->m[1][1] + m->m[2][2];
 	origin[0] = m->m[3][0];
@@ -1576,7 +1554,7 @@ void Matrix4x4_ToOrigin3Quat4Float(const matrix4x4_t *m, float *origin, float *q
 	}
 #endif
 
-#endif
+
 }
 
 // LordHavoc: I got this code from:

@@ -202,11 +202,6 @@ static void SVBSP_InsertOccluderPolygonNodes(svbsp_t *b, int *parentnodenumpoint
 		if (j >= 0)
 			continue; // already have a matching parent plane
 #endif
-#if 0
-		// skip any sides that were classified as belonging to a parent plane
-		if (poly->splitflags[i])
-			continue;
-#endif
 		// create a side plane
 		// anything infront of this is not inside the shadow volume
 		node = b->nodes + b->numnodes++;
@@ -358,16 +353,6 @@ static int SVBSP_AddPolygonNode(svbsp_t *b, int *parentnodenumpointer, int paren
 	{
 		// empty leaf node; and some geometry survived
 		// if inserting an occluder, replace this empty leaf with a shadow volume
-#if 0
-		for (i = 0;i < poly->numpoints-2;i++)
-		{
-			Debug_PolygonBegin(NULL, DRAWFLAG_ADDITIVE);
-			Debug_PolygonVertex(poly->points[  0][0], poly->points[  0][1], poly->points[  0][2], 0.0f, 0.0f, 0.25f, 0.0f, 0.0f, 1.0f);
-			Debug_PolygonVertex(poly->points[i+1][0], poly->points[i+1][1], poly->points[i+1][2], 0.0f, 0.0f, 0.25f, 0.0f, 0.0f, 1.0f);
-			Debug_PolygonVertex(poly->points[i+2][0], poly->points[i+2][1], poly->points[i+2][2], 0.0f, 0.0f, 0.25f, 0.0f, 0.0f, 1.0f);
-			Debug_PolygonEnd();
-		}
-#endif
 		if (insertoccluder)
 		{
 			b->stat_occluders_fragments_accepted++;
@@ -386,16 +371,6 @@ static int SVBSP_AddPolygonNode(svbsp_t *b, int *parentnodenumpointer, int paren
 			b->stat_occluders_fragments_rejected++;
 		else
 			b->stat_queries_fragments_rejected++;
-#if 0
-		for (i = 0;i < poly->numpoints-2;i++)
-		{
-			Debug_PolygonBegin(NULL, DRAWFLAG_ADDITIVE);
-			Debug_PolygonVertex(poly->points[  0][0], poly->points[  0][1], poly->points[  0][2], 0.0f, 0.0f, 0.0f, 0.0f, 0.25f, 1.0f);
-			Debug_PolygonVertex(poly->points[i+1][0], poly->points[i+1][1], poly->points[i+1][2], 0.0f, 0.0f, 0.0f, 0.0f, 0.25f, 1.0f);
-			Debug_PolygonVertex(poly->points[i+2][0], poly->points[i+2][1], poly->points[i+2][2], 0.0f, 0.0f, 0.0f, 0.0f, 0.25f, 1.0f);
-			Debug_PolygonEnd();
-		}
-#endif
 	}
 	return 1;
 }
@@ -421,17 +396,6 @@ int SVBSP_AddPolygon(svbsp_t *b, int numpoints, const float *points, int inserto
 		//poly.splitflags[i] = 0; // this edge is a valid BSP splitter - clipped edges are not (because they lie on a bsp plane)
 		poly.facesplitflag = 0; // this face is a valid BSP Splitter - if it lies on a bsp plane it is not
 	}
-#if 0
-//if (insertoccluder)
-	for (i = 0;i < poly.numpoints-2;i++)
-	{
-		Debug_PolygonBegin(NULL, DRAWFLAG_ADDITIVE);
-		Debug_PolygonVertex(poly.points[  0][0], poly.points[  0][1], poly.points[  0][2], 0.0f, 0.0f, 0.0f, 0.25f, 0.0f, 1.0f);
-		Debug_PolygonVertex(poly.points[i+1][0], poly.points[i+1][1], poly.points[i+1][2], 0.0f, 0.0f, 0.0f, 0.25f, 0.0f, 1.0f);
-		Debug_PolygonVertex(poly.points[i+2][0], poly.points[i+2][1], poly.points[i+2][2], 0.0f, 0.0f, 0.0f, 0.25f, 0.0f, 1.0f);
-		Debug_PolygonEnd();
-	}
-#endif
 	nodenum = 0;
 	i = SVBSP_AddPolygonNode(b, &nodenum, -1, &poly, insertoccluder, fragmentcallback, fragmentcallback_pointer1, fragmentcallback_number1);
 	if (insertoccluder)

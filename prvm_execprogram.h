@@ -347,14 +347,6 @@
 					prog->error_cmd("%s attempted to address an invalid field (%i) in an edict", prog->name, (int)OPB->_int);
 					goto cleanup;
 				}
-#if 0
-				if (OPA->edict == 0 && !cached_allowworldwrites)
-				{
-					PRE_ERROR();
-					prog->error_cmd("forbidden assignment to null/world entity in %s", prog->name);
-					goto cleanup;
-				}
-#endif
 				OPC->_int = OPA->edict * cached_entityfields + OPB->_int;
 				DISPATCH_OPCODE();
 

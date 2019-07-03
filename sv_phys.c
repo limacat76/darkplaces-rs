@@ -948,10 +948,6 @@ static int SV_TestEntityPosition (prvm_edict_t *ent, vec3_t offset)
 	// if the trace found a better position for the entity, move it there
 	if (VectorDistance2(trace.endpos, PRVM_serveredictvector(ent, origin)) >= 0.0001)
 	{
-#if 0
-		// please switch back to this code when trace.endpos sometimes being in solid bug is fixed
-		VectorCopy(trace.endpos, PRVM_serveredictvector(ent, origin));
-#else
 		// verify if the endpos is REALLY outside solid
 		VectorCopy(trace.endpos, org);
 		trace = SV_TraceBox(org, entmins, entmaxs, org, MOVE_NOMONSTERS, ent, hitsupercontentsmask, skipsupercontentsmask, skipmaterialflagsmask, collision_extendmovelength.value);
@@ -959,7 +955,6 @@ static int SV_TestEntityPosition (prvm_edict_t *ent, vec3_t offset)
 			Con_Printf("SV_TestEntityPosition: trace.endpos detected to be in solid. NOT using it.\n");
 		else
 			VectorCopy(org, PRVM_serveredictvector(ent, origin));
-#endif
 	}
 	return false;
 }
@@ -1185,9 +1180,6 @@ static int SV_FlyMove (prvm_edict_t *ent, float time, qboolean applygravity, flo
 	float d, time_left, gravity;
 	vec3_t dir, push, planes[MAX_CLIP_PLANES];
 	prvm_vec3_t primal_velocity, original_velocity, new_velocity, restore_velocity;
-#if 0
-	vec3_t end;
-#endif
 	trace_t trace;
 	if (time <= 0)
 		return 0;
@@ -1613,14 +1605,6 @@ static qboolean SV_PushEntity (trace_t *trace, prvm_edict_t *ent, vec3_t push, q
 	ent->priv.required->mark = PRVM_EDICT_MARK_WAIT_FOR_SETORIGIN; // -2: setorigin running
 
 	SV_LinkEdict(ent);
-
-#if 0
-	if(!trace->startsolid)
-	if(SV_TraceBox(PRVM_serveredictvector(ent, origin), PRVM_serveredictvector(ent, mins), PRVM_serveredictvector(ent, maxs), PRVM_serveredictvector(ent, origin), type, ent, SV_GenericHitSuperContentsMask(ent), 0).startsolid)
-	{
-		Con_Printf("something eeeeevil happened\n");
-	}
-#endif
 
 	if (dolink)
 		SV_LinkEdict_TouchAreaGrid(ent);
@@ -2207,68 +2191,6 @@ static void SV_WallFriction (prvm_edict_t *ent, float *stepnormal)
 	}
 }
 
-#if 0
-/*
-=====================
-SV_TryUnstick
-
-Player has come to a dead stop, possibly due to the problem with limited
-float precision at some angle joins in the BSP hull.
-
-Try fixing by pushing one pixel in each direction.
-
-This is a hack, but in the interest of good gameplay...
-======================
-*/
-int SV_TryUnstick (prvm_edict_t *ent, vec3_t oldvel)
-{
-	int i, clip;
-	vec3_t oldorg, dir;
-
-	VectorCopy (PRVM_serveredictvector(ent, origin), oldorg);
-	VectorClear (dir);
-
-	for (i=0 ; i<8 ; i++)
-	{
-		// try pushing a little in an axial direction
-		switch (i)
-		{
-			case 0: dir[0] = 2; dir[1] = 0; break;
-			case 1: dir[0] = 0; dir[1] = 2; break;
-			case 2: dir[0] = -2; dir[1] = 0; break;
-			case 3: dir[0] = 0; dir[1] = -2; break;
-			case 4: dir[0] = 2; dir[1] = 2; break;
-			case 5: dir[0] = -2; dir[1] = 2; break;
-			case 6: dir[0] = 2; dir[1] = -2; break;
-			case 7: dir[0] = -2; dir[1] = -2; break;
-		}
-
-		SV_PushEntity (&trace, ent, dir, false, true);
-
-		// retry the original move
-		PRVM_serveredictvector(ent, velocity)[0] = oldvel[0];
-		PRVM_serveredictvector(ent, velocity)[1] = oldvel[1];
-		PRVM_serveredictvector(ent, velocity)[2] = 0;
-		clip = SV_FlyMove (ent, 0.1, NULL, SV_GenericHitSuperContentsMask(ent), 0);
-
-		if (fabs(oldorg[1] - PRVM_serveredictvector(ent, origin)[1]) > 4
-		 || fabs(oldorg[0] - PRVM_serveredictvector(ent, origin)[0]) > 4)
-		{
-			Con_DPrint("TryUnstick - success.\n");
-			return clip;
-		}
-
-		// go back to the original pos and try again
-		VectorCopy (oldorg, PRVM_serveredictvector(ent, origin));
-	}
-
-	// still not moving
-	VectorClear (PRVM_serveredictvector(ent, velocity));
-	Con_DPrint("TryUnstick - failure.\n");
-	return 7;
-}
-#endif
-
 /*
 =====================
 SV_WalkMove
@@ -2447,15 +2369,6 @@ static void SV_WalkMove (prvm_edict_t *ent)
 	{
 		// this has been disabled so that you can't jump when you are stepping
 		// up while already jumping (also known as the Quake2 double jump bug)
-#if 0
-		// LordHavoc: disabled this check so you can walk on monsters/players
-		//if (PRVM_serveredictfloat(ent, solid) == SOLID_BSP)
-		{
-			//Con_Printf("onground\n");
-			PRVM_serveredictfloat(ent, flags) =	(int)PRVM_serveredictfloat(ent, flags) | FL_ONGROUND;
-			PRVM_serveredictedict(ent, groundentity) = PRVM_EDICT_TO_PROG(downtrace.ent);
-		}
-#endif
 	}
 	else
 	{

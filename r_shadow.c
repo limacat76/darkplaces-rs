@@ -189,10 +189,6 @@ float r_shadow_lightshadowmap_texturescale[4]; // xy = scale, zw = offset
 float r_shadow_lightshadowmap_parameters[4]; // x = frustum width in pixels (excludes border), y = z scale, z = size of viewport, w = z center
 float r_shadow_modelshadowmap_texturescale[4]; // xy = scale, zw = offset
 float r_shadow_modelshadowmap_parameters[4]; // xyz = scale, w = shadow brightness
-#if 0
-int r_shadow_drawbuffer;
-int r_shadow_readbuffer;
-#endif
 int r_shadow_cullface_front, r_shadow_cullface_back;
 GLuint r_shadow_fbo2d;
 r_shadow_shadowmode_t r_shadow_shadowmode;
@@ -2028,10 +2024,6 @@ void R_Shadow_ValidateCvars(void)
 
 void R_Shadow_RenderMode_Begin(void)
 {
-#if 0
-	GLint drawbuffer;
-	GLint readbuffer;
-#endif
 	R_Shadow_ValidateCvars();
 
 	if (!r_shadow_attenuation2dtexture
@@ -2093,12 +2085,6 @@ void R_Shadow_RenderMode_Begin(void)
 	}
 
 	CHECKGLERROR
-#if 0
-	qglGetIntegerv(GL_DRAW_BUFFER, &drawbuffer);CHECKGLERROR
-	qglGetIntegerv(GL_READ_BUFFER, &readbuffer);CHECKGLERROR
-	r_shadow_drawbuffer = drawbuffer;
-	r_shadow_readbuffer = readbuffer;
-#endif
 	r_shadow_cullface_front = r_refdef.view.cullface_front;
 	r_shadow_cullface_back = r_refdef.view.cullface_back;
 }
@@ -4376,83 +4362,6 @@ static void R_Shadow_ComputeShadowCasterCullingPlanes(rtlight_t *rtlight)
 	}
 #endif
 
-#if 0
-	for (i = 0;i < rtlight->cached_numfrustumplanes;i++)
-	{
-		plane = rtlight->cached_frustumplanes[i];
-		Con_Printf("light %p plane #%i %f %f %f : %f (%f %f %f %f %f)\n", rtlight, i, plane.normal[0], plane.normal[1], plane.normal[2], plane.dist, PlaneDiff(r_refdef.view.frustumcorner[0], &plane), PlaneDiff(r_refdef.view.frustumcorner[1], &plane), PlaneDiff(r_refdef.view.frustumcorner[2], &plane), PlaneDiff(r_refdef.view.frustumcorner[3], &plane), PlaneDiff(rtlight->shadoworigin, &plane));
-	}
-#endif
-
-#if 0
-	// now add the light-space box planes if the light box is rotated, as any
-	// caster outside the oriented light box is irrelevant (even if it passed
-	// the worldspace light box, which is axial)
-	if (rtlight->matrix_lighttoworld.m[0][0] != 1 || rtlight->matrix_lighttoworld.m[1][1] != 1 || rtlight->matrix_lighttoworld.m[2][2] != 1)
-	{
-		for (i = 0;i < 6;i++)
-		{
-			vec3_t v;
-			VectorClear(v);
-			v[i >> 1] = (i & 1) ? -1 : 1;
-			Matrix4x4_Transform(&rtlight->matrix_lighttoworld, v, plane.normal);
-			VectorSubtract(plane.normal, rtlight->shadoworigin, plane.normal);
-			plane.dist = VectorNormalizeLength(plane.normal);
-			plane.dist += DotProduct(plane.normal, rtlight->shadoworigin);
-			rtlight->cached_frustumplanes[rtlight->cached_numfrustumplanes++] = plane;
-		}
-	}
-#endif
-
-#if 0
-	// add the world-space reduced box planes
-	for (i = 0;i < 6;i++)
-	{
-		VectorClear(plane.normal);
-		plane.normal[i >> 1] = (i & 1) ? -1 : 1;
-		plane.dist = (i & 1) ? -rtlight->cached_cullmaxs[i >> 1] : rtlight->cached_cullmins[i >> 1];
-		rtlight->cached_frustumplanes[rtlight->cached_numfrustumplanes++] = plane;
-	}
-#endif
-
-#if 0
-	{
-	int j, oldnum;
-	vec3_t points[8];
-	vec_t bestdist;
-	// reduce all plane distances to tightly fit the rtlight cull box, which
-	// is in worldspace
-	VectorSet(points[0], rtlight->cached_cullmins[0], rtlight->cached_cullmins[1], rtlight->cached_cullmins[2]);
-	VectorSet(points[1], rtlight->cached_cullmaxs[0], rtlight->cached_cullmins[1], rtlight->cached_cullmins[2]);
-	VectorSet(points[2], rtlight->cached_cullmins[0], rtlight->cached_cullmaxs[1], rtlight->cached_cullmins[2]);
-	VectorSet(points[3], rtlight->cached_cullmaxs[0], rtlight->cached_cullmaxs[1], rtlight->cached_cullmins[2]);
-	VectorSet(points[4], rtlight->cached_cullmins[0], rtlight->cached_cullmins[1], rtlight->cached_cullmaxs[2]);
-	VectorSet(points[5], rtlight->cached_cullmaxs[0], rtlight->cached_cullmins[1], rtlight->cached_cullmaxs[2]);
-	VectorSet(points[6], rtlight->cached_cullmins[0], rtlight->cached_cullmaxs[1], rtlight->cached_cullmaxs[2]);
-	VectorSet(points[7], rtlight->cached_cullmaxs[0], rtlight->cached_cullmaxs[1], rtlight->cached_cullmaxs[2]);
-	oldnum = rtlight->cached_numfrustumplanes;
-	rtlight->cached_numfrustumplanes = 0;
-	for (j = 0;j < oldnum;j++)
-	{
-		// find the nearest point on the box to this plane
-		bestdist = DotProduct(rtlight->cached_frustumplanes[j].normal, points[0]);
-		for (i = 1;i < 8;i++)
-		{
-			dist = DotProduct(rtlight->cached_frustumplanes[j].normal, points[i]);
-			if (bestdist > dist)
-				bestdist = dist;
-		}
-		Con_Printf("light %p %splane #%i %f %f %f : %f < %f\n", rtlight, rtlight->cached_frustumplanes[j].dist < bestdist + 0.03125 ? "^2" : "^1", j, rtlight->cached_frustumplanes[j].normal[0], rtlight->cached_frustumplanes[j].normal[1], rtlight->cached_frustumplanes[j].normal[2], rtlight->cached_frustumplanes[j].dist, bestdist);
-		// if the nearest point is near or behind the plane, we want this
-		// plane, otherwise the plane is useless as it won't cull anything
-		if (rtlight->cached_frustumplanes[j].dist < bestdist + 0.03125)
-		{
-			PlaneClassify(&rtlight->cached_frustumplanes[j]);
-			rtlight->cached_frustumplanes[rtlight->cached_numfrustumplanes++] = rtlight->cached_frustumplanes[j];
-		}
-	}
-	}
-#endif
 }
 
 static void R_Shadow_DrawWorldShadow_ShadowMap(int numsurfaces, int *surfacelist, const unsigned char *trispvs, const unsigned char *surfacesides)
@@ -5737,19 +5646,6 @@ static void R_Shadow_DrawModelShadowMaps(void)
 		ent->model->DrawShadowMap(0, ent, relativelightorigin, relativelightdirection, relativethrowdistance, ent->model->nummodelsurfaces, ent->model->sortedmodelsurfaces, NULL, relativeshadowmins, relativeshadowmaxs);
 		rsurface.entity = NULL; // used only by R_GetCurrentTexture and RSurf_ActiveWorldEntity/RSurf_ActiveModelEntity
 	}
-
-#if 0
-	if (r_test.integer)
-	{
-		unsigned char *rawpixels = Z_Malloc(viewport.width*viewport.height*4);
-		CHECKGLERROR
-		qglReadPixels(viewport.x, viewport.y, viewport.width, viewport.height, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, rawpixels);
-		CHECKGLERROR
-		Image_WriteTGABGRA("r_shadows_2.tga", viewport.width, viewport.height, rawpixels);
-		Cvar_SetValueQuick(&r_test, 0);
-		Z_Free(rawpixels);
-	}
-#endif
 
 	Matrix4x4_Concat(&mvpmatrix, &r_refdef.view.viewport.projectmatrix, &r_refdef.view.viewport.viewmatrix);
 	Matrix4x4_Invert_Full(&invmvpmatrix, &mvpmatrix);

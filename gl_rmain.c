@@ -1201,27 +1201,6 @@ static void R_GLSL_CompilePermutation(r_glsl_permutation_t *p, unsigned int mode
 		qglUseProgram(p->program);CHECKGLERROR
 		// look up all the uniform variable names we care about, so we don't
 		// have to look them up every time we set them
-
-#if 0
-		// debugging aid
-		{
-			GLint activeuniformindex = 0;
-			GLint numactiveuniforms = 0;
-			char uniformname[128];
-			GLsizei uniformnamelength = 0;
-			GLint uniformsize = 0;
-			GLenum uniformtype = 0;
-			memset(uniformname, 0, sizeof(uniformname));
-			qglGetProgramiv(p->program, GL_ACTIVE_UNIFORMS, &numactiveuniforms);
-			Con_Printf("Shader has %i uniforms\n", numactiveuniforms);
-			for (activeuniformindex = 0;activeuniformindex < numactiveuniforms;activeuniformindex++)
-			{
-				qglGetActiveUniform(p->program, activeuniformindex, sizeof(uniformname) - 1, &uniformnamelength, &uniformsize, &uniformtype, uniformname);
-				Con_Printf("Uniform %i name \"%s\" size %i type %i\n", (int)activeuniformindex, uniformname, (int)uniformsize, (int)uniformtype);
-			}
-		}
-#endif
-
 		p->loc_Texture_First              = qglGetUniformLocation(p->program, "Texture_First");
 		p->loc_Texture_Second             = qglGetUniformLocation(p->program, "Texture_Second");
 		p->loc_Texture_GammaRamps         = qglGetUniformLocation(p->program, "Texture_GammaRamps");
@@ -5614,68 +5593,6 @@ static void R_View_SetFrustum(const int *scissor)
 	// we can't trust r_refdef.view.forward and friends in reflected scenes
 	Matrix4x4_ToVectors(&r_refdef.view.matrix, forward, left, up, origin);
 
-#if 0
-	r_refdef.view.frustum[0].normal[0] = 0 - 1.0 / r_refdef.view.frustum_x;
-	r_refdef.view.frustum[0].normal[1] = 0 - 0;
-	r_refdef.view.frustum[0].normal[2] = -1 - 0;
-	r_refdef.view.frustum[1].normal[0] = 0 + 1.0 / r_refdef.view.frustum_x;
-	r_refdef.view.frustum[1].normal[1] = 0 + 0;
-	r_refdef.view.frustum[1].normal[2] = -1 + 0;
-	r_refdef.view.frustum[2].normal[0] = 0 - 0;
-	r_refdef.view.frustum[2].normal[1] = 0 - 1.0 / r_refdef.view.frustum_y;
-	r_refdef.view.frustum[2].normal[2] = -1 - 0;
-	r_refdef.view.frustum[3].normal[0] = 0 + 0;
-	r_refdef.view.frustum[3].normal[1] = 0 + 1.0 / r_refdef.view.frustum_y;
-	r_refdef.view.frustum[3].normal[2] = -1 + 0;
-#endif
-
-#if 0
-	zNear = r_refdef.nearclip;
-	nudge = 1.0 - 1.0 / (1<<23);
-	r_refdef.view.frustum[4].normal[0] = 0 - 0;
-	r_refdef.view.frustum[4].normal[1] = 0 - 0;
-	r_refdef.view.frustum[4].normal[2] = -1 - -nudge;
-	r_refdef.view.frustum[4].dist = 0 - -2 * zNear * nudge;
-	r_refdef.view.frustum[5].normal[0] = 0 + 0;
-	r_refdef.view.frustum[5].normal[1] = 0 + 0;
-	r_refdef.view.frustum[5].normal[2] = -1 + -nudge;
-	r_refdef.view.frustum[5].dist = 0 + -2 * zNear * nudge;
-#endif
-
-
-
-#if 0
-	r_refdef.view.frustum[0].normal[0] = m[3] - m[0];
-	r_refdef.view.frustum[0].normal[1] = m[7] - m[4];
-	r_refdef.view.frustum[0].normal[2] = m[11] - m[8];
-	r_refdef.view.frustum[0].dist = m[15] - m[12];
-
-	r_refdef.view.frustum[1].normal[0] = m[3] + m[0];
-	r_refdef.view.frustum[1].normal[1] = m[7] + m[4];
-	r_refdef.view.frustum[1].normal[2] = m[11] + m[8];
-	r_refdef.view.frustum[1].dist = m[15] + m[12];
-
-	r_refdef.view.frustum[2].normal[0] = m[3] - m[1];
-	r_refdef.view.frustum[2].normal[1] = m[7] - m[5];
-	r_refdef.view.frustum[2].normal[2] = m[11] - m[9];
-	r_refdef.view.frustum[2].dist = m[15] - m[13];
-
-	r_refdef.view.frustum[3].normal[0] = m[3] + m[1];
-	r_refdef.view.frustum[3].normal[1] = m[7] + m[5];
-	r_refdef.view.frustum[3].normal[2] = m[11] + m[9];
-	r_refdef.view.frustum[3].dist = m[15] + m[13];
-
-	r_refdef.view.frustum[4].normal[0] = m[3] - m[2];
-	r_refdef.view.frustum[4].normal[1] = m[7] - m[6];
-	r_refdef.view.frustum[4].normal[2] = m[11] - m[10];
-	r_refdef.view.frustum[4].dist = m[15] - m[14];
-
-	r_refdef.view.frustum[5].normal[0] = m[3] + m[2];
-	r_refdef.view.frustum[5].normal[1] = m[7] + m[6];
-	r_refdef.view.frustum[5].normal[2] = m[11] + m[10];
-	r_refdef.view.frustum[5].dist = m[15] + m[14];
-#endif
-
 	if (r_refdef.view.useperspective)
 	{
 		// calculate frustum corners, which are used to calculate deformed frustum planes for shadow caster culling
@@ -6744,15 +6661,6 @@ static void R_Bloom_MakeTexture(void)
 	float colorscale = r_bloom_colorscale.value;
 
 	r_refdef.stats[r_stat_bloom]++;
-    
-#if 0
-    // this copy is unnecessary since it happens in R_BlendView already
-	if (!r_fb.fbo)
-	{
-		R_Mesh_CopyToTexture(r_fb.colortexture, 0, 0, r_refdef.view.viewport.x, r_refdef.view.viewport.y, r_refdef.view.viewport.width, r_refdef.view.viewport.height);
-		r_refdef.stats[r_stat_bloom_copypixels] += r_refdef.view.viewport.width * r_refdef.view.viewport.height;
-	}
-#endif
 
 	// scale down screen texture to the bloom texture size
 	CHECKGLERROR
@@ -7733,27 +7641,6 @@ void R_RenderScene(int fbo, rtexture_t *depthtexture, rtexture_t *colortexture)
 		if (r_timereport_active)
 			R_TimeReport("coronas");
 	}
-
-#if 0
-	{
-		GL_DepthTest(false);
-		qglPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		GL_Color(1, 1, 1, 1);
-		qglBegin(GL_POLYGON);
-		qglVertex3f(r_refdef.view.frustumcorner[0][0], r_refdef.view.frustumcorner[0][1], r_refdef.view.frustumcorner[0][2]);
-		qglVertex3f(r_refdef.view.frustumcorner[1][0], r_refdef.view.frustumcorner[1][1], r_refdef.view.frustumcorner[1][2]);
-		qglVertex3f(r_refdef.view.frustumcorner[3][0], r_refdef.view.frustumcorner[3][1], r_refdef.view.frustumcorner[3][2]);
-		qglVertex3f(r_refdef.view.frustumcorner[2][0], r_refdef.view.frustumcorner[2][1], r_refdef.view.frustumcorner[2][2]);
-		qglEnd();
-		qglBegin(GL_POLYGON);
-		qglVertex3f(r_refdef.view.frustumcorner[0][0] + 1000 * r_refdef.view.forward[0], r_refdef.view.frustumcorner[0][1] + 1000 * r_refdef.view.forward[1], r_refdef.view.frustumcorner[0][2] + 1000 * r_refdef.view.forward[2]);
-		qglVertex3f(r_refdef.view.frustumcorner[1][0] + 1000 * r_refdef.view.forward[0], r_refdef.view.frustumcorner[1][1] + 1000 * r_refdef.view.forward[1], r_refdef.view.frustumcorner[1][2] + 1000 * r_refdef.view.forward[2]);
-		qglVertex3f(r_refdef.view.frustumcorner[3][0] + 1000 * r_refdef.view.forward[0], r_refdef.view.frustumcorner[3][1] + 1000 * r_refdef.view.forward[1], r_refdef.view.frustumcorner[3][2] + 1000 * r_refdef.view.forward[2]);
-		qglVertex3f(r_refdef.view.frustumcorner[2][0] + 1000 * r_refdef.view.forward[0], r_refdef.view.frustumcorner[2][1] + 1000 * r_refdef.view.forward[1], r_refdef.view.frustumcorner[2][2] + 1000 * r_refdef.view.forward[2]);
-		qglEnd();
-		qglPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-#endif
 
 	// don't let sound skip if going slow
 	if (r_refdef.scene.extraupdate)
@@ -10486,30 +10373,7 @@ void RSurf_DrawBatch(void)
 	// reject it here, before it hits glDraw.
 	if (rsurface.batchnumtriangles == 0)
 		return;
-#if 0
-	// batch debugging code
-	if (r_test.integer && rsurface.entity == r_refdef.scene.worldentity && rsurface.batchvertex3f == r_refdef.scene.worldentity->model->surfmesh.data_vertex3f)
-	{
-		int i;
-		int j;
-		int c;
-		const int *e;
-		e = rsurface.batchelement3i + rsurface.batchfirsttriangle*3;
-		for (i = 0;i < rsurface.batchnumtriangles*3;i++)
-		{
-			c = e[i];
-			for (j = 0;j < rsurface.entity->model->num_surfaces;j++)
-			{
-				if (c >= rsurface.modelsurfaces[j].num_firstvertex && c < (rsurface.modelsurfaces[j].num_firstvertex + rsurface.modelsurfaces[j].num_vertices))
-				{
-					if (rsurface.modelsurfaces[j].texture != rsurface.texture)
-						Sys_Error("RSurf_DrawBatch: index %i uses different texture (%s) than surface %i which it belongs to (which uses %s)\n", c, rsurface.texture->name, j, rsurface.modelsurfaces[j].texture->name);
-					break;
-				}
-			}
-		}
-	}
-#endif
+
 	if (rsurface.batchmultidraw)
 	{
 		// issue multiple draws rather than copying index data

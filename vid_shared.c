@@ -1384,14 +1384,6 @@ void VID_ApplyJoyState(vid_joystate_t *joystate)
 	int c = joy_axiskeyevents.integer != 0;
 	if (joystate->is360)
 	{
-#if 0
-		// keystrokes (chatpad)
-		// DOES NOT WORK - no driver support in xinput1_3.dll :(
-		xinput_keystroke_t keystroke;
-		while (qXInputGetKeystroke && qXInputGetKeystroke(XUSER_INDEX_ANY, 0, &keystroke) == S_OK)
-			Con_Printf("XInput KeyStroke: VirtualKey %i, Unicode %i, Flags %x, UserIndex %i, HidCode %i\n", keystroke.VirtualKey, keystroke.Unicode, keystroke.Flags, keystroke.UserIndex, keystroke.HidCode);
-#endif
-
 		// emit key events for buttons
 		for (j = 0;j < (int)(sizeof(joybuttonkey360)/sizeof(joybuttonkey360[0]));j++)
 			VID_KeyEventForButton(vid_joystate.button[j] != 0, joystate->button[j] != 0, joybuttonkey360[j][c], &vid_joybuttontimer[j]);

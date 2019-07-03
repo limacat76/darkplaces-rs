@@ -1022,15 +1022,9 @@ VM_findflags,						//  #87
 VM_findchainflags,				//  #88
 VM_cvar_defstring,				//  #89
 // deactivate support for model rendering in the menu until someone has time to do it right [3/2/2008 Andreas]
-#if 0
-VM_CL_setmodel,					// #90 void(entity e, string m) setmodel (QUAKE)
-VM_CL_precache_model,			// #91 void(string s) precache_model (QUAKE)
-VM_CL_setorigin,				// #92 void(entity e, vector o) setorigin (QUAKE)
-#else
-NULL,
-NULL,
-NULL,
-#endif
+NULL,							// #91 void(string s) precache_model (QUAKE)
+NULL,							// #91 void(string s) precache_model (QUAKE)
+NULL,							// #92 void(entity e, vector o) setorigin (QUAKE)
 NULL,									//  #93
 NULL,									//  #94
 NULL,									//  #95
@@ -1239,38 +1233,20 @@ NULL,									// #297
 NULL,									// #298
 NULL,									// #299
 // deactivate support for model rendering in the menu until someone has time to do it right [3/2/2008 Andreas]
-#if 0
 // CSQC range #300-#399
-VM_CL_R_ClearScene,				// #300 void() clearscene (DP_QC_RENDER_SCENE)
-VM_CL_R_AddEntities,			// #301 void(float mask) addentities (DP_QC_RENDER_SCENE)
-VM_CL_R_AddEntity,				// #302 void(entity ent) addentity (DP_QC_RENDER_SCENE)
-VM_CL_R_SetView,				// #303 float(float property, ...) setproperty (DP_QC_RENDER_SCENE)
-VM_CL_R_RenderScene,			// #304 void() renderscene (DP_QC_RENDER_SCENE)
-VM_CL_R_AddDynamicLight,		// #305 void(vector org, float radius, vector lightcolours) adddynamiclight (DP_QC_RENDER_SCENE)
-VM_CL_R_PolygonBegin,			// #306 void(string texturename, float flag[, float is2d, float lines]) R_BeginPolygon (DP_QC_RENDER_SCENE)
-VM_CL_R_PolygonVertex,			// #307 void(vector org, vector texcoords, vector rgb, float alpha) R_PolygonVertex (DP_QC_RENDER_SCENE)
-VM_CL_R_PolygonEnd,				// #308 void() R_EndPolygon
-NULL/*VM_CL_R_LoadWorldModel*/,				// #309 void(string modelname) R_LoadWorldModel
-// TODO: rearrange and merge all builtin lists and share as many extensions as possible between all VM instances [1/27/2008 Andreas]
-VM_CL_setattachment,				// #310 void(entity e, entity tagentity, string tagname) setattachment (DP_GFX_QUAKE3MODELTAGS) (DP_QC_RENDER_SCENE)
-VM_CL_gettagindex,				// #311 float(entity ent, string tagname) gettagindex (DP_QC_GETTAGINFO) (DP_QC_RENDER_SCENE)
-VM_CL_gettaginfo,					// #312 vector(entity ent, float tagindex) gettaginfo (DP_QC_GETTAGINFO) (DP_QC_RENDER_SCENE)
-#else
-// CSQC range #300-#399
-NULL,		
-NULL,		
-NULL,		
-NULL,		
-NULL,		
-NULL,		
-NULL,		
-NULL,	
-NULL,	
-NULL,
-NULL,	
-NULL,	
-NULL,	
-#endif
+NULL,								// 300
+NULL,								// 301
+NULL,								// 302
+NULL,								// 303
+NULL,								// 304
+NULL,								// 305
+NULL,								// 306
+NULL,								// 307
+NULL,								// 308
+NULL,								// 309
+NULL,								// 310
+NULL,								// 311
+NULL,								// 312
 NULL,									// #313
 NULL,									// #314
 NULL,									// #315

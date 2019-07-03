@@ -113,88 +113,6 @@ float m_bytenormals[NUMVERTEXNORMALS][3] =
 {-0.587785f, -0.425325f, -0.688191f}, {-0.688191f, -0.587785f, -0.425325f},
 };
 
-#if 0
-unsigned char NormalToByte(const vec3_t n)
-{
-	int i, best;
-	float bestdistance, distance;
-
-	best = 0;
-	bestdistance = DotProduct (n, m_bytenormals[0]);
-	for (i = 1;i < NUMVERTEXNORMALS;i++)
-	{
-		distance = DotProduct (n, m_bytenormals[i]);
-		if (distance > bestdistance)
-		{
-			bestdistance = distance;
-			best = i;
-		}
-	}
-	return best;
-}
-
-// note: uses byte partly to force unsigned for the validity check
-void ByteToNormal(unsigned char num, vec3_t n)
-{
-	if (num < NUMVERTEXNORMALS)
-		VectorCopy(m_bytenormals[num], n);
-	else
-		VectorClear(n); // FIXME: complain?
-}
-
-// assumes "src" is normalized
-void PerpendicularVector( vec3_t dst, const vec3_t src )
-{
-	// LordHavoc: optimized to death and beyond
-	int pos;
-	float minelem;
-
-	if (src[0])
-	{
-		dst[0] = 0;
-		if (src[1])
-		{
-			dst[1] = 0;
-			if (src[2])
-			{
-				dst[2] = 0;
-				pos = 0;
-				minelem = fabs(src[0]);
-				if (fabs(src[1]) < minelem)
-				{
-					pos = 1;
-					minelem = fabs(src[1]);
-				}
-				if (fabs(src[2]) < minelem)
-					pos = 2;
-
-				dst[pos] = 1;
-				dst[0] -= src[pos] * src[0];
-				dst[1] -= src[pos] * src[1];
-				dst[2] -= src[pos] * src[2];
-
-				// normalize the result
-				VectorNormalize(dst);
-			}
-			else
-				dst[2] = 1;
-		}
-		else
-		{
-			dst[1] = 1;
-			dst[2] = 0;
-		}
-	}
-	else
-	{
-		dst[0] = 1;
-		dst[1] = 0;
-		dst[2] = 0;
-	}
-}
-#endif
-
-
 // LordHavoc: like AngleVectors, but taking a forward vector instead of angles, useful!
 void VectorVectors(const vec3_t forward, vec3_t right, vec3_t up)
 {
@@ -345,24 +263,6 @@ int BoxOnPlaneSide(const vec3_t emins, const vec3_t emaxs, const mplane_t *p)
 	case 7: return (((p->normal[0] * emins[0] + p->normal[1] * emins[1] + p->normal[2] * emins[2]) >= p->dist) | (((p->normal[0] * emaxs[0] + p->normal[1] * emaxs[1] + p->normal[2] * emaxs[2]) < p->dist) << 1));
 	}
 }
-
-#if 0
-int BoxOnPlaneSide_Separate(const vec3_t emins, const vec3_t emaxs, const vec3_t normal, const vec_t dist)
-{
-	switch((normal[0] < 0) | ((normal[1] < 0) << 1) | ((normal[2] < 0) << 2))
-	{
-	default:
-	case 0: return (((normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2]) >= dist) | (((normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emins[2]) < dist) << 1));
-	case 1: return (((normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2]) >= dist) | (((normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emins[2]) < dist) << 1));
-	case 2: return (((normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emaxs[2]) >= dist) | (((normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emins[2]) < dist) << 1));
-	case 3: return (((normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emaxs[2]) >= dist) | (((normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emins[2]) < dist) << 1));
-	case 4: return (((normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emins[2]) >= dist) | (((normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emaxs[2]) < dist) << 1));
-	case 5: return (((normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emins[2]) >= dist) | (((normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emaxs[2]) < dist) << 1));
-	case 6: return (((normal[0] * emaxs[0] + normal[1] * emins[1] + normal[2] * emins[2]) >= dist) | (((normal[0] * emins[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2]) < dist) << 1));
-	case 7: return (((normal[0] * emins[0] + normal[1] * emins[1] + normal[2] * emins[2]) >= dist) | (((normal[0] * emaxs[0] + normal[1] * emaxs[1] + normal[2] * emaxs[2]) < dist) << 1));
-	}
-}
-#endif
 
 void BoxPlaneCorners(const vec3_t emins, const vec3_t emaxs, const mplane_t *p, vec3_t outnear, vec3_t outfar)
 {
@@ -698,66 +598,7 @@ void AnglesFromVectors (vec3_t angles, const vec3_t forward, const vec3_t up, qb
 	if (angles[PITCH] < 0) angles[PITCH] += 360;
 	if (angles[YAW] < 0) angles[YAW] += 360;
 	if (angles[ROLL] < 0) angles[ROLL] += 360;
-
-#if 0
-{
-	// debugging code
-	vec3_t tforward, tleft, tup, nforward, nup;
-	VectorCopy(forward, nforward);
-	VectorNormalize(nforward);
-	if (up)
-	{
-		VectorCopy(up, nup);
-		VectorNormalize(nup);
-		AngleVectors(angles, tforward, tleft, tup);
-		if (VectorDistance(tforward, nforward) > 0.01 || VectorDistance(tup, nup) > 0.01)
-		{
-			Con_Printf("vectoangles('%f %f %f', '%f %f %f') = %f %f %f\n", nforward[0], nforward[1], nforward[2], nup[0], nup[1], nup[2], angles[0], angles[1], angles[2]);
-			Con_Printf("^3But that is '%f %f %f', '%f %f %f'\n", tforward[0], tforward[1], tforward[2], tup[0], tup[1], tup[2]);
-		}
-	}
-	else
-	{
-		AngleVectors(angles, tforward, tleft, tup);
-		if (VectorDistance(tforward, nforward) > 0.01)
-		{
-			Con_Printf("vectoangles('%f %f %f') = %f %f %f\n", nforward[0], nforward[1], nforward[2], angles[0], angles[1], angles[2]);
-			Con_Printf("^3But that is '%f %f %f'\n", tforward[0], tforward[1], tforward[2]);
-		}
-	}
 }
-#endif
-}
-
-#if 0
-void AngleMatrix (const vec3_t angles, const vec3_t translate, vec_t matrix[][4])
-{
-	double angle, sr, sp, sy, cr, cp, cy;
-
-	angle = angles[YAW] * (M_PI*2 / 360);
-	sy = sin(angle);
-	cy = cos(angle);
-	angle = angles[PITCH] * (M_PI*2 / 360);
-	sp = sin(angle);
-	cp = cos(angle);
-	angle = angles[ROLL] * (M_PI*2 / 360);
-	sr = sin(angle);
-	cr = cos(angle);
-	matrix[0][0] = cp*cy;
-	matrix[0][1] = sr*sp*cy+cr*-sy;
-	matrix[0][2] = cr*sp*cy+-sr*-sy;
-	matrix[0][3] = translate[0];
-	matrix[1][0] = cp*sy;
-	matrix[1][1] = sr*sp*sy+cr*cy;
-	matrix[1][2] = cr*sp*sy+-sr*cy;
-	matrix[1][3] = translate[1];
-	matrix[2][0] = -sp;
-	matrix[2][1] = sr*cp;
-	matrix[2][2] = cr*cp;
-	matrix[2][3] = translate[2];
-}
-#endif
-
 
 // LordHavoc: renamed this to Length, and made the normal one a #define
 float VectorNormalizeLength (vec3_t v)
@@ -907,15 +748,6 @@ static unsigned int mul_Lecuyer[4] = { 0x12e15e35, 0xb500f16e, 0x2e714eb2, 0xb37
 
 static void mul128(const unsigned int a[], const unsigned int b[], unsigned int dest[4])
 {
-#if 0 //defined(__GNUC__) && defined(__x86_64__)
-	unsigned __int128 ia = ((__int128)a[0] << 96) | ((__int128)a[1] << 64) | ((__int128)a[2] << 32) | (a[3]);
-	unsigned __int128 ib = ((__int128)b[0] << 96) | ((__int128)b[1] << 64) | ((__int128)b[2] << 32) | (b[3]);
-	unsigned __int128 id = ia * ib;
-	dest[0] = (id >> 96) & 0xffffffff;
-	dest[1] = (id >> 64) & 0xffffffff;
-	dest[2] = (id >> 32) & 0xffffffff;
-	dest[3] = (id) & 0xffffffff;
-#else
 	unsigned long long t[4];
 
 	// this multiply chain is relatively straightforward - a[] is repeatedly
@@ -965,7 +797,7 @@ static void mul128(const unsigned int a[], const unsigned int b[], unsigned int 
 	dest[1] = t[1] & 0xffffffff;
 	dest[2] = t[2] & 0xffffffff;
 	dest[3] = t[3] & 0xffffffff;
-#endif
+
 }
 
 static void testmul128(unsigned int a0, unsigned int a1, unsigned int a2, unsigned int a3, unsigned int b0, unsigned int b1, unsigned int b2, unsigned int b3, unsigned int x0, unsigned int x1, unsigned int x2, unsigned int x3)

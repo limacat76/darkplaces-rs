@@ -59,12 +59,6 @@ static void S_SoftClipPaintBuffer(portable_sampleframe_t *painted_ptr, int nbfra
 	{
 		portable_sampleframe_t *p = painted_ptr;
 
-#if 0
-/* Soft clipping, the sound of a dream, thanks to Jon Wattes
-   post to Musicdsp.org */
-#define SOFTCLIP(x) (x) = sin(bound(-M_PI/2, (x), M_PI/2)) * 0.25
-#endif
-
 		// let's do a simple limiter instead, seems to sound better
 		static float maxvol = 0;
 		maxvol = max(1.0f, maxvol * (1.0f - nbframes / (0.4f * snd_renderbuffer->format.speed)));

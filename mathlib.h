@@ -159,77 +159,11 @@ unsigned int CeilPowerOf2(unsigned int value);
 + ((p)[1] - (a)[1]) * (((a)[2] - (b)[2]) * ((c)[0] - (b)[0]) - ((a)[0] - (b)[0]) * ((c)[2] - (b)[2])) \
 + ((p)[2] - (a)[2]) * (((a)[0] - (b)[0]) * ((c)[1] - (b)[1]) - ((a)[1] - (b)[1]) * ((c)[0] - (b)[0])) > 0)
 
-#if 0
-// readable version, kept only for explanatory reasons
-int PointInfrontOfTriangle(const float *p, const float *a, const float *b, const float *c)
-{
-	float dir0[3], dir1[3], normal[3];
-
-	// calculate two mostly perpendicular edge directions
-	VectorSubtract(a, b, dir0);
-	VectorSubtract(c, b, dir1);
-
-	// we have two edge directions, we can calculate a third vector from
-	// them, which is the direction of the surface normal (its magnitude
-	// is not 1 however)
-	CrossProduct(dir0, dir1, normal);
-
-	// compare distance of light along normal, with distance of any point
-	// of the triangle along the same normal (the triangle is planar,
-	// I.E. flat, so all points give the same answer)
-	return DotProduct(p, normal) > DotProduct(a, normal);
-}
-#endif
 
 #define lhcheeserand(seed) ((seed) = ((seed) * 987211u) ^ ((seed) >> 13u) ^ 914867)
 #define lhcheeserandom(seed,MIN,MAX) ((double)(lhcheeserand(seed) + 0.5) / ((double)4096.0*1024.0*1024.0) * ((MAX)-(MIN)) + (MIN))
 #define VectorCheeseRandom(seed,v) do{(v)[0] = lhcheeserandom(seed,-1, 1);(v)[1] = lhcheeserandom(seed,-1, 1);(v)[2] = lhcheeserandom(seed,-1, 1);}while(DotProduct(v, v) > 1)
 #define VectorLehmerRandom(seed,v) do{(v)[0] = Math_crandomf(seed);(v)[1] = Math_crandomf(seed);(v)[2] = Math_crandomf(seed);}while(DotProduct(v, v) > 1)
-
-/*
-// LordHavoc: quaternion math, untested, don't know if these are correct,
-// need to add conversion to/from matrices
-// LordHavoc: later note: the matrix faq is useful: http://skal.planet-d.net/demo/matrixfaq.htm
-// LordHavoc: these are probably very wrong and I'm not sure I care, not used by anything
-
-// returns length of quaternion
-#define qlen(a) ((float) sqrt((a)[0]*(a)[0]+(a)[1]*(a)[1]+(a)[2]*(a)[2]+(a)[3]*(a)[3]))
-// returns squared length of quaternion
-#define qlen2(a) ((a)[0]*(a)[0]+(a)[1]*(a)[1]+(a)[2]*(a)[2]+(a)[3]*(a)[3])
-// makes a quaternion from x, y, z, and a rotation angle (in degrees)
-#define QuatMake(x,y,z,r,c)\
-{\
-if (r == 0)\
-{\
-(c)[0]=(float) ((x) * (1.0f / 0.0f));\
-(c)[1]=(float) ((y) * (1.0f / 0.0f));\
-(c)[2]=(float) ((z) * (1.0f / 0.0f));\
-(c)[3]=(float) 1.0f;\
-}\
-else\
-{\
-float r2 = (r) * 0.5 * (M_PI / 180);\
-float r2is = 1.0f / sin(r2);\
-(c)[0]=(float) ((x)/r2is);\
-(c)[1]=(float) ((y)/r2is);\
-(c)[2]=(float) ((z)/r2is);\
-(c)[3]=(float) (cos(r2));\
-}\
-}
-// makes a quaternion from a vector and a rotation angle (in degrees)
-#define QuatFromVec(a,r,c) QuatMake((a)[0],(a)[1],(a)[2],(r))
-// copies a quaternion
-#define QuatCopy(a,c) {(c)[0]=(a)[0];(c)[1]=(a)[1];(c)[2]=(a)[2];(c)[3]=(a)[3];}
-#define QuatSubtract(a,b,c) {(c)[0]=(a)[0]-(b)[0];(c)[1]=(a)[1]-(b)[1];(c)[2]=(a)[2]-(b)[2];(c)[3]=(a)[3]-(b)[3];}
-#define QuatAdd(a,b,c) {(c)[0]=(a)[0]+(b)[0];(c)[1]=(a)[1]+(b)[1];(c)[2]=(a)[2]+(b)[2];(c)[3]=(a)[3]+(b)[3];}
-#define QuatScale(a,b,c) {(c)[0]=(a)[0]*b;(c)[1]=(a)[1]*b;(c)[2]=(a)[2]*b;(c)[3]=(a)[3]*b;}
-// FIXME: this is wrong, do some more research on quaternions
-//#define QuatMultiply(a,b,c) {(c)[0]=(a)[0]*(b)[0];(c)[1]=(a)[1]*(b)[1];(c)[2]=(a)[2]*(b)[2];(c)[3]=(a)[3]*(b)[3];}
-// FIXME: this is wrong, do some more research on quaternions
-//#define QuatMultiplyAdd(a,b,d,c) {(c)[0]=(a)[0]*(b)[0]+d[0];(c)[1]=(a)[1]*(b)[1]+d[1];(c)[2]=(a)[2]*(b)[2]+d[2];(c)[3]=(a)[3]*(b)[3]+d[3];}
-#define qdist(a,b) ((float) sqrt(((b)[0]-(a)[0])*((b)[0]-(a)[0])+((b)[1]-(a)[1])*((b)[1]-(a)[1])+((b)[2]-(a)[2])*((b)[2]-(a)[2])+((b)[3]-(a)[3])*((b)[3]-(a)[3])))
-#define qdist2(a,b) (((b)[0]-(a)[0])*((b)[0]-(a)[0])+((b)[1]-(a)[1])*((b)[1]-(a)[1])+((b)[2]-(a)[2])*((b)[2]-(a)[2])+((b)[3]-(a)[3])*((b)[3]-(a)[3]))
-*/
 
 #define VectorCopy4(a,b) {(b)[0]=(a)[0];(b)[1]=(a)[1];(b)[2]=(a)[2];(b)[3]=(a)[3];}
 
