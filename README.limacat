@@ -6,10 +6,12 @@ convert it, function by function, into Rust[3].
 
 For this the first phase is about removing all the build files from
 non windows /  non linux / non SDL, because I want to be able to work
-on a minimal set of files and without distractions.
+on a minimal set of files and without distractions. Also, for speed
+reasons, I will only work in Visual Studio 2017 and with the SDL code.
 
-If you want to play or modify xonotic or darkplaces or get their
-eventual updates you'd better look at their download pages. :)
+If you want to play or modify xonotic or darkplaces this is not the
+best repository :). Again, this will not be multiplatform or multiplatformAnd also for eventual updates you'd better look
+at their download pages, since this is based on a code freeze. :)
 
 The rust code will be on a different repository (TBD).
 
