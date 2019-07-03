@@ -187,7 +187,6 @@ static int Mod_Q1BSP_FindBoxClusters(dp_model_t *model, const vec3_t mins, const
 	node = model->brush.data_nodes + model->brushq1.hulls[0].firstclipnode;
 	for (;;)
 	{
-#if 1
 		if (node->plane)
 		{
 			// node - recurse down the BSP tree
@@ -215,25 +214,7 @@ static int Mod_Q1BSP_FindBoxClusters(dp_model_t *model, const vec3_t mins, const
 				clusterlist[numclusters] = ((mleaf_t *)node)->clusterindex;
 			numclusters++;
 		}
-#else
-		if (BoxesOverlap(mins, maxs, node->mins, node->maxs))
-		{
-			if (node->plane)
-			{
-				if (nodestackindex < 1024)
-					nodestack[nodestackindex++] = node->children[0];
-				node = node->children[1];
-				continue;
-			}
-			else
-			{
-				// leaf - add clusterindex to list
-				if (numclusters < maxclusters)
-					clusterlist[numclusters] = ((mleaf_t *)node)->clusterindex;
-				numclusters++;
-			}
-		}
-#endif
+
 		// try another path we didn't take earlier
 		if (nodestackindex == 0)
 			break;
@@ -252,7 +233,6 @@ static int Mod_Q1BSP_BoxTouchingPVS(dp_model_t *model, const unsigned char *pvs,
 	node = model->brush.data_nodes + model->brushq1.hulls[0].firstclipnode;
 	for (;;)
 	{
-#if 1
 		if (node->plane)
 		{
 			// node - recurse down the BSP tree
@@ -283,28 +263,6 @@ static int Mod_Q1BSP_BoxTouchingPVS(dp_model_t *model, const unsigned char *pvs,
 				return true;
 			}
 		}
-#else
-		if (BoxesOverlap(mins, maxs, node->mins, node->maxs))
-		{
-			if (node->plane)
-			{
-				if (nodestackindex < 1024)
-					nodestack[nodestackindex++] = node->children[0];
-				node = node->children[1];
-				continue;
-			}
-			else
-			{
-				// leaf - check cluster bit
-				int clusterindex = ((mleaf_t *)node)->clusterindex;
-				if (CHECKPVSBIT(pvs, clusterindex))
-				{
-					// it is visible, return immediately with the news
-					return true;
-				}
-			}
-		}
-#endif
 		// nothing to see here, try another path we didn't take earlier
 		if (nodestackindex == 0)
 			break;
@@ -323,7 +281,6 @@ static int Mod_Q1BSP_BoxTouchingLeafPVS(dp_model_t *model, const unsigned char *
 	node = model->brush.data_nodes + model->brushq1.hulls[0].firstclipnode;
 	for (;;)
 	{
-#if 1
 		if (node->plane)
 		{
 			// node - recurse down the BSP tree
@@ -354,28 +311,6 @@ static int Mod_Q1BSP_BoxTouchingLeafPVS(dp_model_t *model, const unsigned char *
 				return true;
 			}
 		}
-#else
-		if (BoxesOverlap(mins, maxs, node->mins, node->maxs))
-		{
-			if (node->plane)
-			{
-				if (nodestackindex < 1024)
-					nodestack[nodestackindex++] = node->children[0];
-				node = node->children[1];
-				continue;
-			}
-			else
-			{
-				// leaf - check cluster bit
-				int clusterindex = ((mleaf_t *)node) - model->brush.data_leafs;
-				if (CHECKPVSBIT(pvs, clusterindex))
-				{
-					// it is visible, return immediately with the news
-					return true;
-				}
-			}
-		}
-#endif
 		// nothing to see here, try another path we didn't take earlier
 		if (nodestackindex == 0)
 			break;
@@ -394,7 +329,6 @@ static int Mod_Q1BSP_BoxTouchingVisibleLeafs(dp_model_t *model, const unsigned c
 	node = model->brush.data_nodes + model->brushq1.hulls[0].firstclipnode;
 	for (;;)
 	{
-#if 1
 		if (node->plane)
 		{
 			// node - recurse down the BSP tree
@@ -424,27 +358,7 @@ static int Mod_Q1BSP_BoxTouchingVisibleLeafs(dp_model_t *model, const unsigned c
 				return true;
 			}
 		}
-#else
-		if (BoxesOverlap(mins, maxs, node->mins, node->maxs))
-		{
-			if (node->plane)
-			{
-				if (nodestackindex < 1024)
-					nodestack[nodestackindex++] = node->children[0];
-				node = node->children[1];
-				continue;
-			}
-			else
-			{
-				// leaf - check if it is visible
-				if (visibleleafs[(mleaf_t *)node - model->brush.data_leafs])
-				{
-					// it is visible, return immediately with the news
-					return true;
-				}
-			}
-		}
-#endif
+
 		// nothing to see here, try another path we didn't take earlier
 		if (nodestackindex == 0)
 			break;
@@ -1065,7 +979,6 @@ static int Mod_Q1BSP_PointSuperContents(struct model_s *model, int frame, const 
 
 void Collision_ClipTrace_Box(trace_t *trace, const vec3_t cmins, const vec3_t cmaxs, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int hitsupercontentsmask, int skipsupercontentsmask, int skipmaterialflagsmask, int boxsupercontents, int boxq3surfaceflags, const texture_t *boxtexture)
 {
-#if 1
 	colbrushf_t cbox;
 	colplanef_t cbox_planes[6];
 	cbox.isaabb = true;
@@ -1102,73 +1015,6 @@ void Collision_ClipTrace_Box(trace_t *trace, const vec3_t cmins, const vec3_t cm
 	trace->skipmaterialflagsmask = skipmaterialflagsmask;
 	trace->fraction = 1;
 	Collision_TraceLineBrushFloat(trace, start, end, &cbox, &cbox);
-#else
-	RecursiveHullCheckTraceInfo_t rhc;
-	static hull_t box_hull;
-	static mclipnode_t box_clipnodes[6];
-	static mplane_t box_planes[6];
-	// fill in a default trace
-	memset(&rhc, 0, sizeof(rhc));
-	memset(trace, 0, sizeof(trace_t));
-	//To keep everything totally uniform, bounding boxes are turned into small
-	//BSP trees instead of being compared directly.
-	// create a temp hull from bounding box sizes
-	box_planes[0].dist = cmaxs[0] - mins[0];
-	box_planes[1].dist = cmins[0] - maxs[0];
-	box_planes[2].dist = cmaxs[1] - mins[1];
-	box_planes[3].dist = cmins[1] - maxs[1];
-	box_planes[4].dist = cmaxs[2] - mins[2];
-	box_planes[5].dist = cmins[2] - maxs[2];
-#if COLLISIONPARANOID >= 3
-	Con_Printf("box_planes %f:%f %f:%f %f:%f\ncbox %f %f %f:%f %f %f\nbox %f %f %f:%f %f %f\n", box_planes[0].dist, box_planes[1].dist, box_planes[2].dist, box_planes[3].dist, box_planes[4].dist, box_planes[5].dist, cmins[0], cmins[1], cmins[2], cmaxs[0], cmaxs[1], cmaxs[2], mins[0], mins[1], mins[2], maxs[0], maxs[1], maxs[2]);
-#endif
-
-	if (box_hull.clipnodes == NULL)
-	{
-		int i, side;
-
-		//Set up the planes and clipnodes so that the six floats of a bounding box
-		//can just be stored out and get a proper hull_t structure.
-
-		box_hull.clipnodes = box_clipnodes;
-		box_hull.planes = box_planes;
-		box_hull.firstclipnode = 0;
-		box_hull.lastclipnode = 5;
-
-		for (i = 0;i < 6;i++)
-		{
-			box_clipnodes[i].planenum = i;
-
-			side = i&1;
-
-			box_clipnodes[i].children[side] = CONTENTS_EMPTY;
-			if (i != 5)
-				box_clipnodes[i].children[side^1] = i + 1;
-			else
-				box_clipnodes[i].children[side^1] = CONTENTS_SOLID;
-
-			box_planes[i].type = i>>1;
-			box_planes[i].normal[i>>1] = 1;
-		}
-	}
-
-	// trace a line through the generated clipping hull
-	//rhc.boxsupercontents = boxsupercontents;
-	rhc.hull = &box_hull;
-	rhc.trace = trace;
-	rhc.trace->hitsupercontentsmask = hitsupercontentsmask;
-	rhc.trace->skipsupercontentsmask = skipsupercontentsmask;
-	rhc.trace->skipmaterialflagsmask = skipmaterialflagsmask;
-	rhc.trace->fraction = 1;
-	rhc.trace->allsolid = true;
-	VectorCopy(start, rhc.start);
-	VectorCopy(end, rhc.end);
-	VectorSubtract(rhc.end, rhc.start, rhc.dist);
-	Mod_Q1BSP_RecursiveHullCheck(&rhc, rhc.hull->firstclipnode, 0, 1, rhc.start, rhc.end);
-	//VectorMA(rhc.start, rhc.trace->fraction, rhc.dist, rhc.trace->endpos);
-	if (rhc.trace->startsupercontents)
-		rhc.trace->startsupercontents = boxsupercontents;
-#endif
 }
 
 void Collision_ClipTrace_Point(trace_t *trace, const vec3_t cmins, const vec3_t cmaxs, const vec3_t start, int hitsupercontentsmask, int skipsupercontentsmask, int skipmaterialflagsmask, int boxsupercontents, int boxq3surfaceflags, const texture_t *boxtexture)
@@ -2545,7 +2391,6 @@ static void Mod_Q1BSP_LoadFaces(sizebuf_t *sb)
 		if (lightmapoffset == -1)
 		{
 			surface->lightmapinfo->samples = NULL;
-#if 1
 			// give non-lightmapped water a 1x white lightmap
 			if (!loadmodel->brush.isq2bsp && surface->texture->name[0] == '*' && (surface->lightmapinfo->texinfo->q1flags & TEX_SPECIAL) && ssize <= 256 && tsize <= 256)
 			{
@@ -2553,7 +2398,6 @@ static void Mod_Q1BSP_LoadFaces(sizebuf_t *sb)
 				surface->lightmapinfo->styles[0] = 0;
 				memset(surface->lightmapinfo->samples, 128, ssize * tsize * 3);
 			}
-#endif
 		}
 		else if (loadmodel->brush.ishlbsp || loadmodel->brush.isq2bsp) // LordHavoc: HalfLife map (bsp version 30)
 			surface->lightmapinfo->samples = loadmodel->brushq1.lightdata + lightmapoffset;
@@ -6034,19 +5878,15 @@ static void Mod_Q3BSP_LoadFaces(lump_t *l)
 			Q3PatchTesselateFloat(3, sizeof(float[3]), surfacecollisionvertex3f, patchsize[0], patchsize[1], sizeof(float[3]), originalvertex3f, cxtess, cytess);
 			Q3PatchTriangleElements(surfacecollisionelement3i, finalwidth, finalheight, collisionvertices);
 			Mod_SnapVertices(3, finalvertices, surfacecollisionvertex3f, 1);
-#if 1
 			// remove this once the legacy code is removed
 			{
 				int nc = out->num_collisiontriangles;
-#endif
 			out->num_collisiontriangles = Mod_RemoveDegenerateTriangles(finaltriangles, surfacecollisionelement3i, surfacecollisionelement3i, loadmodel->brush.data_collisionvertex3f);
-#if 1
 				if(nc != out->num_collisiontriangles)
 				{
 					Con_Printf("number of collision triangles differs between BIH and BSP. FAIL.\n");
 				}
 			}
-#endif
 
 			if (developer_extra.integer)
 				Con_DPrintf("Mod_Q3BSP_LoadFaces: %ix%i curve became %i:%i vertices / %i:%i triangles (%i:%i degenerate)\n", patchsize[0], patchsize[1], out->num_vertices, out->num_collisionvertices, oldnumtriangles, oldnumtriangles2, oldnumtriangles - out->num_triangles, oldnumtriangles2 - out->num_collisiontriangles);
@@ -6657,10 +6497,8 @@ void Mod_CollisionBIH_TracePoint(dp_model_t *model, const frameblend_t *frameble
 	{
 		nodenum = nodestack[--nodestackpos];
 		node = bih->nodes + nodenum;
-#if 1
 		if (!BoxesOverlap(start, start, node->mins, node->maxs))
 			continue;
-#endif
 		if (node->type <= BIH_SPLITZ && nodestackpos+2 <= 1024)
 		{
 			axis = node->type - BIH_SPLITX;
@@ -6674,10 +6512,8 @@ void Mod_CollisionBIH_TracePoint(dp_model_t *model, const frameblend_t *frameble
 			for (axis = 0;axis < BIH_MAXUNORDEREDCHILDREN && node->children[axis] >= 0;axis++)
 			{
 				leaf = bih->leafs + node->children[axis];
-#if 1
 				if (!BoxesOverlap(start, start, leaf->mins, leaf->maxs))
 					continue;
-#endif
 				switch(leaf->type)
 				{
 				case BIH_BRUSH:

@@ -817,18 +817,12 @@ static void R_Q1BSP_RecursiveGetLightInfo_BSP(r_q1bsp_getlightinfo_t *info, qboo
 		{
 			// leaf
 			leaf = (mleaf_t *)node;
-#if 1
 			if (!info->noocclusion && info->pvs != NULL && !CHECKPVSBIT(info->pvs, leaf->clusterindex))
 				continue;
-#endif
-#if 1
 			if (!BoxesOverlap(info->lightmins, info->lightmaxs, leaf->mins, leaf->maxs))
 				continue;
-#endif
-#if 1
 			if (!r_shadow_compilingrtlight && R_CullBoxCustomPlanes(leaf->mins, leaf->maxs, info->numfrustumplanes, info->frustumplanes))
 				continue;
-#endif
 
 			if (svbspactive)
 			{
@@ -1003,14 +997,11 @@ static void R_Q1BSP_RecursiveGetLightInfo_BIH(r_q1bsp_getlightinfo_t *info, cons
 				leaf = bih->leafs + node->children[nodeleafindex];
 				if (leaf->type != BIH_RENDERTRIANGLE)
 					continue;
-#if 1
 				if (!BoxesOverlap(info->lightmins, info->lightmaxs, leaf->mins, leaf->maxs))
 					continue;
-#endif
-#if 1
 				if (!r_shadow_compilingrtlight && R_CullBoxCustomPlanes(leaf->mins, leaf->maxs, info->numfrustumplanes, info->frustumplanes))
 					continue;
-#endif
+
 				surfaceindex = leaf->surfaceindex;
 				surface = info->model->data_surfaces + surfaceindex;
 				currentmaterialflags = R_GetCurrentTexture(surface->texture)->currentmaterialflags;

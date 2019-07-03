@@ -1388,20 +1388,7 @@ void R_Shadow_MarkVolumeFromBox(int firsttriangle, int numtris, const float *inv
 
 static qboolean R_Shadow_UseZPass(vec3_t mins, vec3_t maxs)
 {
-#if 1
 	return false;
-#else
-	if (r_shadow_compilingrtlight || !r_shadow_frontsidecasting.integer || !r_shadow_usezpassifpossible.integer)
-		return false;
-	// check if the shadow volume intersects the near plane
-	//
-	// a ray between the eye and light origin may intersect the caster,
-	// indicating that the shadow may touch the eye location, however we must
-	// test the near plane (a polygon), not merely the eye location, so it is
-	// easiest to enlarge the caster bounding shape slightly for this.
-	// TODO
-	return true;
-#endif
 }
 
 void R_Shadow_VolumeFromList(int numverts, int numtris, const float *invertex3f, const int *elements, const int *neighbors, const vec3_t projectorigin, const vec3_t projectdirection, float projectdistance, int nummarktris, const int *marktris, vec3_t trismins, vec3_t trismaxs)
@@ -1640,7 +1627,6 @@ static int R_Shadow_CullFrustumSides(rtlight_t *rtlight, float size, float borde
 	}
 	// this next test usually clips off more sides than the former, but occasionally clips fewer/different ones, so do both and combine results
 	// check if frustum corners/origin cross plane sides
-#if 1
 	// infinite version, assumes frustum corners merely give direction and extend to infinite distance
 	Matrix4x4_Transform(&rtlight->matrix_worldtolight, r_refdef.view.origin, p);
 	dp = p[0] + p[1], dn = p[0] - p[1], ap = fabs(dp), an = fabs(dn);
@@ -1666,22 +1652,6 @@ static int R_Shadow_CullFrustumSides(rtlight_t *rtlight, float size, float borde
 		if(ap > 0) masks[4] |= dp >= 0 ? (1<<4)|(1<<0) : (2<<4)|(2<<0);
 		if(an > 0) masks[5] |= dn >= 0 ? (1<<4)|(2<<0) : (2<<4)|(1<<0);
 	}
-#else
-	// finite version, assumes corners are a finite distance from origin dependent on far plane
-	for (i = 0;i < 5;i++)
-	{
-		Matrix4x4_Transform(&rtlight->matrix_worldtolight, !i ? r_refdef.view.origin : r_refdef.view.frustumcorner[i-1], p);
-		dp = p[0] + p[1], dn = p[0] - p[1], ap = fabs(dp), an = fabs(dn);
-		masks[0] |= ap <= bias*an ? 0x3F : (dp >= 0 ? (1<<0)|(1<<2) : (2<<0)|(2<<2));
-		masks[1] |= an <= bias*ap ? 0x3F : (dn >= 0 ? (1<<0)|(2<<2) : (2<<0)|(1<<2));
-		dp = p[1] + p[2], dn = p[1] - p[2], ap = fabs(dp), an = fabs(dn);
-		masks[2] |= ap <= bias*an ? 0x3F : (dp >= 0 ? (1<<2)|(1<<4) : (2<<2)|(2<<4));
-		masks[3] |= an <= bias*ap ? 0x3F : (dn >= 0 ? (1<<2)|(2<<4) : (2<<2)|(1<<4));
-		dp = p[2] + p[0], dn = p[2] - p[0], ap = fabs(dp), an = fabs(dn);
-		masks[4] |= ap <= bias*an ? 0x3F : (dp >= 0 ? (1<<4)|(1<<0) : (2<<4)|(2<<0));
-		masks[5] |= an <= bias*ap ? 0x3F : (dn >= 0 ? (1<<4)|(2<<0) : (2<<4)|(1<<0));
-	}
-#endif
 	return sides & masks[0] & masks[1] & masks[2] & masks[3] & masks[4] & masks[5];
 }
 
@@ -4297,7 +4267,6 @@ static void R_Shadow_ComputeShadowCasterCullingPlanes(rtlight_t *rtlight)
 		return;
 	}
 
-#if 1
 	// generate a deformed frustum that includes the light origin, this is
 	// used to cull shadow casting surfaces that can not possibly cast a
 	// shadow onto the visible light-receiving surfaces, which can be a
@@ -4351,16 +4320,14 @@ static void R_Shadow_ComputeShadowCasterCullingPlanes(rtlight_t *rtlight)
 			PlaneClassify(&plane);
 			// copy the plane
 			rtlight->cached_frustumplanes[rtlight->cached_numfrustumplanes++] = plane;
-#if 1
 			// if we've found 5 frustum planes then we have constructed a
 			// proper split-side case and do not need to keep searching for
 			// planes to enclose the light origin
 			if (rtlight->cached_numfrustumplanes == 5)
 				break;
-#endif
 		}
 	}
-#endif
+
 
 }
 
