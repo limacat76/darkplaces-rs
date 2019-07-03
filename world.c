@@ -2780,19 +2780,6 @@ treatasbox:
 		matrix4x4_t entitymatrix;
 		matrix4x4_t bodymatrix;
 
-#if 0
-		Con_Printf("entity %i got changed by QC\n", (int) (ed - prog->edicts));
-		if(!VectorCompare(origin, ed->priv.server->ode_origin))
-			Con_Printf("  origin: %f %f %f -> %f %f %f\n", ed->priv.server->ode_origin[0], ed->priv.server->ode_origin[1], ed->priv.server->ode_origin[2], origin[0], origin[1], origin[2]);
-		if(!VectorCompare(velocity, ed->priv.server->ode_velocity))
-			Con_Printf("  velocity: %f %f %f -> %f %f %f\n", ed->priv.server->ode_velocity[0], ed->priv.server->ode_velocity[1], ed->priv.server->ode_velocity[2], velocity[0], velocity[1], velocity[2]);
-		if(!VectorCompare(angles, ed->priv.server->ode_angles))
-			Con_Printf("  angles: %f %f %f -> %f %f %f\n", ed->priv.server->ode_angles[0], ed->priv.server->ode_angles[1], ed->priv.server->ode_angles[2], angles[0], angles[1], angles[2]);
-		if(!VectorCompare(avelocity, ed->priv.server->ode_avelocity))
-			Con_Printf("  avelocity: %f %f %f -> %f %f %f\n", ed->priv.server->ode_avelocity[0], ed->priv.server->ode_avelocity[1], ed->priv.server->ode_avelocity[2], avelocity[0], avelocity[1], avelocity[2]);
-		if(gravity != ed->priv.server->ode_gravity)
-			Con_Printf("  gravity: %i -> %i\n", ed->priv.server->ode_gravity, gravity);
-#endif
 		// values for BodyFromEntity to check if the qc modified anything later
 		VectorCopy(origin, ed->priv.server->ode_origin);
 		VectorCopy(velocity, ed->priv.server->ode_velocity);

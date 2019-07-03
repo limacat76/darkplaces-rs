@@ -107,10 +107,6 @@ static rtexture_t *draw_generateconchars(void)
 		data[i*4+0] = 27 + (unsigned char)(random * 32);
 	}
 
-#if 0
-	Image_WriteTGABGRA ("gfx/generated_conchars.tga", 256, 256, data);
-#endif
-
 	tex = R_LoadTexture2D(drawtexturepool, "conchars", 256, 256, data, TEXTYPE_BGRA, TEXF_ALPHA | (r_nearest_conchars.integer ? TEXF_FORCENEAREST : 0), -1, NULL);
 	Mem_Free(data);
 	return tex;
@@ -1153,18 +1149,6 @@ void DrawQ_Pic(float x, float y, cachepic_t *pic, float width, float height, flo
 			height = pic->height;
 		R_SetupShader_Generic(Draw_GetPicTexture(pic), NULL, GL_MODULATE, 1, (flags & DRAWFLAGS_BLEND) ? false : true, true, false);
 
-#if 0
-      // AK07: lets be texel correct on the corners
-      {
-         float horz_offset = 0.5f / pic->width;
-         float vert_offset = 0.5f / pic->height;
-
-		   floats[12] = 0.0f + horz_offset;floats[13] = 0.0f + vert_offset;
-		   floats[14] = 1.0f - horz_offset;floats[15] = 0.0f + vert_offset;
-		   floats[16] = 1.0f - horz_offset;floats[17] = 1.0f - vert_offset;
-		   floats[18] = 0.0f + horz_offset;floats[19] = 1.0f - vert_offset;
-      }
-#endif
 	}
 	else
 		R_SetupShader_Generic_NoTexture((flags & DRAWFLAGS_BLEND) ? false : true, true);
@@ -1876,46 +1860,6 @@ float DrawQ_TextWidth_UntilWidth(const char *text, size_t *maxlen, float w, floa
 {
 	return DrawQ_TextWidth_UntilWidth_TrackColors(text, maxlen, w, h, NULL, ignorecolorcodes, fnt, maxWidth);
 }
-
-#if 0
-// not used
-// no ^xrgb management
-static int DrawQ_BuildColoredText(char *output2c, size_t maxoutchars, const char *text, int maxreadchars, qboolean ignorecolorcodes, int *outcolor)
-{
-	int color, numchars = 0;
-	char *outputend2c = output2c + maxoutchars - 2;
-	if (!outcolor || *outcolor == -1)
-		color = STRING_COLOR_DEFAULT;
-	else
-		color = *outcolor;
-	if (!maxreadchars)
-		maxreadchars = 1<<30;
-	textend = text + maxreadchars;
-	while (text != textend && *text)
-	{
-		if (*text == STRING_COLOR_TAG && !ignorecolorcodes && text + 1 != textend)
-		{
-			if (text[1] == STRING_COLOR_TAG)
-				text++;
-			else if (text[1] >= '0' && text[1] <= '9')
-			{
-				color = text[1] - '0';
-				text += 2;
-				continue;
-			}
-		}
-		if (output2c >= outputend2c)
-			break;
-		*output2c++ = *text++;
-		*output2c++ = color;
-		numchars++;
-	}
-	output2c[0] = output2c[1] = 0;
-	if (outcolor)
-		*outcolor = color;
-	return numchars;
-}
-#endif
 
 void DrawQ_SuperPic(float x, float y, cachepic_t *pic, float width, float height, float s1, float t1, float r1, float g1, float b1, float a1, float s2, float t2, float r2, float g2, float b2, float a2, float s3, float t3, float r3, float g3, float b3, float a3, float s4, float t4, float r4, float g4, float b4, float a4, int flags)
 {
