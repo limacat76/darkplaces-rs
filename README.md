@@ -1,8 +1,8 @@
 ### What is this?
 
-The idea behind this project is to shrink LordHavoc's Darkplaces
-codebase[1] (forked from the Xonotic Gitlab[2]) in order to be able to
-convert it, function by function, into Rust[3].
+The idea behind this project is to shrink and refactor LordHavoc's
+Darkplaces codebase[1] (forked from the Xonotic's Gitlab[2]) in order
+to be able to convert it into Rust[3].
 
 The first phase is about removing all the build files from non windows
 /  non linux / non SDL, because I want to be able to work on a minimal
@@ -10,11 +10,17 @@ set of files and without distractions. Also, for speed reasons, I will
 only work in Visual Studio 2017 and with the SDL code.
 
 If you want to play or modify xonotic or darkplaces this is not the
-best repository :). For eventual engine updates you'd better look
-at their download pages, since this version is based on a code
-freeze. :)
+best repository :). If you want to play with compatibility of other
+Quake implementations, well, I will try to see if I am able to do it
+;). The plan is to have an 1:1 representation with data which is read
+or sent via the network, but there might be speed bumps. 
 
-The rust code will be on a different repository (To be defined).
+For eventual engine Darkplaces/Xonotic updates and corrections you'd
+better look at the Xonotic download and git pages, since this is an
+hard fork based on a code freeze. :)
+
+The rust code will be on a different repository and linked as a dll.
+(Honestly this plan has yet to be defined).
 
 [1] https://icculus.org/twilight/darkplaces/
 
@@ -30,8 +36,11 @@ The rust code will be on a different repository (To be defined).
 
 I need to split the DP Engine between the core game and a library.
 Quake didn't need this complexity until now, but for good reasons
-(unit testing and the eventual phase out of C code) it needs to
+(unit testing and the eventual phase out of C code) I need to
 start thinking in DLLs.
+
+There will also be some major refactoring or moving around of macros,
+headers and functions.
 
 #### Function Specific
 
@@ -48,7 +57,9 @@ in C and RS)
 
 #### Integrate the Rust Function
 
-* Remove the call to C (make it so that with an #ifdef it calls rust)
+* Remove the inline call to C (with a specific #ifdef)
+* Call the function on the C dll
+* Call the function on the Rust dll
 * Build Darkplaces
 * Run Darkplaces
 
@@ -65,6 +76,12 @@ This plan will probably change, but this is the initial lowdown.
 * Add a Vulkan Renderer
 * 3.0 Release
 
+### Groups
+
+* Strings Manipulation
+* Memory Manipulation
+* Networking
+
 ### Diary
 
 2/7 
@@ -75,6 +92,10 @@ This plan will probably change, but this is the initial lowdown.
 3/7
 * began writing this readme file
 * began removing the #if 0 pieces of code
+
+4/7
+* started looking around in DP_FUNC_NORETURN, DP_FUNC_PRINTF and DP_FUNC_PURE.
+DP_FUNC_PRINTF seems a good place for starting to mess with the codebase.
 
 ### Non conversion Wishlist
 
