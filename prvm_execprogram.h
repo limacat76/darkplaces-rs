@@ -1,3 +1,6 @@
+// TODO LC, Later, check if we can refactor this since including an .h file with active code translates badly
+// I understand why this choice was ok however... :)
+
 // NEED to reset startst after calling this! startst may or may not be clobbered!
 #define ADVANCE_PROFILE_BEFORE_JUMP() \
 	prog->xfunction->profile += (st - startst); \

@@ -1,5 +1,8 @@
 
 #include "quakedef.h"
+#include "console.h"
+// END 005-quakedef.h.2
+
 #include "r_shadow.h"
 
 extern cvar_t r_labelsprites_scale;

@@ -20,6 +20,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // r_surf.c: surface-related refresh code
 
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_cheats.h"
+#include "glquake.h"
+// END 005-quakedef.h.2
+
 #include "r_shadow.h"
 #include "portals.h"
 #include "csprogs.h"

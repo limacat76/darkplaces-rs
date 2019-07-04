@@ -1,4 +1,8 @@
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_platform.h"
+// END 005-quakedef.h.2
+
 #include "sv_demo.h"
 
 extern cvar_t sv_autodemo_perclient_discardable;

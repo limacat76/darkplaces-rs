@@ -1,5 +1,9 @@
 
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_cheats.h"
+// END 005-quakedef.h.2
+
 #include "polygon.h"
 #include "collision.h"
 

@@ -3,6 +3,9 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "quakedef.h"
+#include "glquake.h"
+// END 005-quakedef.h.2
+
 #include "thread.h"
 #include "dpsoftrast.h"
 

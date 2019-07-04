@@ -23,6 +23,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // on the same machine.
 
 #include "quakedef.h"
+#include "console.h"
+#include "palette.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #include "image.h"
 
 cvar_t r_mipsprites = {CVAR_SAVE, "r_mipsprites", "1", "mipmaps sprites so they render faster in the distance and do not display noise artifacts"};

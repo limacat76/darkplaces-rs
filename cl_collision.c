@@ -1,5 +1,9 @@
 
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_chase.h"
+// END 005-quakedef.h.2
+
 #include "cl_collision.h"
 
 float CL_SelectTraceLine(const vec3_t start, const vec3_t end, vec3_t impact, vec3_t normal, int *hitent, entity_render_t *ignoreent)

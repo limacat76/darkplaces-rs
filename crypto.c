@@ -1,4 +1,9 @@
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_platform.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #include "crypto.h"
 #include "common.h"
 #include "thread.h"

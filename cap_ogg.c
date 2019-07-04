@@ -4,6 +4,9 @@
 #include <sys/types.h>
 
 #include "quakedef.h"
+#include "console.h"
+// END 005-quakedef.h.2
+
 #include "client.h"
 #include "cap_ogg.h"
 

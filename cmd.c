@@ -20,6 +20,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // cmd.c -- Quake script command processing module
 
 #include "quakedef.h"
+#include "console.h"
+#include "csprogs.h"
+#include "ltx_platform.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #include "thread.h"
 
 typedef struct cmdalias_s

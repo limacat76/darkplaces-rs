@@ -1,4 +1,9 @@
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_cheats.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #include "fs.h"
 #include "libcurl.h"
 #include "thread.h"

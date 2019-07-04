@@ -135,6 +135,13 @@ demonstrated by the game Doom3.
 */
 
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_cheats.h"
+#include "glquake.h"
+#include "palette.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #include "r_shadow.h"
 #include "cl_collision.h"
 #include "portals.h"

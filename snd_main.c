@@ -20,6 +20,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // snd_main.c -- main control for any streaming sound output device
 
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_cheats.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
 
 #include "snd_main.h"
 #include "snd_ogg.h"

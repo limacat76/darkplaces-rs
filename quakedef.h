@@ -42,7 +42,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "fs.h"					// 7
 #include "common.h"				// 21
 #include "cvar.h"				// 404
-#include "bspfile.h"			// 0 ?
+#include "bspfile.h"			// 17638
 #include "sys.h"				// 1495
 #include "vid.h"				// 2054
 #include "mathlib.h"			// 405
@@ -69,22 +69,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "server.h"				// 2496
 
 #include "input.h"				// 178
-#include "keys.h"				// 1112
-#include "console.h"			// 298
-#ifdef CONFIG_MENU
-#include "menu.h"				// 226
-#endif
-#include "csprogs.h"			// 2
+#include "keys.h"
 
-#include "ltx_cheats.h"			// 604
-#include "glquake.h"			// 1595
-#include "palette.h"			// 202
-
-#include "ltx_platform.h"		// 42
-
-#include "ltx_network.h"		// 378
-#include "ltx_chase.h"			// 416
-#include "ltx_fractalnoise.h"   // 378
-
+/*
+#include "keys.h"
+// END 005-quakedef.h.2
+*/
 #endif
 

@@ -1,4 +1,10 @@
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_cheats.h"
+#include "palette.h"
+#include "ltx_chase.h"
+#include "glquake.h"
+// END 005-quakedef.h.2
 
 #include "prvm_cmds.h"
 #include "csprogs.h"

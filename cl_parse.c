@@ -20,6 +20,13 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // cl_parse.c  -- parse a message received from the server
 
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_cheats.h"
+#include "palette.h"
+#include "ltx_platform.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #ifdef CONFIG_CD
 #include "cdaudio.h"
 #endif

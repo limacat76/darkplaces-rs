@@ -20,6 +20,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
 #include "quakedef.h"
+#include "console.h"
+// END 005-quakedef.h.2
+
 #include "image.h"
 #include "wad.h"
 

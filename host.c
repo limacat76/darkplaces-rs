@@ -20,6 +20,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // host.c -- coordinates spawning and killing of local servers
 
 #include "quakedef.h"
+#include "console.h"
+#ifdef CONFIG_MENU
+#include "menu.h"
+#endif
+#include "palette.h"
+#include "ltx_platform.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
 
 #include <time.h>
 #include "libcurl.h"

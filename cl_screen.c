@@ -1,5 +1,14 @@
 
 #include "quakedef.h"
+#include "console.h"
+#ifdef CONFIG_MENU
+#include "menu.h"
+#endif
+#include "glquake.h"
+#include "palette.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #include "cl_video.h"
 #include "image.h"
 #include "jpeg.h"

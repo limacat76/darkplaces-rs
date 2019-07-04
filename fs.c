@@ -38,11 +38,9 @@
 #endif
 
 #include "quakedef.h"
-
-#if TARGET_OS_IPHONE
-// include SDL for IPHONEOS code
-# include <SDL.h>
-#endif
+#include "console.h"
+#include "ltx_cheats.h"
+// END 005-quakedef.h.2
 
 #include "thread.h"
 

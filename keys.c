@@ -21,6 +21,13 @@
 */
 
 #include "quakedef.h"
+#include "console.h"
+#ifdef CONFIG_MENU
+#include "menu.h"
+#endif
+#include "ltx_cheats.h"
+// END 005-quakedef.h.2
+
 #include "cl_video.h"
 #include "utf8lib.h"
 #include "csprogs.h"

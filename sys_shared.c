@@ -5,6 +5,10 @@
 #endif
 
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #include "thread.h"
 
 #define SUPPORTDLL

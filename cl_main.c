@@ -20,6 +20,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // cl_main.c  -- client main loop
 
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_cheats.h"
+#ifdef CONFIG_MENU
+#include "menu.h"				// 226
+#endif
+#include "ltx_cheats.h"
+#include "palette.h"
+#include "ltx_platform.h"
+#include "ltx_network.h"
+#include "ltx_chase.h"
+// END 005-quakedef.h.2
+
 #include "cl_collision.h"
 #include "cl_video.h"
 #include "image.h"

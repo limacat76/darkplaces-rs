@@ -5,6 +5,11 @@
 // also applies here
 
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_cheats.h"
+#include "ltx_platform.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
 
 #include "prvm_cmds.h"
 #include "libcurl.h"

@@ -1,5 +1,10 @@
 
 #include "quakedef.h"
+#include "console.h"
+#include "glquake.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #ifdef SUPPORTD3D
 #include <d3d9.h>
 extern LPDIRECT3DDEVICE9 vid_d3d9dev;

@@ -20,6 +20,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // cvar.c -- dynamic variable tracking
 
 #include "quakedef.h"
+#include "console.h"
+#include "ltx_cheats.h"
+#include "ltx_platform.h"
+// END 005-quakedef.h.2
 
 const char *cvar_dummy_description = "custom cvar";
 

@@ -1,5 +1,11 @@
 
 #include "quakedef.h"
+#include "console.h"
+#include "glquake.h"
+#include "palette.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #ifdef CONFIG_CD
 #include "cdaudio.h"
 #endif

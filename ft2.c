@@ -2,6 +2,9 @@
  * DarkPlaces
  */
 #include "quakedef.h"
+#include "console.h"
+#include "glquake.h"
+ // END 005-quakedef.h.2
 
 #include "ft2.h"
 #include "ft2_defs.h"

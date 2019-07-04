@@ -1,6 +1,9 @@
 // Andreas Kirsch 07
 
 #include "quakedef.h"
+#include "console.h"
+// END 005-quakedef.h.2
+
 #include "cl_dyntexture.h"
 
 typedef struct dyntexture_s {

@@ -1,4 +1,8 @@
 #include "quakedef.h"
+#include "console.h"
+#include "csprogs.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
 
 #define ENTITYSIZEPROFILING_START(msg, num, flags) \
 	int entityprofiling_startsize = msg->cursize

@@ -1,5 +1,7 @@
 
 #include "quakedef.h"
+#include "console.h"
+// END 005-quakedef.h.2
 
 void fractalnoise(unsigned char *noise, int size, int startgrid)
 {

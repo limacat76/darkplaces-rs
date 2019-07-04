@@ -23,6 +23,9 @@
 
 
 #include "quakedef.h"
+#include "console.h"
+// END 005-quakedef.h.2
+
 #include "image.h"
 #include "jpeg.h"
 #include "image_png.h"

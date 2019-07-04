@@ -1,5 +1,9 @@
 
 #include "quakedef.h"
+#include "console.h"
+#include "palette.h"
+// END 005-quakedef.h.2
+
 #include "image.h"
 
 cvar_t r_colormap_palette = {0, "r_colormap_palette", "gfx/colormap_palette.lmp", "name of a palette lmp file to override the shirt/pants colors of player models. It consists of 16 shirt colors, 16 scoreboard shirt colors, 16 pants colors and 16 scoreboard pants colors"};

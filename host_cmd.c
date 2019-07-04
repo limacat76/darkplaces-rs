@@ -19,6 +19,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "quakedef.h"
+#include "console.h"
+#ifdef CONFIG_MENU
+#include "menu.h"
+#endif
+#include "ltx_platform.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #include "sv_demo.h"
 #include "image.h"
 

@@ -1,5 +1,10 @@
 
 #include "quakedef.h"
+#include "console.h"
+#include "glquake.h"
+#include "ltx_network.h"
+// END 005-quakedef.h.2
+
 #include "cl_dyntexture.h"
 #include "cl_video.h"
 

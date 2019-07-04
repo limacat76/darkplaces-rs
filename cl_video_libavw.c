@@ -23,6 +23,10 @@
 
 // LordHavoc: for some reason this is being #include'd rather than treated as its own file...
 // LordHavoc: adapted to not require stdint.h as this is not available on MSVC++, using unsigned char instead of uint8_t and fs_offset_t instead of int64_t.
+// limaCAT: thanks for the tips, my lord
+
+#include "console.h"
+// END 005-quakedef.h.2
 
 // scaler type
 #define LIBAVW_SCALER_BILINEAR  0
