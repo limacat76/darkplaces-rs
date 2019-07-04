@@ -1546,7 +1546,9 @@ static void Mod_Q1BSP_LoadTextures(sizebuf_t *sb)
 		}
 
 		// bump it back to where we started parsing
+		#pragma warning(disable:4267)
 		sb->readcount = watermark;
+		#pragma warning(default:4267)
 
 		firstskynoshadowtexture = loadmodel->num_textures;
 		loadmodel->num_textures += numsky;

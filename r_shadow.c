@@ -6302,7 +6302,10 @@ void R_Shadow_LoadWorldLights(void)
 #if MAX_QPATH != 128
 #error update this code if MAX_QPATH changes
 #endif
+			// TODO LC remove #pragma warning
+			#pragma warning(disable:4477)
 			a = sscanf(t, "%f %f %f %f %f %f %f %d %127s %f %f %f %f %f %f %f %f %i", &origin[0], &origin[1], &origin[2], &radius, &color[0], &color[1], &color[2], &style, cubemapname
+			#pragma warning(default:4477)
 #if _MSC_VER >= 1400
 , sizeof(cubemapname)
 #endif
