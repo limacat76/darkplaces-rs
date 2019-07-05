@@ -5,6 +5,7 @@
 // also applies here
 
 #include "quakedef.h"
+#include "keys.h"
 #include "console.h"
 #include "ltx_cheats.h"
 #include "ltx_platform.h"

@@ -1,5 +1,6 @@
 
 #include "quakedef.h"
+#include "keys.h"
 #include "console.h"
 #ifdef CONFIG_MENU
 #include "menu.h"
