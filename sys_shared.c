@@ -5,6 +5,7 @@
 #endif
 
 #include "quakedef.h"
+#include "server.h"
 #include "console.h"
 #include "ltx_network.h"
 // END 005-quakedef.h.2

@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // AK new vm
 
 #include "quakedef.h"
+#include "server.h"
 #include "console.h"
 #include "ltx_cheats.h"
 #include "ltx_platform.h"

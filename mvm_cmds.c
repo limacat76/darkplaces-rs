@@ -1,4 +1,5 @@
 #include "quakedef.h"
+#include "server.h"
 #include "input.h"
 #include "keys.h"
 #include "console.h"

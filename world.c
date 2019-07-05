@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // world.c -- world query functions
 
 #include "quakedef.h"
+#include "server.h"
 #include "console.h"
 #include "ltx_cheats.h"
 // END 005-quakedef.h.2
