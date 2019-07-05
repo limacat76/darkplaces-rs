@@ -1,7 +1,7 @@
-
 // This code written in 2010 by Forest Hale (darkplacesengine gmail com), and placed into public domain.
 
-// Based on information in http://zach.in.tu-clausthal.de/papers/vrst02.html (in particular vrst02_boxtree.pdf)
+// Based on information in https://web.archive.org/web/20160303205548/http://zach.in.tu-clausthal.de/papers/vrst02.html
+// (in particular vrst02_boxtree.pdf)
 
 #ifndef BIH_H
 #define BIH_H
