@@ -1,6 +1,9 @@
 #ifndef CSPROGS_H
 #define CSPROGS_H
 
+#include "progsvm.h"
+// END 005-quakedef.h.2
+
 // LordHavoc: changed to match MAX_EDICTS
 #define CL_MAX_EDICTS MAX_EDICTS
 

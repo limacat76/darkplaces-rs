@@ -22,6 +22,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef SERVER_H
 #define SERVER_H
 
+#include "progsvm.h"
+// END 005-quakedef.h.2
+
 typedef struct server_static_s
 {
 	/// number of svs.clients slots (updated by maxplayers command)
