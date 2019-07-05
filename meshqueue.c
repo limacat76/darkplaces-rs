@@ -1,5 +1,8 @@
 
 #include "quakedef.h"
+#include "render.h"
+// END 005-quakedef.h.2
+
 #include "meshqueue.h"
 
 typedef struct meshqueue_s

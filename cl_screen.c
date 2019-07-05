@@ -1,5 +1,6 @@
 
 #include "quakedef.h"
+#include "render.h"
 #include "server.h"
 #include "input.h"
 #include "keys.h"

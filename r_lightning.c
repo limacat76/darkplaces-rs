@@ -1,5 +1,8 @@
 
 #include "quakedef.h"
+#include "render.h"
+// END 005-quakedef.h.2
+
 #include "image.h"
 
 cvar_t r_lightningbeam_thickness = {CVAR_SAVE, "r_lightningbeam_thickness", "8", "thickness of the lightning beam effect"};

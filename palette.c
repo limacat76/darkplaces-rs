@@ -1,5 +1,6 @@
 
 #include "quakedef.h"
+#include "render.h"
 #include "console.h"
 #include "palette.h"
 // END 005-quakedef.h.2

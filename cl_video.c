@@ -1,5 +1,6 @@
 
 #include "quakedef.h"
+#include "render.h"
 #include "keys.h"
 #include "console.h"
 #include "glquake.h"

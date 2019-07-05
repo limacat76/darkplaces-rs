@@ -1,4 +1,5 @@
 #include "quakedef.h"
+#include "render.h"
 #include "server.h"
 #include "console.h"
 #include "ltx_network.h"

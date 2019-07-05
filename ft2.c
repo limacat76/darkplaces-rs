@@ -2,6 +2,7 @@
  * DarkPlaces
  */
 #include "quakedef.h"
+#include "render.h"
 #include "console.h"
 #include "glquake.h"
  // END 005-quakedef.h.2

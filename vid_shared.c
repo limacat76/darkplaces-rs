@@ -1,5 +1,6 @@
 
 #include "quakedef.h"
+#include "render.h"
 #include "progsvm.h"
 #include "keys.h"
 #include "console.h"
