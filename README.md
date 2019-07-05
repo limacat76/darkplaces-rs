@@ -94,8 +94,12 @@ This plan will probably change, but this is the initial lowdown.
 * began removing the #if 0 pieces of code
 
 4/7
-* started looking around in DP_FUNC_NORETURN, DP_FUNC_PRINTF and DP_FUNC_PURE.
-DP_FUNC_PRINTF seems a good place for starting to mess with the codebase.
+* started looking around in DP_FUNC_NORETURN, DP_FUNC_PRINTF and 
+DP_FUNC_PURE. DP_FUNC_PRINTF seems a good place for starting to mess
+with the codebase.
+* began moving includes out of quakedef.h, it had sense in the 90's to
+keep includes more centralized (in order to keep building times as low
+as possible).
 
 ### Non conversion Wishlist
 
