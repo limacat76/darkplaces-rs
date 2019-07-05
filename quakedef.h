@@ -64,10 +64,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "world.h"				// 17633
 #include "client.h"				// 17654
 #include "render.h"				// 1833
-#include "progs.h"				// 17638
 
 /*
-#include "progsvm.h"
+#include "progs.h"
 // END 005-quakedef.h.2
 
 */
