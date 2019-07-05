@@ -1,4 +1,5 @@
 #include "quakedef.h"
+#include "input.h"
 #include "keys.h"
 #include "console.h"
 #include "ltx_cheats.h"

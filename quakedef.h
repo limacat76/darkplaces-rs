@@ -68,10 +68,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "progsvm.h"			// 17675
 #include "server.h"				// 2496
 
-#include "input.h"				// 178
 
 /*
-#include "keys.h"
+#include "input.h"
 // END 005-quakedef.h.2
 
 */
