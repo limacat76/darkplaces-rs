@@ -22,6 +22,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef CLIENT_H
 #define CLIENT_H
 
+#include "model_shared.h"
+// END 005-quakedef.h.2
+
 #include "world.h"
 #include "matrixlib.h"
 #include "snd_main.h"

@@ -2,6 +2,9 @@
 #ifndef COLLISION_H
 #define COLLISION_H
 
+#include "model_shared.h"
+// END 005-quakedef.h.2
+
 typedef union plane_s
 {
 	struct
