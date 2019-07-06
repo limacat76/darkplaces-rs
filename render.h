@@ -21,6 +21,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef RENDER_H
 #define RENDER_H
 
+#include "client.h"
+// END 005-quakedef.h.2
+
 #include "svbsp.h"
 
 // 1.0f / N table

@@ -2,6 +2,9 @@
 #ifndef GL_BACKEND_H
 #define GL_BACKEND_H
 
+# include "client.h"
+// END 005-quakedef.h.2
+
 extern r_viewport_t gl_viewport;
 extern matrix4x4_t gl_modelmatrix;
 extern matrix4x4_t gl_viewmatrix;

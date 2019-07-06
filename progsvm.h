@@ -29,6 +29,7 @@ The code uses void pointers instead.
 #ifndef PROGSVM_H
 #define PROGSVM_H
 
+#include "client.h"
 #include "progs.h"
 // END 005-quakedef.h.2
 

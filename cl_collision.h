@@ -2,6 +2,7 @@
 #ifndef CL_COLLISION_H
 #define CL_COLLISION_H
 
+#include "client.h"
 #include "progsvm.h"
 // END 005-quakedef.h.2
 
