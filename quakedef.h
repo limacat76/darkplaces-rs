@@ -61,11 +61,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "sbar.h"				// 6
 #include "sound.h"				// 17643
 #include "model_shared.h"		// 17705
-#include "world.h"				// 17633
+// 17633
 // 1833
 
 /*
-#include "client.h"
+#include "world.h"
 // END 005-quakedef.h.2
 
 */
