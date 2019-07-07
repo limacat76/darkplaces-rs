@@ -36,38 +36,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "dpsoftrast.h"
 #include "utf8lib.h"
 
-#ifndef __IPHONEOS__
-#ifdef MACOSX
-#include <Carbon/Carbon.h>
-#include <IOKit/hidsystem/IOHIDLib.h>
-#include <IOKit/hidsystem/IOHIDParameter.h>
-#include <IOKit/hidsystem/event_status_driver.h>
-static cvar_t apple_mouse_noaccel = {CVAR_SAVE, "apple_mouse_noaccel", "1", "disables mouse acceleration while DarkPlaces is active"};
-static bool vid_usingnoaccel;
-static double originalMouseSpeed = -1.0;
-io_connect_t IN_GetIOHandle(void)
-{
-	io_connect_t iohandle = MACH_PORT_NULL;
-	kern_return_t status;
-	io_service_t iohidsystem = MACH_PORT_NULL;
-	mach_port_t masterport;
-
-	status = IOMasterPort(MACH_PORT_NULL, &masterport);
-	if(status != KERN_SUCCESS)
-		return 0;
-
-	iohidsystem = IORegistryEntryFromPath(masterport, kIOServicePlane ":/IOResources/IOHIDSystem");
-	if(!iohidsystem)
-		return 0;
-
-	status = IOServiceOpen(iohidsystem, mach_task_self(), kIOHIDParamConnectType, &iohandle);
-	IOObjectRelease(iohidsystem);
-
-	return iohandle;
-}
-#endif
-#endif
-
 #ifdef WIN32
 #define SDL_R_RESTART
 #endif
@@ -223,11 +191,7 @@ static int MapKey( unsigned int sdlkey )
 	case SDLK_INSERT:             return K_INS;
 	case SDLK_HOME:               return K_HOME;
 	case SDLK_PAGEUP:             return K_PGUP;
-#ifdef __IPHONEOS__
-	case SDLK_DELETE:             return K_BACKSPACE;
-#else
 	case SDLK_DELETE:             return K_DEL;
-#endif
 	case SDLK_END:                return K_END;
 	case SDLK_PAGEDOWN:           return K_PGDN;
 	case SDLK_RIGHT:              return K_RIGHTARROW;
@@ -1483,11 +1447,7 @@ void Sys_SendKeyEvents( void )
 
 #ifdef USE_GLES2
 #ifndef qglClear
-#ifdef __IPHONEOS__
-#include <OpenGLES/ES2/gl.h>
-#else
 #include <SDL_opengles.h>
-#endif
 
 //#define PRECALL //Con_Printf("GLCALL %s:%i\n", __FILE__, __LINE__)
 #define PRECALL
@@ -2084,11 +2044,6 @@ static bool vid_sdl_initjoysticksystem = false;
 
 void VID_Init (void)
 {
-#ifndef __IPHONEOS__
-#ifdef MACOSX
-	Cvar_RegisterVariable(&apple_mouse_noaccel);
-#endif
-#endif
 #ifdef DP_MOBILETOUCH
 	Cvar_SetValueQuick(&vid_touchscreen, 1);
 #endif

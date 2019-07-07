@@ -1838,17 +1838,7 @@ void FS_Init_SelfPack (void)
 
 static int FS_ChooseUserDir(userdirmode_t userdirmode, char *userdir, size_t userdirsize)
 {
-#if defined(__IPHONEOS__)
-	if (userdirmode == USERDIRMODE_HOME)
-	{
-		// fs_basedir is "" by default, to utilize this you can simply add your gamedir to the Resources in xcode
-		// fs_userdir stores configurations to the Documents folder of the app
-		strlcpy(userdir, "../Documents/", MAX_OSPATH);
-		return 1;
-	}
-	return -1;
-
-#elif defined(WIN32)
+#if defined(WIN32)
 	char *homedir;
 #if _MSC_VER >= 1400
 	size_t homedirlen;
@@ -1902,13 +1892,6 @@ static int FS_ChooseUserDir(userdirmode_t userdirmode, char *userdir, size_t use
 		{
 			savedgamesdir[0] = 0;
 			qCoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-/*
-#ifdef __cplusplus
-			if (SHGetKnownFolderPath(FOLDERID_SavedGames, KF_FLAG_CREATE | KF_FLAG_NO_ALIAS, NULL, &savedgamesdirw) == S_OK)
-#else
-			if (SHGetKnownFolderPath(&FOLDERID_SavedGames, KF_FLAG_CREATE | KF_FLAG_NO_ALIAS, NULL, &savedgamesdirw) == S_OK)
-#endif
-*/
 			if (qSHGetKnownFolderPath(&qFOLDERID_SavedGames, qKF_FLAG_CREATE | qKF_FLAG_NO_ALIAS, NULL, &savedgamesdirw) == S_OK)
 			{
 				memset(savedgamesdir, 0, sizeof(savedgamesdir));
@@ -1952,27 +1935,12 @@ static int FS_ChooseUserDir(userdirmode_t userdirmode, char *userdir, size_t use
 		homedir = getenv("HOME");
 		if(homedir)
 		{
-#ifdef MACOSX
-			dpsnprintf(userdir, userdirsize, "%s/Library/Application Support/%s/", homedir, gameuserdirname);
-#else
-			// the XDG say some files would need to go in:
-			// XDG_CONFIG_HOME (or ~/.config/%s/)
-			// XDG_DATA_HOME (or ~/.local/share/%s/)
-			// XDG_CACHE_HOME (or ~/.cache/%s/)
-			// and also search the following global locations if defined:
-			// XDG_CONFIG_DIRS (normally /etc/xdg/%s/)
-			// XDG_DATA_DIRS (normally /usr/share/%s/)
-			// this would be too complicated...
-			return -1;
-#endif
 			break;
 		}
 		return -1;
 	}
 #endif
 
-
-#if !defined(__IPHONEOS__)
 
 #ifdef WIN32
 	// historical behavior...
@@ -2004,7 +1972,7 @@ static int FS_ChooseUserDir(userdirmode_t userdirmode, char *userdir, size_t use
 		else
 			return 0; // probably good - failed to write but maybe we need to create path
 	}
-#endif
+
 }
 
 /*

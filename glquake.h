@@ -22,11 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define GLQUAKE_H
 
 #ifdef USE_GLES2
-#ifdef __IPHONEOS__
-#include <OpenGLES/ES2/gl.h>
-#else
 #include <SDL_opengles2.h>
-#endif
 // used in R_SetupShader_Generic calls, not actually passed to GL
 #ifndef GL_MODULATE
 #define GL_MODULATE				0x2100

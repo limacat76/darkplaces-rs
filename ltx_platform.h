@@ -20,14 +20,6 @@ extern cvar_t sessionid;
 # define LINK_TO_LIBVORBIS 1
 # define DP_MOBILETOUCH	1
 # define DP_FREETYPE_STATIC 1
-#elif TARGET_OS_IPHONE /* must come first because it also defines MACOSX */
-# define DP_OS_NAME		"iPhoneOS"
-# define DP_OS_STR		"iphoneos"
-# define USE_GLES2		1
-# define LINK_TO_ZLIB	1
-# define LINK_TO_LIBVORBIS 1
-# define DP_MOBILETOUCH	1
-# define DP_FREETYPE_STATIC 1
 #elif defined(__linux__)
 # define DP_OS_NAME		"Linux"
 # define DP_OS_STR		"linux"
@@ -46,9 +38,6 @@ extern cvar_t sessionid;
 #elif defined(__OpenBSD__)
 # define DP_OS_NAME		"OpenBSD"
 # define DP_OS_STR		"openbsd"
-#elif defined(MACOSX)
-# define DP_OS_NAME		"Mac OS X"
-# define DP_OS_STR		"osx"
 #elif defined(__MORPHOS__)
 # define DP_OS_NAME		"MorphOS"
 # define DP_OS_STR		"morphos"
