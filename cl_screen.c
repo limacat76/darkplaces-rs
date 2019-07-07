@@ -1,5 +1,5 @@
-
 #include "quakedef.h"
+#include "sbar.h"
 #include "render.h"
 #include "server.h"
 #include "input.h"
