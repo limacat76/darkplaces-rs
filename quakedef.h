@@ -50,8 +50,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "draw.h"				// 3236
 // #include "screen.h"				// 372
 
-#if 1
+#if 0
 #define QUAKEDEF_GAMENAME "005-quakedef.h.2.screen.h"
+#endif
+#if 1
+#define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c005"
 #endif
 
 #if 0
