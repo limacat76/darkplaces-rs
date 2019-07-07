@@ -33,7 +33,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <limits.h>
 #include <setjmp.h>
 
-#include "ltx_dpfunctions.h"	// 17652
 #include "qtypes.h"				// 17711
 #include "ltx_engine.h"			// 26
 #include "ltx_dpmemory.h"		// 17664
@@ -52,10 +51,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // #include "screen.h"				// 372
 
 #if 1
-#define QUAKEDEF_GAMENAME "007-qboolean"
+#define QUAKEDEF_GAMENAME "008-ltx_dpfunctions.h"
 #endif
 #if 0
-#define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c007"
+#define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c008"
 #endif
 
 #if 0

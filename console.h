@@ -43,19 +43,19 @@ void Con_DrawConsole (int lines);
 void Con_MaskPrint(int mask, const char *msg);
 
 // Prints to a chosen console target
-void Con_MaskPrintf(int mask, const char *fmt, ...) DP_FUNC_PRINTF(2);
+void Con_MaskPrintf(int mask, const char *fmt, ...);
 
 /// Prints to all appropriate console targets, and adds timestamps
 void Con_Print(const char *txt);
 
 /// Prints to all appropriate console targets.
-void Con_Printf(const char *fmt, ...) DP_FUNC_PRINTF(1);
+void Con_Printf(const char *fmt, ...);
 
 /// A Con_Print that only shows up if the "developer" cvar is set.
 void Con_DPrint(const char *msg);
 
 /// A Con_Printf that only shows up if the "developer" cvar is set
-void Con_DPrintf(const char *fmt, ...) DP_FUNC_PRINTF(1);
+void Con_DPrintf(const char *fmt, ...);
 void Con_Clear_f (void);
 void Con_DrawNotify (void);
 
@@ -86,7 +86,7 @@ void Log_Close (void);
 void Log_Start (void);
 void Log_DestBuffer_Flush (void); ///< call this once per frame to send out replies to rcon streaming clients
 
-void Log_Printf(const char *logfilename, const char *fmt, ...) DP_FUNC_PRINTF(2);
+void Log_Printf(const char *logfilename, const char *fmt, ...);
 //@}
 
 // CON_MASK_PRINT is the default (Con_Print/Con_Printf)

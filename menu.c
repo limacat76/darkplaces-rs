@@ -5217,7 +5217,7 @@ static int m_numrequiredglobals = sizeof(m_required_globals) / sizeof(m_required
 
 void MR_SetRouting (bool forceold);
 
-void MVM_error_cmd(const char *format, ...) DP_FUNC_PRINTF(1);
+void MVM_error_cmd(const char *format, ...);
 void MVM_error_cmd(const char *format, ...)
 {
 	prvm_prog_t *prog = MVM_prog;
