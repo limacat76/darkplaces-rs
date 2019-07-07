@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // sv_user.c -- server code for moving users
 
 #include "quakedef.h"
+#include "cmd.h"
 #include "console.h"
 #include "ltx_cheats.h"
 #include "ltx_network.h"

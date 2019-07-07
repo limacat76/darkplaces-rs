@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // cmd.c -- Quake script command processing module
 
 #include "quakedef.h"
+#include "cmd.h"
 #include "server.h"
 #include "console.h"
 #include "csprogs.h"

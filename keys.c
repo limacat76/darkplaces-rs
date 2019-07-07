@@ -21,6 +21,7 @@
 */
 
 #include "quakedef.h"
+#include "cmd.h"
 #include "keys.h"
 #include "console.h"
 #ifdef CONFIG_MENU

@@ -5,6 +5,7 @@
 // also applies here
 
 #include "quakedef.h"
+#include "cmd.h"
 #include "render.h"
 #include "server.h"
 #include "keys.h"

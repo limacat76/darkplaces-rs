@@ -20,6 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // Z_zone.c
 
 #include "quakedef.h"
+#include "cmd.h"
 #include "render.h"
 #include "console.h"
 // END 005-quakedef.h.2

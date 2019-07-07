@@ -19,6 +19,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "quakedef.h"
+#include "cmd.h"
 #include "render.h"
 #include "console.h"
 #include "ltx_cheats.h"
@@ -65,8 +66,7 @@ static int numcachepics;
 
 rtexturepool_t *drawtexturepool;
 
-static const unsigned char concharimage[FONT_FILESIZE] =
-{
+static const unsigned char concharimage[FONT_FILESIZE] = {
 #include "lhfont.h"
 };
 
