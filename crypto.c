@@ -272,8 +272,6 @@ static bool Crypto_OpenLibrary (void)
 	{
 #if defined(WIN32)
 		"libd0_blind_id-0.dll",
-#elif defined(MACOSX)
-		"libd0_blind_id.0.dylib",
 #else
 		"libd0_blind_id.so.0",
 		"libd0_blind_id.so", // FreeBSD
@@ -341,8 +339,6 @@ static bool Crypto_Rijndael_OpenLibrary (void)
 	{
 #if defined(WIN32)
 		"libd0_rijndael-0.dll",
-#elif defined(MACOSX)
-		"libd0_rijndael.0.dylib",
 #else
 		"libd0_rijndael.so.0",
 		"libd0_rijndael.so", // FreeBSD

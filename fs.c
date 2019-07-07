@@ -521,8 +521,6 @@ static bool PK3_OpenLibrary (void)
 # else
 		"zlib1.dll",
 # endif
-#elif defined(MACOSX)
-		"libz.dylib",
 #else
 		"libz.so.1",
 		"libz.so",
@@ -2007,35 +2005,6 @@ void FS_Init (void)
 		strlcpy(fs_basedir, DP_FS_BASEDIR, sizeof(fs_basedir));
 #elif defined(__ANDROID__)
 		dpsnprintf(fs_basedir, sizeof(fs_basedir), "/sdcard/%s/", gameuserdirname);
-#elif defined(MACOSX)
-		// FIXME: is there a better way to find the directory outside the .app, without using Objective-C?
-		if (strstr(com_argv[0], ".app/"))
-		{
-			char *split;
-			strlcpy(fs_basedir, com_argv[0], sizeof(fs_basedir));
-			split = strstr(fs_basedir, ".app/");
-			if (split)
-			{
-				struct stat statresult;
-				char vabuf[1024];
-				// truncate to just after the .app/
-				split[5] = 0;
-				// see if gamedir exists in Resources
-				if (stat(va(vabuf, sizeof(vabuf), "%s/Contents/Resources/%s", fs_basedir, gamedirname1), &statresult) == 0)
-				{
-					// found gamedir inside Resources, use it
-					strlcat(fs_basedir, "Contents/Resources/", sizeof(fs_basedir));
-				}
-				else
-				{
-					// no gamedir found in Resources, gamedir is probably
-					// outside the .app, remove .app part of path
-					while (split > fs_basedir && *split != '/')
-						split--;
-					*split = 0;
-				}
-			}
-		}
 #endif
 	}
 

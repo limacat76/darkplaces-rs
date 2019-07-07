@@ -155,11 +155,6 @@ bool PNG_OpenLibrary (void)
 		"libpng14-14.dll",
 		"libpng14.dll",
 		"libpng12.dll",
-#elif defined(MACOSX)
-		"libpng16.16.dylib",
-		"libpng15.15.dylib",
-		"libpng14.14.dylib",
-		"libpng12.0.dylib",
 #else
 		"libpng16.so.16",
 		"libpng15.so.15", // WTF libtool guidelines anyone?
@@ -517,7 +512,7 @@ bool PNG_SaveImage_preflipped (const char *filename, int width, int height, bool
 #ifdef __cplusplus
 #ifdef WIN64
 	if (setjmp((_JBTYPE *)png))
-#elif defined(MACOSX) || defined(WIN32)
+#elif defined(WIN32)
 	if (setjmp((int *)png))
 #elif defined(__ANDROID__)
 	if (setjmp((long *)png))

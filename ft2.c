@@ -351,9 +351,6 @@ bool Font_OpenLibrary (void)
 #if defined(WIN32)
 		"libfreetype-6.dll",
 		"freetype6.dll",
-#elif defined(MACOSX)
-		"libfreetype.6.dylib",
-		"libfreetype.dylib",
 #else
 		"libfreetype.so.6",
 		"libfreetype.so",

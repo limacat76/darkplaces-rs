@@ -501,8 +501,6 @@ bool JPEG_OpenLibrary (void)
 	{
 #if defined(WIN32)
 		"libjpeg.dll",
-#elif defined(MACOSX)
-		"libjpeg.62.dylib",
 #else
 		"libjpeg.so.62",
 		"libjpeg.so",

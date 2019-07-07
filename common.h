@@ -28,10 +28,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 # define strncasecmp _strnicmp
 #endif
 
-// Create our own define for Mac OS X
-#if defined(__APPLE__) && defined(__MACH__)
-# define MACOSX
-#endif
 
 #ifdef SUNOS
 #include <sys/file.h>		///< Needed for FNDELAY
