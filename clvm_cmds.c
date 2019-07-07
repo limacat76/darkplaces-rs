@@ -1119,7 +1119,7 @@ static void VM_CL_R_AddDynamicLight (prvm_prog_t *prog)
 	int pflags = PFLAGS_CORONA | PFLAGS_FULLDYNAMIC;
 	float coronaintensity = 1;
 	float coronasizescale = 0.25;
-	qboolean castshadow = true;
+	bool castshadow = true;
 	float ambientscale = 0;
 	float diffusescale = 1;
 	float specularscale = 1;
@@ -1378,7 +1378,7 @@ static void VM_CL_boxparticles (prvm_prog_t *prog)
 	vec3_t origin_from, origin_to, dir_from, dir_to;
 	float count;
 	int flags;
-	qboolean istrail;
+	bool istrail;
 	float tintmins[4], tintmaxs[4], fade;
 	VM_SAFEPARMCOUNTRANGE(7, 8, VM_CL_boxparticles);
 
@@ -2402,7 +2402,7 @@ int CL_GetPitchSign(prvm_prog_t *prog, prvm_edict_t *ent)
 	return 1;
 }
 
-void CL_GetEntityMatrix (prvm_prog_t *prog, prvm_edict_t *ent, matrix4x4_t *out, qboolean viewmatrix)
+void CL_GetEntityMatrix (prvm_prog_t *prog, prvm_edict_t *ent, matrix4x4_t *out, bool viewmatrix)
 {
 	float scale;
 	float pitchsign = 1;
@@ -2638,7 +2638,7 @@ static void VM_CL_gettaginfo (prvm_prog_t *prog)
 typedef struct vmparticletheme_s
 {
 	unsigned short typeindex;
-	qboolean initialized;
+	bool initialized;
 	pblend_t blendmode;
 	porientation_t orientation;
 	int color1;
@@ -2654,7 +2654,7 @@ typedef struct vmparticletheme_s
 	float liquidfriction;
 	float originjitter;
 	float velocityjitter;
-	qboolean qualityreduction;
+	bool qualityreduction;
 	float lifetime;
 	float stretch;
 	int staincolor1;
@@ -2672,8 +2672,8 @@ typedef struct vmparticletheme_s
 typedef struct vmparticlespawner_s
 {
 	mempool_t			*pool;
-	qboolean			initialized;
-	qboolean			verified;
+	bool			initialized;
+	bool			verified;
 	vmparticletheme_t	*themes;
 	int					max_themes;
 }vmparticlespawner_t;
@@ -3359,7 +3359,7 @@ static void VM_DrawPolygonCallback (const entity_render_t *ent, const rtlight_t 
 
 static void VMPolygons_Store(vmpolygons_t *polys)
 {
-	qboolean hasalpha;
+	bool hasalpha;
 	int i;
 
 	// detect if we have alpha
@@ -3550,7 +3550,7 @@ is not a staircase.
 
 =============
 */
-static qboolean CL_CheckBottom (prvm_edict_t *ent)
+static bool CL_CheckBottom (prvm_edict_t *ent)
 {
 	prvm_prog_t *prog = CLVM_prog;
 	vec3_t	mins, maxs, start, stop;
@@ -3619,7 +3619,7 @@ The move will be adjusted for slopes and stairs, but if the move isn't
 possible, no move is done and false is returned
 =============
 */
-static qboolean CL_movestep (prvm_edict_t *ent, vec3_t move, qboolean relink, qboolean noenemy, qboolean settrace)
+static bool CL_movestep (prvm_edict_t *ent, vec3_t move, bool relink, bool noenemy, bool settrace)
 {
 	prvm_prog_t *prog = CLVM_prog;
 	float		dz;
@@ -3749,7 +3749,7 @@ static void VM_CL_walkmove (prvm_prog_t *prog)
 	vec3_t	move;
 	mfunction_t	*oldf;
 	int 	oldself;
-	qboolean	settrace;
+	bool	settrace;
 
 	VM_SAFEPARMCOUNTRANGE(2, 3, VM_CL_walkmove);
 
@@ -4218,11 +4218,11 @@ static void VM_CL_V_CalcRefdef(prvm_prog_t *prog)
 	matrix4x4_t entrendermatrix;
 	vec3_t clviewangles;
 	vec3_t clvelocity;
-	qboolean teleported;
-	qboolean clonground;
-	qboolean clcmdjump;
-	qboolean cldead;
-	qboolean clintermission;
+	bool teleported;
+	bool clonground;
+	bool clcmdjump;
+	bool cldead;
+	bool clintermission;
 	float clstatsviewheight;
 	prvm_edict_t *ent;
 	int flags;

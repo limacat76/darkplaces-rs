@@ -47,7 +47,7 @@ char *Sys_TimeString(const char *timeformat)
 }
 
 
-extern qboolean host_shuttingdown;
+extern bool host_shuttingdown;
 void Sys_Quit (int returnvalue)
 {
 	// Unlock mutexes because the quit command may jump directly here, causing a deadlock
@@ -64,7 +64,7 @@ void Sys_Quit (int returnvalue)
 #ifdef __cplusplus
 extern "C"
 #endif
-void Sys_AllowProfiling(qboolean enable)
+void Sys_AllowProfiling(bool enable)
 {
 #ifdef __ANDROID__
 #ifdef USE_PROFILER
@@ -90,7 +90,7 @@ DLL MANAGEMENT
 ===============================================================================
 */
 
-static qboolean Sys_LoadLibraryFunctions(dllhandle_t dllhandle, const dllfunction_t *fcts, qboolean complain, qboolean has_next)
+static bool Sys_LoadLibraryFunctions(dllhandle_t dllhandle, const dllfunction_t *fcts, bool complain, bool has_next)
 {
 	const dllfunction_t *func;
 	if(dllhandle)
@@ -115,7 +115,7 @@ static qboolean Sys_LoadLibraryFunctions(dllhandle_t dllhandle, const dllfunctio
 	return false;
 }
 
-qboolean Sys_LoadLibrary (const char** dllnames, dllhandle_t* handle, const dllfunction_t *fcts)
+bool Sys_LoadLibrary (const char** dllnames, dllhandle_t* handle, const dllfunction_t *fcts)
 {
 #ifdef SUPPORTDLL
 	const dllfunction_t *func;
@@ -555,7 +555,7 @@ static int CPUID_Features(void)
 #endif
 
 #ifdef SSE_POSSIBLE
-qboolean Sys_HaveSSE(void)
+bool Sys_HaveSSE(void)
 {
 	// COMMANDLINEOPTION: SSE: -nosse disables SSE support and detection
 	if(COM_CheckParm("-nosse"))
@@ -572,7 +572,7 @@ qboolean Sys_HaveSSE(void)
 #endif
 }
 
-qboolean Sys_HaveSSE2(void)
+bool Sys_HaveSSE2(void)
 {
 	// COMMANDLINEOPTION: SSE2: -nosse2 disables SSE2 support and detection
 	if(COM_CheckParm("-nosse") || COM_CheckParm("-nosse2"))
@@ -595,8 +595,8 @@ qboolean Sys_HaveSSE2(void)
 #include <sys/resource.h>
 #include <errno.h>
 static int nicelevel;
-static qboolean nicepossible;
-static qboolean isnice;
+static bool nicepossible;
+static bool isnice;
 void Sys_InitProcessNice (void)
 {
 	struct rlimit lim;

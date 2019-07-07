@@ -211,13 +211,13 @@ typedef struct downloadinfo_s
 	qfile_t *stream;
 	fs_offset_t startpos;
 	CURL *curle;
-	qboolean started;
+	bool started;
 	int loadtype;
 	size_t bytes_received; // for buffer
 	double bytes_received_curl; // for throttling
 	double bytes_sent_curl; // for throttling
 	struct downloadinfo_s *next, *prev;
-	qboolean forthismap;
+	bool forthismap;
 	double maxspeed;
 	curl_slist *slist; // http headers
 
@@ -235,7 +235,7 @@ downloadinfo;
 static downloadinfo *downloads = NULL;
 static int numdownloads = 0;
 
-static qboolean noclear = FALSE;
+static bool noclear = FALSE;
 
 static int numdownloads_fail = 0;
 static int numdownloads_success = 0;
@@ -308,7 +308,7 @@ Curl_Have_forthismap
 Returns true if a download needed for the current game is running.
 ====================
 */
-qboolean Curl_Have_forthismap(void)
+bool Curl_Have_forthismap(void)
 {
 	return numdownloads_added != 0;
 }
@@ -360,7 +360,7 @@ CURL_CloseLibrary
 Load the cURL DLL
 ====================
 */
-static qboolean CURL_OpenLibrary (void)
+static bool CURL_OpenLibrary (void)
 {
 	const char* dllnames [] =
 	{
@@ -516,11 +516,11 @@ CURL_DOWNLOAD_FAILED or CURL_DOWNLOAD_ABORTED) and in the second case the error
 code from libcurl, or 0, if another error has occurred.
 ====================
 */
-static qboolean Curl_Begin(const char *URL, const char *extraheaders, double maxspeed, const char *name, int loadtype, qboolean forthismap, const char *post_content_type, const unsigned char *postbuf, size_t postbufsize, unsigned char *buf, size_t bufsize, curl_callback_t callback, void *cbdata);
+static bool Curl_Begin(const char *URL, const char *extraheaders, double maxspeed, const char *name, int loadtype, bool forthismap, const char *post_content_type, const unsigned char *postbuf, size_t postbufsize, unsigned char *buf, size_t bufsize, curl_callback_t callback, void *cbdata);
 static void Curl_EndDownload(downloadinfo *di, CurlStatus status, CURLcode error, const char *content_type_)
 {
 	char content_type[64];
-	qboolean ok = false;
+	bool ok = false;
 	if(!curl_dll)
 		return;
 	switch(status)
@@ -882,7 +882,7 @@ Starts a download of a given URL to the file name portion of this URL (or name
 if given) in the "dlcache/" folder.
 ====================
 */
-static qboolean Curl_Begin(const char *URL, const char *extraheaders, double maxspeed, const char *name, int loadtype, qboolean forthismap, const char *post_content_type, const unsigned char *postbuf, size_t postbufsize, unsigned char *buf, size_t bufsize, curl_callback_t callback, void *cbdata)
+static bool Curl_Begin(const char *URL, const char *extraheaders, double maxspeed, const char *name, int loadtype, bool forthismap, const char *post_content_type, const unsigned char *postbuf, size_t postbufsize, unsigned char *buf, size_t bufsize, curl_callback_t callback, void *cbdata)
 {
 	if(buf)
 		if(loadtype != LOADTYPE_NONE)
@@ -996,7 +996,7 @@ static qboolean Curl_Begin(const char *URL, const char *extraheaders, double max
 			{
 				if(loadtype == LOADTYPE_PAK)
 				{
-					qboolean already_loaded;
+					bool already_loaded;
 					if(FS_AddPack(fn, &already_loaded, true))
 					{
 						Con_DPrintf("%s already exists, not downloading!\n", fn);
@@ -1111,15 +1111,15 @@ static qboolean Curl_Begin(const char *URL, const char *extraheaders, double max
 	}
 }
 
-qboolean Curl_Begin_ToFile(const char *URL, double maxspeed, const char *name, int loadtype, qboolean forthismap)
+bool Curl_Begin_ToFile(const char *URL, double maxspeed, const char *name, int loadtype, bool forthismap)
 {
 	return Curl_Begin(URL, NULL, maxspeed, name, loadtype, forthismap, NULL, NULL, 0, NULL, 0, NULL, NULL);
 }
-qboolean Curl_Begin_ToMemory(const char *URL, double maxspeed, unsigned char *buf, size_t bufsize, curl_callback_t callback, void *cbdata)
+bool Curl_Begin_ToMemory(const char *URL, double maxspeed, unsigned char *buf, size_t bufsize, curl_callback_t callback, void *cbdata)
 {
 	return Curl_Begin(URL, NULL, maxspeed, NULL, false, false, NULL, NULL, 0, buf, bufsize, callback, cbdata);
 }
-qboolean Curl_Begin_ToMemory_POST(const char *URL, const char *extraheaders, double maxspeed, const char *post_content_type, const unsigned char *postbuf, size_t postbufsize, unsigned char *buf, size_t bufsize, curl_callback_t callback, void *cbdata)
+bool Curl_Begin_ToMemory_POST(const char *URL, const char *extraheaders, double maxspeed, const char *post_content_type, const unsigned char *postbuf, size_t postbufsize, unsigned char *buf, size_t bufsize, curl_callback_t callback, void *cbdata)
 {
 	return Curl_Begin(URL, extraheaders, maxspeed, NULL, false, false, post_content_type, postbuf, postbufsize, buf, bufsize, callback, cbdata);
 }
@@ -1278,7 +1278,7 @@ Curl_Running
 returns true iff there is a download running.
 ====================
 */
-qboolean Curl_Running(void)
+bool Curl_Running(void)
 {
 	if(!curl_dll)
 		return false;
@@ -1401,7 +1401,7 @@ static void Curl_Curl_f(void)
 	int i;
 	int end;
 	int loadtype = LOADTYPE_NONE;
-	qboolean forthismap = false;
+	bool forthismap = false;
 	const char *url;
 	const char *name = 0;
 
@@ -1673,7 +1673,7 @@ static const char *Curl_FindPackURL(const char *filename)
 		// read lines of format "pattern url"
 		char *p = buf;
 		char *pattern = NULL, *patternend = NULL, *url = NULL, *urlend = NULL;
-		qboolean eof = false;
+		bool eof = false;
 
 		pattern = p;
 		while(!eof)
@@ -1779,7 +1779,7 @@ This is done by sending him the following console commands:
 	curl --finish_autodownload
 ====================
 */
-static qboolean Curl_SendRequirement(const char *filename, qboolean foundone, char *sendbuffer, size_t sendbuffer_len)
+static bool Curl_SendRequirement(const char *filename, bool foundone, char *sendbuffer, size_t sendbuffer_len)
 {
 	const char *p;
 	const char *thispack = FS_WhichPack(filename);
@@ -1820,7 +1820,7 @@ void Curl_SendRequirements(void)
 	// for each requirement, find the pack name
 	char sendbuffer[4096] = "";
 	requirement *req;
-	qboolean foundone = false;
+	bool foundone = false;
 	const char *p;
 
 	for(req = requirements; req; req = req->next)

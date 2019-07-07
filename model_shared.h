@@ -74,18 +74,18 @@ typedef struct skinframe_s
 	// are freed
 	unsigned int loadsequence;
 	// indicates whether this texture has transparent pixels
-	qboolean hasalpha;
+	bool hasalpha;
 	// average texture color, if applicable
 	float avgcolor[4];
 	// for mdl skins, we actually only upload on first use (many are never used, and they are almost never used in both base+pants+shirt and merged modes)
 	unsigned char *qpixels;
 	int qwidth;
 	int qheight;
-	qboolean qhascolormapping;
-	qboolean qgeneratebase;
-	qboolean qgeneratemerged;
-	qboolean qgeneratenmap;
-	qboolean qgenerateglow;
+	bool qhascolormapping;
+	bool qgeneratebase;
+	bool qgeneratemerged;
+	bool qgeneratenmap;
+	bool qgenerateglow;
 }
 skinframe_t;
 
@@ -134,10 +134,10 @@ typedef struct r_meshbuffer_s
 	int bufferobject; // OpenGL
 	void *devicebuffer; // Direct3D
 	size_t size;
-	qboolean isindexbuffer;
-	qboolean isuniformbuffer;
-	qboolean isdynamic;
-	qboolean isindex16;
+	bool isindexbuffer;
+	bool isuniformbuffer;
+	bool isdynamic;
+	bool isindex16;
 	char name[MAX_QPATH];
 }
 r_meshbuffer_t;
@@ -193,7 +193,7 @@ typedef struct surfmesh_s
 	int num_blends;
 	unsigned short *blends;
 	// set if there is some kind of animation on this model
-	qboolean isanimated;
+	bool isanimated;
 
 	// vertex and index buffers for rendering
 	r_meshbuffer_t *vertexmesh_vertexbuffer;
@@ -458,9 +458,9 @@ typedef struct q3shaderinfo_s
 	int surfaceflags;
 	int textureflags;
 	int numlayers;
-	qboolean lighting;
-	qboolean vertexalpha;
-	qboolean textureblendalpha;
+	bool lighting;
+	bool vertexalpha;
+	bool textureblendalpha;
 	q3shaderinfo_layer_t layers[Q3SHADER_MAXLAYERS];
 	char skyboxname[Q3PATHLENGTH];
 	q3shaderinfo_deform_t deforms[Q3MAXDEFORMS];
@@ -468,15 +468,15 @@ typedef struct q3shaderinfo_s
 	// dp-specific additions:
 
 	// shadow control
-	qboolean dpnortlight;
-	qboolean dpshadow;
-	qboolean dpnoshadow;
+	bool dpnortlight;
+	bool dpshadow;
+	bool dpnoshadow;
 
 	// add collisions to all triangles of the surface
-	qboolean dpmeshcollisions;
+	bool dpmeshcollisions;
 
 	// kill shader based on cvar checks
-	qboolean dpshaderkill;
+	bool dpshaderkill;
 
 	// fake reflection
 	char dpreflectcube[Q3PATHLENGTH];
@@ -514,7 +514,7 @@ q3shaderinfo_t;
 
 typedef struct texture_shaderpass_s
 {
-	qboolean alphatest; // FIXME: handle alphafunc properly
+	bool alphatest; // FIXME: handle alphafunc properly
 	float framerate;
 	int numframes;
 	skinframe_t *skinframes[TEXTURE_MAXFRAMES];
@@ -538,7 +538,7 @@ texturelayertype_t;
 typedef struct texturelayer_s
 {
 	texturelayertype_t type;
-	qboolean depthmask;
+	bool depthmask;
 	int blendfunc1;
 	int blendfunc2;
 	rtexture_t *texture;
@@ -604,7 +604,7 @@ typedef struct texture_s
 	unsigned char startpostshaderpass; // range within shaderpasses[]
 	unsigned char endpostshaderpass; // number of postshaderpasses
 
-	qboolean colormapping;
+	bool colormapping;
 	rtexture_t *basetexture; // original texture without pants/shirt/glow
 	rtexture_t *pantstexture; // pants only (in greyscale)
 	rtexture_t *shirttexture; // shirt only (in greyscale)
@@ -748,7 +748,7 @@ typedef struct msurface_s
 	int deprecatedq3collisionmarkframe; // q3bsp // don't collide twice in one trace
 
 	// used by Mod_Mesh_Finalize when building sortedmodelsurfaces
-	qboolean included;
+	bool included;
 }
 msurface_t;
 
@@ -780,17 +780,17 @@ model_brush_lightstyleinfo_t;
 typedef struct model_brush_s
 {
 	// true if this model is a HalfLife .bsp file
-	qboolean ishlbsp;
+	bool ishlbsp;
 	// true if this model is a BSP2rmqe .bsp file (expanded 32bit bsp format for rmqe)
-	qboolean isbsp2rmqe;
+	bool isbsp2rmqe;
 	// true if this model is a BSP2 .bsp file (expanded 32bit bsp format for DarkPlaces, others?)
-	qboolean isbsp2;
+	bool isbsp2;
 	// true if this model is a Quake2 .bsp file (IBSP38)
-	qboolean isq2bsp;
+	bool isq2bsp;
 	// true if this model is a Quake3 .bsp file (IBSP46)
-	qboolean isq3bsp;
+	bool isq3bsp;
 	// true if this model is a Quake1/Quake2 .bsp file where skymasking capability exists
-	qboolean skymasking;
+	bool skymasking;
 	// string of entity definitions (.map format)
 	char *entities;
 
@@ -859,7 +859,7 @@ typedef struct model_brush_s
 	int (*SuperContentsFromNativeContents)(struct model_s *model, int nativecontents);
 	int (*NativeContentsFromSuperContents)(struct model_s *model, int supercontents);
 	unsigned char *(*GetPVS)(struct model_s *model, const vec3_t p);
-	int (*FatPVS)(struct model_s *model, const vec3_t org, vec_t radius, unsigned char *pvsbuffer, int pvsbufferlength, qboolean merge);
+	int (*FatPVS)(struct model_s *model, const vec3_t org, vec_t radius, unsigned char *pvsbuffer, int pvsbufferlength, bool merge);
 	int (*BoxTouchingPVS)(struct model_s *model, const unsigned char *pvs, const vec3_t mins, const vec3_t maxs);
 	int (*BoxTouchingLeafPVS)(struct model_s *model, const unsigned char *pvs, const vec3_t mins, const vec3_t maxs);
 	int (*BoxTouchingVisibleLeafs)(struct model_s *model, const unsigned char *visibleleafs, const vec3_t mins, const vec3_t maxs);
@@ -871,14 +871,14 @@ typedef struct model_brush_s
 	void (*AmbientSoundLevelsForPoint)(struct model_s *model, const vec3_t p, unsigned char *out, int outsize);
 	void (*RoundUpToHullSize)(struct model_s *cmodel, const vec3_t inmins, const vec3_t inmaxs, vec3_t outmins, vec3_t outmaxs);
 	// trace a line of sight through this model (returns false if the line if sight is definitely blocked)
-	qboolean (*TraceLineOfSight)(struct model_s *model, const vec3_t start, const vec3_t end, const vec3_t acceptmins, const vec3_t acceptmaxs);
+	bool (*TraceLineOfSight)(struct model_s *model, const vec3_t start, const vec3_t end, const vec3_t acceptmins, const vec3_t acceptmaxs);
 
 	char skybox[MAX_QPATH];
 
 	skinframe_t *solidskyskinframe;
 	skinframe_t *alphaskyskinframe;
 
-	qboolean supportwateralpha;
+	bool supportwateralpha;
 
 	// QuakeWorld
 	int qw_md4sum;
@@ -920,7 +920,7 @@ typedef struct model_brushq1_s
 
 	// this contains bytes that are 1 if a surface needs its lightmap rebuilt
 	unsigned char *lightmapupdateflags;
-	qboolean firstrender; // causes all surface lightmaps to be loaded in first frame
+	bool firstrender; // causes all surface lightmaps to be loaded in first frame
 }
 model_brushq1_t;
 
@@ -977,10 +977,10 @@ typedef struct model_brushq3_s
 	// true if this q3bsp file has been detected as using deluxemapping
 	// (lightmap texture pairs, every odd one is never directly refernced,
 	//  and contains lighting normals, not colors)
-	qboolean deluxemapping;
+	bool deluxemapping;
 	// true if the detected deluxemaps are the modelspace kind, rather than
 	// the faster tangentspace kind
-	qboolean deluxemapping_modelspace;
+	bool deluxemapping_modelspace;
 	// size of lightmaps (128 by default, but may be another poweroftwo if
 	// external lightmaps are used (q3map2 -lightmapsize)
 	int lightmapsize;
@@ -995,9 +995,9 @@ typedef struct model_s
 	// name and path of model, for example "progs/player.mdl"
 	char			name[MAX_QPATH];
 	// model needs to be loaded if this is false
-	qboolean		loaded;
+	bool		loaded;
 	// set if the model is used in current map, models which are not, are purged
-	qboolean		used;
+	bool		used;
 	// CRC of the file this model was loaded from, to reload if changed
 	unsigned int	crc;
 	// mod_brush, mod_alias, mod_sprite
@@ -1055,8 +1055,8 @@ typedef struct model_s
 	int				max_textures; // preallocated for expansion (Mod_Mesh_*)
 	int				num_texturesperskin;
 	texture_t		*data_textures;
-	qboolean		wantnormals;
-	qboolean		wanttangents;
+	bool		wantnormals;
+	bool		wanttangents;
 	// surfaces of this model
 	int				num_surfaces;
 	int				max_surfaces; // preallocated for expansion (Mod_Mesh_*)
@@ -1086,7 +1086,7 @@ typedef struct model_s
 	// draw depth into a shadowmap
 	void(*DrawShadowMap)(int side, struct entity_render_s *ent, const vec3_t relativelightorigin, const vec3_t relativelightdirection, float lightradius, int numsurfaces, const int *surfacelist, const unsigned char *surfacesides, const vec3_t lightmins, const vec3_t lightmaxs);
 	// gathers info on which clusters and surfaces are lit by light, as well as calculating a bounding box
-	void(*GetLightInfo)(struct entity_render_s *ent, vec3_t relativelightorigin, float lightradius, vec3_t outmins, vec3_t outmaxs, int *outleaflist, unsigned char *outleafpvs, int *outnumleafspointer, int *outsurfacelist, unsigned char *outsurfacepvs, int *outnumsurfacespointer, unsigned char *outshadowtrispvs, unsigned char *outlighttrispvs, unsigned char *visitingleafpvs, int numfrustumplanes, const mplane_t *frustumplanes, qboolean noocclusion);
+	void(*GetLightInfo)(struct entity_render_s *ent, vec3_t relativelightorigin, float lightradius, vec3_t outmins, vec3_t outmaxs, int *outleaflist, unsigned char *outleafpvs, int *outnumleafspointer, int *outsurfacelist, unsigned char *outsurfacepvs, int *outnumsurfacespointer, unsigned char *outshadowtrispvs, unsigned char *outlighttrispvs, unsigned char *visitingleafpvs, int numfrustumplanes, const mplane_t *frustumplanes, bool noocclusion);
 	// compile a shadow volume for the model based on light source
 	void(*CompileShadowVolume)(struct entity_render_s *ent, vec3_t relativelightorigin, vec3_t relativelightdirection, float lightradius, int numsurfaces, const int *surfacelist);
 	// draw a shadow volume for the model based on light source
@@ -1114,7 +1114,7 @@ typedef struct model_s
 	int soundfromcenter;
 
 	// if set, the model contains light information (lightmap, or vertexlight)
-	qboolean lit;
+	bool lit;
 	float lightmapscale;
 }
 dp_model_t;
@@ -1132,9 +1132,9 @@ extern cvar_t r_enableshadowvolumes;
 
 void Mod_Init (void);
 void Mod_Reload (void);
-dp_model_t *Mod_LoadModel(dp_model_t *mod, qboolean crash, qboolean checkdisk);
+dp_model_t *Mod_LoadModel(dp_model_t *mod, bool crash, bool checkdisk);
 dp_model_t *Mod_FindName (const char *name, const char *parentname);
-dp_model_t *Mod_ForName (const char *name, qboolean crash, qboolean checkdisk, const char *parentname);
+dp_model_t *Mod_ForName (const char *name, bool crash, bool checkdisk, const char *parentname);
 void Mod_UnloadModel (dp_model_t *mod);
 
 void Mod_ClearUsed(void);
@@ -1147,10 +1147,10 @@ extern char loadname[32];	// for hunk tags
 int Mod_BuildVertexRemapTableFromElements(int numelements, const int *elements, int numvertices, int *remapvertices);
 void Mod_BuildTriangleNeighbors(int *neighbors, const int *elements, int numtriangles);
 void Mod_ValidateElements(int *elements, int numtriangles, int firstvertex, int numverts, const char *filename, int fileline);
-void Mod_BuildNormals(int firstvertex, int numvertices, int numtriangles, const float *vertex3f, const int *elements, float *normal3f, qboolean areaweighting);
-void Mod_BuildTextureVectorsFromNormals(int firstvertex, int numvertices, int numtriangles, const float *vertex3f, const float *texcoord2f, const float *normal3f, const int *elements, float *svector3f, float *tvector3f, qboolean areaweighting);
+void Mod_BuildNormals(int firstvertex, int numvertices, int numtriangles, const float *vertex3f, const int *elements, float *normal3f, bool areaweighting);
+void Mod_BuildTextureVectorsFromNormals(int firstvertex, int numvertices, int numtriangles, const float *vertex3f, const float *texcoord2f, const float *normal3f, const int *elements, float *svector3f, float *tvector3f, bool areaweighting);
 
-void Mod_AllocSurfMesh(mempool_t *mempool, int numvertices, int numtriangles, qboolean lightmapoffsets, qboolean vertexcolors, qboolean neighbors);
+void Mod_AllocSurfMesh(mempool_t *mempool, int numvertices, int numtriangles, bool lightmapoffsets, bool vertexcolors, bool neighbors);
 void Mod_MakeSortedSurfaces(dp_model_t *mod);
 
 // called specially by brush model loaders before generating submodels
@@ -1163,7 +1163,7 @@ int Mod_ShadowMesh_AddVertex(shadowmesh_t *mesh, float *vertex14f);
 void Mod_ShadowMesh_AddTriangle(mempool_t *mempool, shadowmesh_t *mesh, rtexture_t *map_diffuse, rtexture_t *map_specular, rtexture_t *map_normal, float *vertex14f);
 void Mod_ShadowMesh_AddMesh(mempool_t *mempool, shadowmesh_t *mesh, rtexture_t *map_diffuse, rtexture_t *map_specular, rtexture_t *map_normal, const float *vertex3f, const float *svector3f, const float *tvector3f, const float *normal3f, const float *texcoord2f, int numtris, const int *element3i);
 shadowmesh_t *Mod_ShadowMesh_Begin(mempool_t *mempool, int maxverts, int maxtriangles, rtexture_t *map_diffuse, rtexture_t *map_specular, rtexture_t *map_normal, int light, int neighbors, int expandable);
-shadowmesh_t *Mod_ShadowMesh_Finish(mempool_t *mempool, shadowmesh_t *firstmesh, qboolean light, qboolean neighbors, qboolean createvbo);
+shadowmesh_t *Mod_ShadowMesh_Finish(mempool_t *mempool, shadowmesh_t *firstmesh, bool light, bool neighbors, bool createvbo);
 void Mod_ShadowMesh_CalcBBox(shadowmesh_t *firstmesh, vec3_t mins, vec3_t maxs, vec3_t center, float *radius);
 void Mod_ShadowMesh_Free(shadowmesh_t *mesh);
 
@@ -1172,7 +1172,7 @@ void Mod_CreateCollisionMesh(dp_model_t *mod);
 void Mod_FreeQ3Shaders(void);
 void Mod_LoadQ3Shaders(void);
 q3shaderinfo_t *Mod_LookupQ3Shader(const char *name);
-qboolean Mod_LoadTextureFromQ3Shader(texture_t *texture, const char *name, qboolean warnmissing, qboolean fallback, int defaulttexflags);
+bool Mod_LoadTextureFromQ3Shader(texture_t *texture, const char *name, bool warnmissing, bool fallback, int defaulttexflags);
 texture_shaderpass_t *Mod_CreateShaderPass(skinframe_t *skinframe);
 texture_shaderpass_t *Mod_CreateShaderPassFromQ3ShaderLayer(q3shaderinfo_layer_t *layer, int layerindex, int texflags, const char *texturename);
 /// Sets up a material to render the provided skinframe.  See also R_SkinFrame_LoadInternalBGRA.
@@ -1224,7 +1224,7 @@ mod_alloclightmap_state_t;
 void Mod_AllocLightmap_Init(mod_alloclightmap_state_t *state, mempool_t *mempool, int width, int height);
 void Mod_AllocLightmap_Free(mod_alloclightmap_state_t *state);
 void Mod_AllocLightmap_Reset(mod_alloclightmap_state_t *state);
-qboolean Mod_AllocLightmap_Block(mod_alloclightmap_state_t *state, int blockwidth, int blockheight, int *outx, int *outy);
+bool Mod_AllocLightmap_Block(mod_alloclightmap_state_t *state, int blockwidth, int blockheight, int *outx, int *outy);
 
 // bsp models
 void Mod_BrushInit(void);
@@ -1243,7 +1243,7 @@ void R_Q1BSP_Draw(struct entity_render_s *ent);
 void R_Q1BSP_DrawDepth(struct entity_render_s *ent);
 void R_Q1BSP_DrawDebug(struct entity_render_s *ent);
 void R_Q1BSP_DrawPrepass(struct entity_render_s *ent);
-void R_Q1BSP_GetLightInfo(struct entity_render_s *ent, vec3_t relativelightorigin, float lightradius, vec3_t outmins, vec3_t outmaxs, int *outleaflist, unsigned char *outleafpvs, int *outnumleafspointer, int *outsurfacelist, unsigned char *outsurfacepvs, int *outnumsurfacespointer, unsigned char *outshadowtrispvs, unsigned char *outlighttrispvs, unsigned char *visitingleafpvs, int numfrustumplanes, const mplane_t *frustumplanes, qboolean noocclusion);
+void R_Q1BSP_GetLightInfo(struct entity_render_s *ent, vec3_t relativelightorigin, float lightradius, vec3_t outmins, vec3_t outmaxs, int *outleaflist, unsigned char *outleafpvs, int *outnumleafspointer, int *outsurfacelist, unsigned char *outsurfacepvs, int *outnumsurfacespointer, unsigned char *outshadowtrispvs, unsigned char *outlighttrispvs, unsigned char *visitingleafpvs, int numfrustumplanes, const mplane_t *frustumplanes, bool noocclusion);
 void R_Q1BSP_CompileShadowMap(struct entity_render_s *ent, vec3_t relativelightorigin, vec3_t relativelightdirection, float lightradius, int numsurfaces, const int *surfacelist);
 void R_Q1BSP_DrawShadowMap(int side, struct entity_render_s *ent, const vec3_t relativelightorigin, const vec3_t relativelightdirection, float lightradius, int modelnumsurfaces, const int *modelsurfacelist, const unsigned char *surfacesides, const vec3_t lightmins, const vec3_t lightmaxs);
 void R_Q1BSP_CompileShadowVolume(struct entity_render_s *ent, vec3_t relativelightorigin, vec3_t relativelightdirection, float lightradius, int numsurfaces, const int *surfacelist);
@@ -1266,10 +1266,10 @@ void Mod_CollisionBIH_TraceLine(dp_model_t *model, const struct frameblend_s *fr
 void Mod_CollisionBIH_TraceBox(dp_model_t *model, const struct frameblend_s *frameblend, const skeleton_t *skeleton, struct trace_s *trace, const vec3_t start, const vec3_t boxmins, const vec3_t boxmaxs, const vec3_t end, int hitsupercontentsmask, int skipsupercontentsmask, int skipmaterialflagsmask);
 void Mod_CollisionBIH_TraceBrush(dp_model_t *model, const struct frameblend_s *frameblend, const skeleton_t *skeleton, struct trace_s *trace, struct colbrushf_s *start, struct colbrushf_s *end, int hitsupercontentsmask, int skipsupercontentsmask, int skipmaterialflagsmask);
 void Mod_CollisionBIH_TracePoint_Mesh(dp_model_t *model, const struct frameblend_s *frameblend, const skeleton_t *skeleton, struct trace_s *trace, const vec3_t start, int hitsupercontentsmask, int skipsupercontentsmask, int skipmaterialflagsmask);
-qboolean Mod_CollisionBIH_TraceLineOfSight(struct model_s *model, const vec3_t start, const vec3_t end, const vec3_t acceptmins, const vec3_t acceptmaxs);
+bool Mod_CollisionBIH_TraceLineOfSight(struct model_s *model, const vec3_t start, const vec3_t end, const vec3_t acceptmins, const vec3_t acceptmaxs);
 int Mod_CollisionBIH_PointSuperContents(struct model_s *model, int frame, const vec3_t point);
 int Mod_CollisionBIH_PointSuperContents_Mesh(struct model_s *model, int frame, const vec3_t point);
-bih_t *Mod_MakeCollisionBIH(dp_model_t *model, qboolean userendersurfaces, bih_t *out);
+bih_t *Mod_MakeCollisionBIH(dp_model_t *model, bool userendersurfaces, bih_t *out);
 
 // alias models
 struct frameblend_s;

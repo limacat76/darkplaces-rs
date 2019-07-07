@@ -336,6 +336,7 @@
     <ClInclude Include="libcurl.h" />
     <ClInclude Include="ltx_chase.h" />
     <ClInclude Include="ltx_cheats.h" />
+    <ClInclude Include="ltx_clvideo.h" />
     <ClInclude Include="ltx_dpfunctions.h" />
     <ClInclude Include="ltx_dpmemory.h" />
     <ClInclude Include="ltx_engine.h" />

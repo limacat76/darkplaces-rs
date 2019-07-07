@@ -357,7 +357,7 @@ typedef enum keydest_e { key_game, key_message, key_menu, key_menu_grabbed, key_
 
 extern	char		key_line[MAX_INPUTLINE];
 extern	int			key_linepos;
-extern	qboolean	key_insert;	// insert key toggle (for editing)
+extern	bool	key_insert;	// insert key toggle (for editing)
 extern	keydest_t	key_dest;
 // key_consoleactive bits
 // user wants console (halfscreen)
@@ -376,15 +376,15 @@ void Key_WriteBindings(qfile_t *f);
 void Key_Init(void);
 void Key_Shutdown(void);
 void Key_Init_Cvars(void);
-void Key_Event(int key, int ascii, qboolean down);
+void Key_Event(int key, int ascii, bool down);
 void Key_ReleaseAll (void);
 void Key_EventQueue_Block(void);
 void Key_EventQueue_Unblock(void);
 
-qboolean Key_SetBinding (int keynum, int bindmap, const char *binding);
+bool Key_SetBinding (int keynum, int bindmap, const char *binding);
 const char *Key_GetBind (int key, int bindmap);
 void Key_FindKeysForCommand (const char *command, int *keys, int numkeys, int bindmap);
-qboolean Key_SetBindMap(int fg, int bg);
+bool Key_SetBindMap(int fg, int bg);
 void Key_GetBindMap(int *fg, int *bg);
 
 #endif // __KEYS_H

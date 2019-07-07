@@ -48,7 +48,7 @@ typedef struct explosion_s
 	vec3_t origin;
 	vec3_t vert[EXPLOSIONVERTS];
 	vec3_t vertvel[EXPLOSIONVERTS];
-	qboolean clipping;
+	bool clipping;
 }
 explosion_t;
 
@@ -64,7 +64,7 @@ cvar_t r_explosionclip = {CVAR_SAVE, "r_explosionclip", "1", "enables collision 
 #ifdef MAX_EXPLOSIONS
 static cvar_t r_drawexplosions = {0, "r_drawexplosions", "1", "enables rendering of explosion shells (see also cl_particles_explosions_shell)"};
 
-//extern qboolean r_loadfog;
+//extern bool r_loadfog;
 static void r_explosion_start(void)
 {
 	int x, y;

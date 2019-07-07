@@ -25,7 +25,7 @@ static matrix4x4_t skyinversematrix;
 typedef struct suffixinfo_s
 {
 	const char *suffix;
-	qboolean flipx, flipy, flipdiagonal;
+	bool flipx, flipy, flipdiagonal;
 }
 suffixinfo_t;
 static const suffixinfo_t suffix[3][6] =
@@ -378,7 +378,7 @@ static void skyspherecalc(void)
 static void R_SkySphere(void)
 {
 	double speedscale;
-	static qboolean skysphereinitialized = false;
+	static bool skysphereinitialized = false;
 	matrix4x4_t scroll1matrix, scroll2matrix;
 	if (!skysphereinitialized)
 	{

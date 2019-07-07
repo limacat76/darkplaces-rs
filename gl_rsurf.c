@@ -346,7 +346,7 @@ static void R_DrawPortal_Callback(const entity_render_t *ent, const rtlight_t *r
 	// called with a batch, so numsurfaces is always 1, and the surfacelist
 	// contains only a leaf number for coloring purposes
 	const mportal_t *portal = (mportal_t *)ent;
-	qboolean isvis;
+	bool isvis;
 	int i, numpoints;
 	float *v;
 	float vertex3f[POLYGONELEMENTS_MAXPOINTS*3];
@@ -431,7 +431,7 @@ static void R_View_WorldVisibility_CullSurfaces(void)
 			surfacevisible[surfaceindex] = 0;
 }
 
-void R_View_WorldVisibility(qboolean forcenovis)
+void R_View_WorldVisibility(bool forcenovis)
 {
 	int i, j, *mark;
 	mleaf_t *leaf;
@@ -710,10 +710,10 @@ typedef struct r_q1bsp_getlightinfo_s
 	vec3_t lightmins;
 	vec3_t lightmaxs;
 	const unsigned char *pvs;
-	qboolean svbsp_active;
-	qboolean svbsp_insertoccluder;
-	qboolean noocclusion; // avoids PVS culling
-	qboolean frontsidecasting; // casts shadows from surfaces facing the light (otherwise ones facing away)
+	bool svbsp_active;
+	bool svbsp_insertoccluder;
+	bool noocclusion; // avoids PVS culling
+	bool frontsidecasting; // casts shadows from surfaces facing the light (otherwise ones facing away)
 	int numfrustumplanes;
 	const mplane_t *frustumplanes;
 }
@@ -721,7 +721,7 @@ r_q1bsp_getlightinfo_t;
 
 #define GETLIGHTINFO_MAXNODESTACK 4096
 
-static void R_Q1BSP_RecursiveGetLightInfo_BSP(r_q1bsp_getlightinfo_t *info, qboolean skipsurfaces)
+static void R_Q1BSP_RecursiveGetLightInfo_BSP(r_q1bsp_getlightinfo_t *info, bool skipsurfaces)
 {
 	// nodestack
 	mnode_t *nodestack[GETLIGHTINFO_MAXNODESTACK];
@@ -739,17 +739,17 @@ static void R_Q1BSP_RecursiveGetLightInfo_BSP(r_q1bsp_getlightinfo_t *info, qboo
 	int surfaceindex;
 	int triangleindex, t;
 	int currentmaterialflags;
-	qboolean castshadow;
+	bool castshadow;
 	const int *e;
 	const vec_t *v[3];
 	float v2[3][3];
-	qboolean insidebox;
-	qboolean noocclusion = info->noocclusion;
-	qboolean frontsidecasting = info->frontsidecasting;
-	qboolean svbspactive = info->svbsp_active;
-	qboolean svbspinsertoccluder = info->svbsp_insertoccluder;
+	bool insidebox;
+	bool noocclusion = info->noocclusion;
+	bool frontsidecasting = info->frontsidecasting;
+	bool svbspactive = info->svbsp_active;
+	bool svbspinsertoccluder = info->svbsp_insertoccluder;
 	const int *leafsurfaceindices;
-	qboolean addedtris;
+	bool addedtris;
 	int i;
 	mportal_t *portal;
 	static float points[128][3];
@@ -978,9 +978,9 @@ static void R_Q1BSP_RecursiveGetLightInfo_BIH(r_q1bsp_getlightinfo_t *info, cons
 	int t;
 	int nodeleafindex;
 	int currentmaterialflags;
-	qboolean castshadow;
-	qboolean noocclusion = info->noocclusion;
-	qboolean frontsidecasting = info->frontsidecasting;
+	bool castshadow;
+	bool noocclusion = info->noocclusion;
+	bool frontsidecasting = info->frontsidecasting;
 	msurface_t *surface;
 	const int *e;
 	const vec_t *v[3];
@@ -1087,7 +1087,7 @@ static void R_Q1BSP_RecursiveGetLightInfo_BIH(r_q1bsp_getlightinfo_t *info, cons
 	}
 }
 
-static void R_Q1BSP_CallRecursiveGetLightInfo(r_q1bsp_getlightinfo_t *info, qboolean use_svbsp)
+static void R_Q1BSP_CallRecursiveGetLightInfo(r_q1bsp_getlightinfo_t *info, bool use_svbsp)
 {
 	extern cvar_t r_shadow_usebihculling;
 	if (use_svbsp)
@@ -1192,7 +1192,7 @@ static int R_Q1BSP_GetLightInfo_comparefunc(const void *ap, const void *bp)
 
 extern cvar_t r_shadow_sortsurfaces;
 
-void R_Q1BSP_GetLightInfo(entity_render_t *ent, vec3_t relativelightorigin, float lightradius, vec3_t outmins, vec3_t outmaxs, int *outleaflist, unsigned char *outleafpvs, int *outnumleafspointer, int *outsurfacelist, unsigned char *outsurfacepvs, int *outnumsurfacespointer, unsigned char *outshadowtrispvs, unsigned char *outlighttrispvs, unsigned char *visitingleafpvs, int numfrustumplanes, const mplane_t *frustumplanes, qboolean noocclusion)
+void R_Q1BSP_GetLightInfo(entity_render_t *ent, vec3_t relativelightorigin, float lightradius, vec3_t outmins, vec3_t outmaxs, int *outleaflist, unsigned char *outleafpvs, int *outnumleafspointer, int *outsurfacelist, unsigned char *outsurfacepvs, int *outnumsurfacespointer, unsigned char *outshadowtrispvs, unsigned char *outlighttrispvs, unsigned char *visitingleafpvs, int numfrustumplanes, const mplane_t *frustumplanes, bool noocclusion)
 {
 	r_q1bsp_getlightinfo_t info;
 	info.frontsidecasting = r_shadow_frontsidecasting.integer != 0;
@@ -1459,7 +1459,7 @@ static void R_Q1BSP_DrawLight_TransparentCallback(const entity_render_t *ent, co
 	R_FrameData_ReturnToMark();
 }
 
-extern qboolean r_shadow_usingdeferredprepass;
+extern bool r_shadow_usingdeferredprepass;
 void R_Q1BSP_DrawLight(entity_render_t *ent, int numsurfaces, const int *surfacelist, const unsigned char *lighttrispvs)
 {
 	dp_model_t *model = ent->model;

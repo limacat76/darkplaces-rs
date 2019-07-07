@@ -25,6 +25,7 @@
 // LordHavoc: adapted to not require stdint.h as this is not available on MSVC++, using unsigned char instead of uint8_t and fs_offset_t instead of int64_t.
 // limaCAT: thanks for the tips, my lord
 
+#include "ltx_clvideo.h"
 #include "console.h"
 // END 005-quakedef.h.2
 
@@ -356,7 +357,7 @@ static void libavw_message(int level, const char *message)
 		Con_Printf("LibAvcodec panic: %s\n", message);
 }
 
-static qboolean LibAvW_OpenLibrary(void)
+static bool LibAvW_OpenLibrary(void)
 {
 	int errorcode;
 

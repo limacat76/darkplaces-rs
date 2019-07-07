@@ -273,7 +273,7 @@ checkextension(extensionname)
 */
 
 // kind of helper function
-static qboolean checkextension(prvm_prog_t *prog, const char *name)
+static bool checkextension(prvm_prog_t *prog, const char *name)
 {
 	int len;
 	const char *e, *start;
@@ -630,7 +630,7 @@ void VM_localcmd(prvm_prog_t *prog)
 	Cbuf_AddText(string);
 }
 
-static qboolean PRVM_Cvar_ReadOk(const char *string)
+static bool PRVM_Cvar_ReadOk(const char *string)
 {
 	cvar_t *cvar;
 	cvar = Cvar_FindVar(string);
@@ -5315,7 +5315,7 @@ static const char *detect_match_rule(char *pattern, int *matchrule)
 }
 
 // todo: support UTF8
-static qboolean match_rule(const char *string, int max_string, const char *pattern, int patternlength, int rule)
+static bool match_rule(const char *string, int max_string, const char *pattern, int patternlength, int rule)
 {
 	const char *mid;
 
@@ -5443,7 +5443,7 @@ void VM_buf_cvarlist(prvm_prog_t *prog)
 	const char *partial, *antipartial;
 	size_t len, antilen;
 	size_t alloclen;
-	qboolean ispattern, antiispattern;
+	bool ispattern, antiispattern;
 	int n;
 	prvm_stringbuffer_t	*stringbuffer;
 	VM_SAFEPARMCOUNTRANGE(2, 3, VM_buf_cvarlist);
@@ -6204,7 +6204,7 @@ void VM_uri_get (prvm_prog_t *prog)
 {
 	const char *url;
 	float id;
-	qboolean ret;
+	bool ret;
 	uri_to_prog_t *handle;
 	const char *posttype = NULL;
 	const char *postseparator = NULL;
@@ -6877,7 +6877,7 @@ static void animatemodel(prvm_prog_t *prog, dp_model_t *model, prvm_edict_t *ed)
 {
 	skeleton_t *skeleton;
 	int skeletonindex = -1;
-	qboolean need = false;
+	bool need = false;
 	struct animatemodel_cache *animatemodel_cache;
 	if (!prog->animatemodel_cache)
 	{

@@ -120,7 +120,7 @@ cvar_t gl_vbo_dynamicindex = {CVAR_SAVE, "gl_vbo_dynamicindex", "0", "make use o
 cvar_t gl_fbo = {CVAR_SAVE, "gl_fbo", "1", "make use of GL_ARB_framebuffer_object extension to enable shadowmaps and other features using pixel formats different from the framebuffer"};
 
 cvar_t v_flipped = {0, "v_flipped", "0", "mirror the screen (poor man's left handed mode)"};
-qboolean v_flipped_state = false;
+bool v_flipped_state = false;
 
 r_viewport_t gl_viewport;
 matrix4x4_t gl_modelmatrix;
@@ -130,7 +130,7 @@ matrix4x4_t gl_projectionmatrix;
 matrix4x4_t gl_modelviewprojectionmatrix;
 float gl_modelview16f[16];
 float gl_modelviewprojection16f[16];
-qboolean gl_modelmatrixchanged;
+bool gl_modelmatrixchanged;
 
 int gl_maxdrawrangeelementsvertices;
 int gl_maxdrawrangeelementsindices;
@@ -220,7 +220,7 @@ typedef struct gl_state_s
 	int cullfaceenable;
 	int blendfunc1;
 	int blendfunc2;
-	qboolean blend;
+	bool blend;
 	GLboolean depthmask;
 	int colormask; // stored as bottom 4 bits: r g b a (3 2 1 0 order)
 	int depthtest;
@@ -230,7 +230,7 @@ typedef struct gl_state_s
 	int alphatest;
 	int alphafunc;
 	float alphafuncvalue;
-	qboolean alphatocoverage;
+	bool alphatocoverage;
 	int scissortest;
 	unsigned int unit;
 	unsigned int clientunit;
@@ -243,7 +243,7 @@ typedef struct gl_state_s
 	int uniformbufferobject;
 	int framebufferobject;
 	int defaultframebufferobject; // deal with platforms that use a non-zero default fbo
-	qboolean pointer_color_enabled;
+	bool pointer_color_enabled;
 
 	int pointer_vertex_components;
 	int pointer_vertex_gltype;
@@ -265,14 +265,14 @@ typedef struct gl_state_s
 	r_vertexmesh_t *preparevertices_vertexmesh;
 	int preparevertices_numvertices;
 
-	qboolean usevbo_staticvertex;
-	qboolean usevbo_staticindex;
-	qboolean usevbo_dynamicvertex;
-	qboolean usevbo_dynamicindex;
+	bool usevbo_staticvertex;
+	bool usevbo_staticindex;
+	bool usevbo_dynamicvertex;
+	bool usevbo_dynamicindex;
 
 	memexpandablearray_t meshbufferarray;
 
-	qboolean active;
+	bool active;
 
 #ifdef SUPPORTD3D
 //	rtexture_t *d3drt_depthtexture;
@@ -620,7 +620,7 @@ void gl_backend_init(void)
 	R_RegisterModule("GL_Backend", gl_backend_start, gl_backend_shutdown, gl_backend_newmap, gl_backend_devicelost, gl_backend_devicerestored);
 }
 
-void GL_SetMirrorState(qboolean state);
+void GL_SetMirrorState(bool state);
 
 void R_Viewport_TransformToScreen(const r_viewport_t *v, const vec4_t in, vec4_t out)
 {
@@ -683,7 +683,7 @@ static int bboxedges[12][2] =
 	{3, 7}, // XY, +Z
 };
 
-qboolean R_ScissorForBBox(const float *mins, const float *maxs, int *scissor)
+bool R_ScissorForBBox(const float *mins, const float *maxs, int *scissor)
 {
 	int i, ix1, iy1, ix2, iy2;
 	float x1, y1, x2, y2;
@@ -1797,7 +1797,7 @@ void GL_BlendFunc(int blendfunc1, int blendfunc2)
 {
 	if (gl_state.blendfunc1 != blendfunc1 || gl_state.blendfunc2 != blendfunc2)
 	{
-		qboolean blendenable;
+		bool blendenable;
 		gl_state.blendfunc1 = blendfunc1;
 		gl_state.blendfunc2 = blendfunc2;
 		blendenable = (gl_state.blendfunc1 != GL_ONE || gl_state.blendfunc2 != GL_ZERO);
@@ -2029,7 +2029,7 @@ void GL_DepthRange(float nearfrac, float farfrac)
 	}
 }
 
-void R_SetStencilSeparate(qboolean enable, int writemask, int frontfail, int frontzfail, int frontzpass, int backfail, int backzfail, int backzpass, int frontcompare, int backcompare, int comparereference, int comparemask)
+void R_SetStencilSeparate(bool enable, int writemask, int frontfail, int frontzfail, int frontzpass, int backfail, int backzfail, int backzpass, int frontcompare, int backcompare, int comparereference, int comparemask)
 {
 	switch (vid.renderpath)
 	{
@@ -2099,7 +2099,7 @@ void R_SetStencilSeparate(qboolean enable, int writemask, int frontfail, int fro
 	}
 }
 
-void R_SetStencil(qboolean enable, int writemask, int fail, int zfail, int zpass, int compare, int comparereference, int comparemask)
+void R_SetStencil(bool enable, int writemask, int fail, int zfail, int zpass, int compare, int comparereference, int comparemask)
 {
 	switch (vid.renderpath)
 	{
@@ -2188,7 +2188,7 @@ void GL_PolygonOffset(float planeoffset, float depthoffset)
 	}
 }
 
-void GL_SetMirrorState(qboolean state)
+void GL_SetMirrorState(bool state)
 {
 	if (v_flipped_state != state)
 	{
@@ -2341,7 +2341,7 @@ void GL_AlphaTest(int state)
 	}
 }
 
-void GL_AlphaToCoverage(qboolean state)
+void GL_AlphaToCoverage(bool state)
 {
 	if (gl_state.alphatocoverage != state)
 	{
@@ -2674,7 +2674,7 @@ void R_Mesh_Start(void)
 	}
 }
 
-static qboolean GL_Backend_CompileShader(int programobject, GLenum shadertypeenum, const char *shadertype, int numstrings, const char **strings)
+static bool GL_Backend_CompileShader(int programobject, GLenum shadertypeenum, const char *shadertype, int numstrings, const char **strings)
 {
 	int shaderobject;
 	int shadercompiled;
@@ -3255,7 +3255,7 @@ void R_Mesh_Finish(void)
 	R_Mesh_SetRenderTargets(0, NULL, NULL, NULL, NULL, NULL);
 }
 
-r_meshbuffer_t *R_Mesh_CreateMeshBuffer(const void *data, size_t size, const char *name, qboolean isindexbuffer, qboolean isuniformbuffer, qboolean isdynamic, qboolean isindex16)
+r_meshbuffer_t *R_Mesh_CreateMeshBuffer(const void *data, size_t size, const char *name, bool isindexbuffer, bool isuniformbuffer, bool isdynamic, bool isindex16)
 {
 	r_meshbuffer_t *buffer;
 	if (isuniformbuffer)
@@ -3284,7 +3284,7 @@ r_meshbuffer_t *R_Mesh_CreateMeshBuffer(const void *data, size_t size, const cha
 	return buffer;
 }
 
-void R_Mesh_UpdateMeshBuffer(r_meshbuffer_t *buffer, const void *data, size_t size, qboolean subdata, size_t offset)
+void R_Mesh_UpdateMeshBuffer(r_meshbuffer_t *buffer, const void *data, size_t size, bool subdata, size_t offset)
 {
 	if (!buffer)
 		return;
@@ -3441,7 +3441,7 @@ void R_Mesh_DestroyMeshBuffer(r_meshbuffer_t *buffer)
 }
 
 static const char *buffertypename[R_BUFFERDATA_COUNT] = {"vertex", "index16", "index32", "uniform"};
-void GL_Mesh_ListVBOs(qboolean printeach)
+void GL_Mesh_ListVBOs(bool printeach)
 {
 	int i, endindex;
 	int type;
@@ -4356,7 +4356,7 @@ r_vertexgeneric_t *R_Mesh_PrepareVertices_Generic_Lock(int numvertices)
 	return gl_state.preparevertices_vertexgeneric;
 }
 
-qboolean R_Mesh_PrepareVertices_Generic_Unlock(void)
+bool R_Mesh_PrepareVertices_Generic_Unlock(void)
 {
 	R_Mesh_PrepareVertices_Generic(gl_state.preparevertices_numvertices, gl_state.preparevertices_vertexgeneric, NULL, 0);
 	gl_state.preparevertices_vertexgeneric = NULL;
@@ -4575,7 +4575,7 @@ r_vertexmesh_t *R_Mesh_PrepareVertices_Mesh_Lock(int numvertices)
 	return gl_state.preparevertices_vertexmesh;
 }
 
-qboolean R_Mesh_PrepareVertices_Mesh_Unlock(void)
+bool R_Mesh_PrepareVertices_Mesh_Unlock(void)
 {
 	R_Mesh_PrepareVertices_Mesh(gl_state.preparevertices_numvertices, gl_state.preparevertices_vertexmesh, NULL, 0);
 	gl_state.preparevertices_vertexmesh = NULL;
@@ -4801,7 +4801,7 @@ void R_Mesh_PrepareVertices_Mesh(int numvertices, const r_vertexmesh_t *vertex, 
 	}
 }
 
-void GL_BlendEquationSubtract(qboolean negated)
+void GL_BlendEquationSubtract(bool negated)
 {
 	if(negated)
 	{

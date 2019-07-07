@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 #define _USE_MATH_DEFINES
@@ -11,10 +12,6 @@
 
 #ifdef _MSC_VER
 #pragma warning(disable : 4324)
-#endif
-
-#ifndef __cplusplus
-typedef qboolean bool;
 #endif
 
 #define ALIGN_SIZE 16

@@ -11,6 +11,7 @@
 
 #include "cl_dyntexture.h"
 #include "cl_video.h"
+#include "ltx_clvideo.h"
 
 // cvars
 cvar_t cl_video_subtitles = {CVAR_SAVE, "cl_video_subtitles", "0", "show subtitles for videos (if they are present)"};
@@ -56,7 +57,7 @@ static clvideo_t *FindUnusedVid( void )
 	return NULL;
 }
 
-static qboolean OpenStream( clvideo_t * video )
+static bool OpenStream( clvideo_t * video )
 {
 	const char *errorstring;
 
@@ -116,7 +117,7 @@ static void SuspendVideo( clvideo_t * video )
 	}
 }
 
-static qboolean WakeVideo( clvideo_t * video )
+static bool WakeVideo( clvideo_t * video )
 {
 	if( !video->suspended )
 		return true;
@@ -455,7 +456,7 @@ static float CL_DrawVideo_WordWidthFunc(void *passthrough, const char *w, size_t
 		return 0;
 }
 
-static int CL_DrawVideo_DisplaySubtitleLine(void *passthrough, const char *line, size_t length, float width, qboolean isContinuation)
+static int CL_DrawVideo_DisplaySubtitleLine(void *passthrough, const char *line, size_t length, float width, bool isContinuation)
 {
 	cl_video_subtitle_info_t *si = (cl_video_subtitle_info_t *) passthrough;
 
@@ -626,7 +627,7 @@ void CL_VideoStart(char *filename, const char *subtitlesfile)
 	CL_RestartVideo( cl_videos );
 }
 
-void CL_Video_KeyEvent( int key, int ascii, qboolean down ) 
+void CL_Video_KeyEvent( int key, int ascii, bool down ) 
 {
 	// only react to up events, to allow the user to delay the abortion point if it suddenly becomes interesting..
 	if( !down ) {

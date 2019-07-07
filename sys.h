@@ -50,7 +50,7 @@ dllfunction_t;
  * \param handle
  * \param fcts
  */
-qboolean Sys_LoadLibrary (const char** dllnames, dllhandle_t* handle, const dllfunction_t *fcts);
+bool Sys_LoadLibrary (const char** dllnames, dllhandle_t* handle, const dllfunction_t *fcts);
 void Sys_UnloadLibrary (dllhandle_t* handle);
 void* Sys_GetProcAddress (dllhandle_t handle, const char* name);
 
@@ -86,7 +86,7 @@ void Sys_Quit (int returnvalue);
 #ifdef __cplusplus
 extern "C"
 #endif
-void Sys_AllowProfiling (qboolean enable);
+void Sys_AllowProfiling (bool enable);
 
 typedef struct sys_cleantime_s
 {
@@ -109,7 +109,7 @@ void Sys_SendKeyEvents (void);
 
 char *Sys_GetClipboardData (void);
 
-extern qboolean sys_supportsdlgetticks;
+extern bool sys_supportsdlgetticks;
 unsigned int Sys_SDL_GetTicks (void); // wrapper to call SDL_GetTicks
 void Sys_SDL_Delay (unsigned int milliseconds); // wrapper to call SDL_Delay
 

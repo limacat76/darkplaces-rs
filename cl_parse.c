@@ -203,10 +203,10 @@ cvar_t cl_nettimesyncboundmode = {CVAR_SAVE, "cl_nettimesyncboundmode", "6", "me
 cvar_t cl_nettimesyncboundtolerance = {CVAR_SAVE, "cl_nettimesyncboundtolerance", "0.25", "how much error is tolerated by bounding check, as a fraction of frametime, 0.25 = up to 25% margin of error tolerated, 1 = use only new time, 0 = use only old time (same effect as setting cl_nettimesyncfactor to 1)"};
 cvar_t cl_iplog_name = {CVAR_SAVE, "cl_iplog_name", "darkplaces_iplog.txt", "name of iplog file containing player addresses for iplog_list command and automatic ip logging when parsing status command"};
 
-static qboolean QW_CL_CheckOrDownloadFile(const char *filename);
+static bool QW_CL_CheckOrDownloadFile(const char *filename);
 static void QW_CL_RequestNextDownload(void);
 static void QW_CL_NextUpload(void);
-//static qboolean QW_CL_IsUploading(void);
+//static bool QW_CL_IsUploading(void);
 static void QW_CL_StopUpload(void);
 
 /*
@@ -316,17 +316,17 @@ so the server doesn't disconnect.
 */
 
 static unsigned char olddata[NET_MAXMESSAGE];
-void CL_KeepaliveMessage (qboolean readmessages)
+void CL_KeepaliveMessage (bool readmessages)
 {
 	static double lastdirtytime = 0;
-	static qboolean recursive = false;
+	static bool recursive = false;
 	double dirtytime;
 	double deltatime;
 	static double countdownmsg = 0;
 	static double countdownupdate = 0;
 	sizebuf_t old;
 
-	qboolean thisrecursive;
+	bool thisrecursive;
 
 	thisrecursive = recursive;
 	recursive = true;
@@ -391,7 +391,7 @@ void CL_KeepaliveMessage (qboolean readmessages)
 
 void CL_ParseEntityLump(char *entdata)
 {
-	qboolean loadedsky = false;
+	bool loadedsky = false;
 	const char *data;
 	char key[128], value[MAX_INPUTLINE];
 	FOG_clear(); // LordHavoc: no fog until set
@@ -544,7 +544,7 @@ static void CL_SetupWorldModel(void)
 	}
 }
 
-static qboolean QW_CL_CheckOrDownloadFile(const char *filename)
+static bool QW_CL_CheckOrDownloadFile(const char *filename)
 {
 	qfile_t *file;
 	char vabuf[1024];
@@ -1084,7 +1084,7 @@ static void CL_UpdateItemsAndWeapon(void)
 #define LOADPROGRESSWEIGHT_WORLDMODEL      30.0
 #define LOADPROGRESSWEIGHT_WORLDMODEL_INIT  2.0
 
-static void CL_BeginDownloads(qboolean aborteddownload)
+static void CL_BeginDownloads(bool aborteddownload)
 {
 	char vabuf[1024];
 	// quakeworld works differently
@@ -2988,13 +2988,13 @@ typedef struct cl_iplog_item_s
 }
 cl_iplog_item_t;
 
-static qboolean cl_iplog_loaded = false;
+static bool cl_iplog_loaded = false;
 static int cl_iplog_numitems = 0;
 static int cl_iplog_maxitems = 0;
 static cl_iplog_item_t *cl_iplog_items;
 
 static void CL_IPLog_Load(void);
-static void CL_IPLog_Add(const char *address, const char *name, qboolean checkexisting, qboolean addtofile)
+static void CL_IPLog_Add(const char *address, const char *name, bool checkexisting, bool addtofile)
 {
 	int i;
 	size_t sz_name, sz_address;
@@ -3142,7 +3142,7 @@ static void CL_IPLog_List_f(void)
 }
 
 // look for anything interesting like player IP addresses or ping reports
-static qboolean CL_ExaminePrintString(const char *text)
+static bool CL_ExaminePrintString(const char *text)
 {
 	int len;
 	const char *t;
@@ -3174,7 +3174,7 @@ static qboolean CL_ExaminePrintString(const char *text)
 	if (cl.parsingtextmode == CL_PARSETEXTMODE_PING)
 	{
 		// if anything goes wrong, we'll assume this is not a ping report
-		qboolean expected = cl.parsingtextexpectingpingforscores != 0;
+		bool expected = cl.parsingtextexpectingpingforscores != 0;
 		cl.parsingtextexpectingpingforscores = 0;
 		cl.parsingtextmode = CL_PARSETEXTMODE_NONE;
 		t = text;
@@ -3401,8 +3401,8 @@ void CL_ParseServerMessage(void)
 	unsigned char		cmdlog[32];
 	const char		*cmdlogname[32], *temp;
 	int			cmdindex, cmdcount = 0;
-	qboolean	qwplayerupdatereceived;
-	qboolean	strip_pqc;
+	bool	qwplayerupdatereceived;
+	bool	strip_pqc;
 	char vabuf[1024];
 
 	// LordHavoc: moved demo message writing from before the packet parse to

@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef QUAKEDEF_H
 #define QUAKEDEF_H
 
+#include <stdbool.h>
 #include <sys/types.h>
 #include <ctype.h>
 #include <math.h>
@@ -51,10 +52,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // #include "screen.h"				// 372
 
 #if 1
-#define QUAKEDEF_GAMENAME "006-deprecations"
+#define QUAKEDEF_GAMENAME "007-qboolean"
 #endif
 #if 0
-#define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c006"
+#define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c007"
 #endif
 
 #if 0

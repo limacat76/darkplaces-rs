@@ -1,7 +1,7 @@
 #ifndef LTX_CHEATS_H
 #define LTX_CHEATS_H
 
-extern qboolean noclip_anglehack;
+extern bool noclip_anglehack;
 
 extern cvar_t developer;
 extern cvar_t developer_extra;

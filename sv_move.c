@@ -37,7 +37,7 @@ is not a staircase.
 */
 int c_yes, c_no;
 
-qboolean SV_CheckBottom (prvm_edict_t *ent)
+bool SV_CheckBottom (prvm_edict_t *ent)
 {
 	prvm_prog_t *prog = SVVM_prog;
 	vec3_t	mins, maxs, start, stop;
@@ -110,7 +110,7 @@ The move will be adjusted for slopes and stairs, but if the move isn't
 possible, no move is done and false is returned
 =============
 */
-qboolean SV_movestep (prvm_edict_t *ent, vec3_t move, qboolean relink, qboolean noenemy, qboolean settrace)
+bool SV_movestep (prvm_edict_t *ent, vec3_t move, bool relink, bool noenemy, bool settrace)
 {
 	prvm_prog_t *prog = SVVM_prog;
 	float		dz;
@@ -258,7 +258,7 @@ facing it.
 
 ======================
 */
-static qboolean SV_StepDirection (prvm_edict_t *ent, float yaw, float dist)
+static bool SV_StepDirection (prvm_edict_t *ent, float yaw, float dist)
 {
 	prvm_prog_t *prog = SVVM_prog;
 	vec3_t		move, oldorigin;
@@ -401,7 +401,7 @@ SV_CloseEnough
 
 ======================
 */
-static qboolean SV_CloseEnough (prvm_edict_t *ent, prvm_edict_t *goal, float dist)
+static bool SV_CloseEnough (prvm_edict_t *ent, prvm_edict_t *goal, float dist)
 {
 	int		i;
 

@@ -19,7 +19,7 @@ static unsigned dyntexturecount;
 
 #define DEFAULT_DYNTEXTURE r_texture_grey128
 
-static dyntexture_t * cl_finddyntexture( const char *name, qboolean warnonfailure ) {
+static dyntexture_t * cl_finddyntexture( const char *name, bool warnonfailure ) {
 	unsigned i;
 	dyntexture_t *dyntexture = NULL;
 

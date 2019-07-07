@@ -42,7 +42,7 @@ typedef struct link_s
 typedef struct world_physics_s
 {
 	// for ODE physics engine
-	qboolean ode; // if true then ode is activated
+	bool ode; // if true then ode is activated
 	void *ode_world;
 	void *ode_space;
 	void *ode_contactgroup;

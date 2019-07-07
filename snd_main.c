@@ -138,8 +138,8 @@ static unsigned int soundtime = 0;
 static unsigned int oldpaintedtime = 0;
 static unsigned int extrasoundtime = 0;
 static double snd_starttime = 0.0;
-qboolean snd_threaded = false;
-qboolean snd_usethreadedmixing = false;
+bool snd_threaded = false;
+bool snd_usethreadedmixing = false;
 
 vec3_t listener_origin;
 matrix4x4_t listener_basematrix;
@@ -151,11 +151,11 @@ mempool_t *snd_mempool;
 // Linked list of known sfx
 static sfx_t *known_sfx = NULL;
 
-static qboolean sound_spatialized = false;
+static bool sound_spatialized = false;
 
-qboolean simsound = false;
+bool simsound = false;
 
-static qboolean recording_sound = false;
+static bool recording_sound = false;
 
 int snd_blocked = 0;
 static int current_swapstereo = false;
@@ -267,7 +267,7 @@ static const char* ambient_names [2] = { "sound/ambience/water1.wav", "sound/amb
 // Functions
 // ====================================================================
 
-void S_FreeSfx (sfx_t *sfx, qboolean force);
+void S_FreeSfx (sfx_t *sfx, bool force);
 
 static void S_Play_Common (float fvol, float attenuation)
 {
@@ -379,7 +379,7 @@ int S_GetSoundChannels(void)
 }
 
 
-static qboolean S_ChooseCheaperFormat (snd_format_t* format, qboolean fixed_speed, qboolean fixed_width, qboolean fixed_channels)
+static bool S_ChooseCheaperFormat (snd_format_t* format, bool fixed_speed, bool fixed_width, bool fixed_channels)
 {
 	static const snd_format_t thresholds [] =
 	{
@@ -535,7 +535,7 @@ static void S_SetChannelLayout (void)
 
 void S_Startup (void)
 {
-	qboolean fixed_speed, fixed_width, fixed_channels;
+	bool fixed_speed, fixed_width, fixed_channels;
 	snd_format_t chosen_fmt;
 	static snd_format_t prev_render_format = {0, 0, 0};
 	char* env;
@@ -669,7 +669,7 @@ void S_Startup (void)
 	if (!simsound)
 	{
 		snd_format_t suggest_fmt;
-		qboolean accepted;
+		bool accepted;
 
 		accepted = false;
 		do
@@ -1015,7 +1015,7 @@ sfx_t *S_FindName (const char *name)
 S_FreeSfx
 ==================
 */
-void S_FreeSfx (sfx_t *sfx, qboolean force)
+void S_FreeSfx (sfx_t *sfx, bool force)
 {
 	unsigned int i;
 
@@ -1120,7 +1120,7 @@ void S_PurgeUnused(void)
 S_PrecacheSound
 ==================
 */
-sfx_t *S_PrecacheSound (const char *name, qboolean complain, qboolean levelsound)
+sfx_t *S_PrecacheSound (const char *name, bool complain, bool levelsound)
 {
 	sfx_t *sfx;
 
@@ -1177,7 +1177,7 @@ float S_SoundLength(const char *name)
 S_IsSoundPrecached
 ==================
 */
-qboolean S_IsSoundPrecached (const sfx_t *sfx)
+bool S_IsSoundPrecached (const sfx_t *sfx)
 {
 	return (sfx != NULL && sfx->fetcher != NULL) || (sfx == &changevolume_sfx);
 }
@@ -1284,7 +1284,7 @@ Spatializes a channel
 =================
 */
 extern cvar_t cl_gameplayfix_soundsmovewithentities;
-static void SND_Spatialize_WithSfx(channel_t *ch, qboolean isstatic, sfx_t *sfx)
+static void SND_Spatialize_WithSfx(channel_t *ch, bool isstatic, sfx_t *sfx)
 {
 	int i;
 	double f;
@@ -1480,7 +1480,7 @@ static void SND_Spatialize_WithSfx(channel_t *ch, qboolean isstatic, sfx_t *sfx)
 		intensity = mastervol * f;
 		if (intensity > 0)
 		{
-			qboolean occluded = false;
+			bool occluded = false;
 			if (snd_spatialization_occlusion.integer)
 			{
 				if(snd_spatialization_occlusion.integer & 1)
@@ -1596,7 +1596,7 @@ static void SND_Spatialize_WithSfx(channel_t *ch, qboolean isstatic, sfx_t *sfx)
 				ch->volume[i] = 0;
 	}
 }
-static void SND_Spatialize(channel_t *ch, qboolean isstatic)
+static void SND_Spatialize(channel_t *ch, bool isstatic)
 {
 	sfx_t *sfx = ch->sfx;
 	SND_Spatialize_WithSfx(ch, isstatic, sfx);
@@ -1607,7 +1607,7 @@ static void SND_Spatialize(channel_t *ch, qboolean isstatic)
 // Start a sound effect
 // =======================================================================
 
-static void S_PlaySfxOnChannel (sfx_t *sfx, channel_t *target_chan, unsigned int flags, vec3_t origin, float fvol, float attenuation, qboolean isstatic, int entnum, int entchannel, int startpos, float fspeed)
+static void S_PlaySfxOnChannel (sfx_t *sfx, channel_t *target_chan, unsigned int flags, vec3_t origin, float fvol, float attenuation, bool isstatic, int entnum, int entchannel, int startpos, float fspeed)
 {
 	if (!sfx)
 	{
@@ -1741,7 +1741,7 @@ int S_StartSound (int entnum, int entchannel, sfx_t *sfx, vec3_t origin, float f
 	return S_StartSound_StartPosition_Flags(entnum, entchannel, sfx, origin, fvol, attenuation, 0, CHANNELFLAG_NONE, 1.0f);
 }
 
-void S_StopChannel (unsigned int channel_ind, qboolean lockmutex, qboolean freesfx)
+void S_StopChannel (unsigned int channel_ind, bool lockmutex, bool freesfx)
 {
 	channel_t *ch;
 	sfx_t *sfx;
@@ -1772,7 +1772,7 @@ void S_StopChannel (unsigned int channel_ind, qboolean lockmutex, qboolean frees
 }
 
 
-qboolean S_SetChannelFlag (unsigned int ch_ind, unsigned int flag, qboolean value)
+bool S_SetChannelFlag (unsigned int ch_ind, unsigned int flag, bool value)
 {
 	if (ch_ind >= total_channels)
 		return false;
@@ -1838,7 +1838,7 @@ void S_StopAllSounds (void)
 	}
 }
 
-void S_PauseGameSounds (qboolean toggle)
+void S_PauseGameSounds (bool toggle)
 {
 	unsigned int i;
 
@@ -2304,7 +2304,7 @@ void S_ExtraUpdate (void)
 	S_PaintAndSubmit();
 }
 
-qboolean S_LocalSound (const char *sound)
+bool S_LocalSound (const char *sound)
 {
 	sfx_t	*sfx;
 	int		ch_ind;

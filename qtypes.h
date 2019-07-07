@@ -1,15 +1,7 @@
-
 #ifndef QTYPES_H
 #define QTYPES_H
 
-#undef true
-#undef false
-
-#ifndef __cplusplus
-typedef enum qboolean_e {false, true} qboolean;
-#else
-typedef bool qboolean;
-#endif
+#include <stdbool.h>
 
 #ifndef NULL
 #define NULL ((void *)0)

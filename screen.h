@@ -26,16 +26,16 @@ void CL_Screen_Init (void);
 void CL_UpdateScreen (void);
 void SCR_CenterPrint(const char *str);
 
-void SCR_BeginLoadingPlaque (qboolean startup);
+void SCR_BeginLoadingPlaque (bool startup);
 
 // invoke refresh of loading plaque (nothing else seen)
-void SCR_UpdateLoadingScreen(qboolean clear, qboolean startup);
+void SCR_UpdateLoadingScreen(bool clear, bool startup);
 void SCR_UpdateLoadingScreenIfShown(void);
 
 // pushes an item on the loading screen
-void SCR_PushLoadingScreen (qboolean redraw, const char *msg, float len_in_parent);
-void SCR_PopLoadingScreen (qboolean redraw);
-void SCR_ClearLoadingScreen (qboolean redraw);
+void SCR_PushLoadingScreen (bool redraw, const char *msg, float len_in_parent);
+void SCR_PopLoadingScreen (bool redraw);
+void SCR_ClearLoadingScreen (bool redraw);
 
 extern float scr_con_current; // current height of displayed console
 
@@ -68,7 +68,7 @@ extern cvar_t scr_stipple;
 
 extern cvar_t r_stereo_separation;
 extern cvar_t r_stereo_angle;
-qboolean R_Stereo_Active(void);
+bool R_Stereo_Active(void);
 extern int r_stereo_side;
 
 typedef struct scr_touchscreenarea_s

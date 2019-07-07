@@ -74,7 +74,7 @@ typedef struct prvm_required_field_s
 //     it belongs to prvm.
 typedef struct prvm_edict_private_s
 {
-	qboolean free;
+	bool free;
 	float freetime; // realtime of last change to "free" (i.e. also set on allocation)
 	int mark; // used during leaktest (0 = unref, >0 = referenced); special values during server physics:
 #define PRVM_EDICT_MARK_WAIT_FOR_SETORIGIN -1
@@ -104,7 +104,7 @@ typedef struct prvm_edict_s
 		//		... } server_edict_private_t;
 		// or:
 		//	typedef struct server_edict_private_s {
-		//		qboolean free;
+		//		bool free;
 		//		float freetime;
 		//		vec3_t moved_from;
 		//      vec3_t moved_fromangles;
@@ -127,14 +127,14 @@ typedef struct vmpolygons_triangle_s
 {
 	rtexture_t		*texture;
 	int				drawflag;
-	qboolean hasalpha;
+	bool hasalpha;
 	unsigned short	elements[3];
 } vmpolygons_triangle_t;
 
 typedef struct vmpolygons_s
 {
 	mempool_t		*pool;
-	qboolean		initialized;
+	bool		initialized;
 
 	int				max_vertices;
 	int				num_vertices;
@@ -147,7 +147,7 @@ typedef struct vmpolygons_s
 	vmpolygons_triangle_t *data_triangles;
 	unsigned short	*data_sortedelement3s;
 
-	qboolean		begin_active;
+	bool		begin_active;
 	int	begin_draw2d;
 	rtexture_t		*begin_texture;
 	int				begin_drawflag;
@@ -155,7 +155,7 @@ typedef struct vmpolygons_s
 	float			begin_vertex[VMPOLYGONS_MAXPOINTS][3];
 	float			begin_color[VMPOLYGONS_MAXPOINTS][4];
 	float			begin_texcoord[VMPOLYGONS_MAXPOINTS][2];
-	qboolean		begin_texture_hasalpha;
+	bool		begin_texture_hasalpha;
 } vmpolygons_t;
 
 extern prvm_eval_t prvm_badvalue;
@@ -651,7 +651,7 @@ typedef struct prvm_prog_s
 
 	// allow writing to world entity fields, this is set by server init and
 	// cleared before first server frame
-	qboolean			allowworldwrites;
+	bool			allowworldwrites;
 
 	// name of the prog, e.g. "Server", "Client" or "Menu" (used for text output)
 	const char			*name; // [INIT]
@@ -661,11 +661,11 @@ typedef struct prvm_prog_s
 
 	const char			*extensionstring; // [INIT]
 
-	qboolean			loadintoworld; // [INIT]
+	bool			loadintoworld; // [INIT]
 
 	// used to indicate whether a prog is loaded
-	qboolean			loaded;
-	qboolean			leaktest_active;
+	bool			loaded;
+	bool			leaktest_active;
 
 	// translation buffer (only needs to be freed on unloading progs, type is private to prvm_edict.c)
 	void *po;
@@ -696,7 +696,7 @@ typedef struct prvm_prog_s
 
 	void				(*count_edicts)(struct prvm_prog_s *prog); // [INIT] used by PRVM_ED_Count_f
 
-	qboolean			(*load_edict)(struct prvm_prog_s *prog, prvm_edict_t *ent); // [INIT] used by PRVM_ED_LoadFromFile
+	bool			(*load_edict)(struct prvm_prog_s *prog, prvm_edict_t *ent); // [INIT] used by PRVM_ED_LoadFromFile
 
 	void				(*init_cmd)(struct prvm_prog_s *prog); // [INIT] used by PRVM_InitProg
 	void				(*reset_cmd)(struct prvm_prog_s *prog); // [INIT] used by PRVM_ResetProg
@@ -798,7 +798,7 @@ func_t PRVM_ED_FindFunctionOffset(prvm_prog_t *prog, const char *name);
 
 void PRVM_MEM_IncreaseEdicts(prvm_prog_t *prog);
 
-qboolean PRVM_ED_CanAlloc(prvm_prog_t *prog, prvm_edict_t *e);
+bool PRVM_ED_CanAlloc(prvm_prog_t *prog, prvm_edict_t *e);
 prvm_edict_t *PRVM_ED_Alloc(prvm_prog_t *prog);
 void PRVM_ED_Free(prvm_prog_t *prog, prvm_edict_t *ed);
 void PRVM_ED_ClearEdict(prvm_prog_t *prog, prvm_edict_t *e);
@@ -860,7 +860,7 @@ int PRVM_AllocString(prvm_prog_t *prog, size_t bufferlength, char **pointer);
 void PRVM_FreeString(prvm_prog_t *prog, int num);
 
 ddef_t *PRVM_ED_FieldAtOfs(prvm_prog_t *prog, int ofs);
-qboolean PRVM_ED_ParseEpair(prvm_prog_t *prog, prvm_edict_t *ent, ddef_t *key, const char *s, qboolean parsebackslash);
+bool PRVM_ED_ParseEpair(prvm_prog_t *prog, prvm_edict_t *ent, ddef_t *key, const char *s, bool parsebackslash);
 char *PRVM_UglyValueString(prvm_prog_t *prog, etype_t type, prvm_eval_t *val, char *line, size_t linelength);
 char *PRVM_GlobalString(prvm_prog_t *prog, int ofs, char *line, size_t linelength);
 char *PRVM_GlobalStringNoContents(prvm_prog_t *prog, int ofs, char *line, size_t linelength);

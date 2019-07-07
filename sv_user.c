@@ -107,7 +107,7 @@ void SV_SetIdealPitch (void)
 static vec3_t wishdir, forward, right, up;
 static float wishspeed;
 
-static qboolean onground;
+static bool onground;
 
 /*
 ==================
@@ -774,7 +774,7 @@ void SV_ApplyClientMove (void)
 	PRVM_serveredictfloat(host_client->edict, ping_movementloss) = movementloss / (float) NETGRAPH_PACKETS;
 }
 
-static qboolean SV_FrameLost(int framenum)
+static bool SV_FrameLost(int framenum)
 {
 	if (host_client->entitydatabase5)
 	{
