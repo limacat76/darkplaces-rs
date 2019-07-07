@@ -49,17 +49,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "crypto.h"				// 10590
 #include "draw.h"				// 3236
 #include "screen.h"				// 372
-#include "netconn.h"			// 8805
-#include "protocol.h"			// 17652 
-// #include "cmd.h"				// 338
+// #include "netconn.h"			// 8805
 
 #if 1
-#define QUAKEDEF_GAMENAME "005-quakedef.h.2.cmd.h"
+#define QUAKEDEF_GAMENAME "005-quakedef.h.2.netconn.h"
 #endif
 
 #if 0
-// vvv
-#include "cmd.h"
+#include "netconn.h"
 // END 005-quakedef.h.2
 
 #define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake"

@@ -21,6 +21,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef MODEL_ALIAS_H
 #define MODEL_ALIAS_H
 
+#include "protocol.h"
+// END 005-quakedef.h.2
+
+#include "modelgen.h"
+
 /*
 ==============================================================================
 
@@ -29,9 +34,6 @@ ALIAS MODELS
 Alias models are position independent, so the cache manager can move them.
 ==============================================================================
 */
-
-#include "modelgen.h"
-
 typedef struct daliashdr_s
 {
 	int			ident;

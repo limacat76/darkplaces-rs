@@ -1,6 +1,7 @@
 #ifndef SV_DEMO_H
 #define SV_DEMO_H
 
+#include "netconn.h"
 #include "progsvm.h"
 #include "server.h"
 // END 005-quakedef.h.2

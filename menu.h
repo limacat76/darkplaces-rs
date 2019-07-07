@@ -21,6 +21,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef MENU_H
 #define MENU_H
 
+#include "netconn.h"
+// END 005-quakedef.h.2
+
 enum m_state_e {
 	m_none,
 	m_main,
