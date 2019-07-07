@@ -21,6 +21,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // no sound code whatsoever
 
 #include "quakedef.h"
+#include "sound.h"
+// END 005-quakedef.h.2
 
 cvar_t bgmvolume = {CVAR_SAVE, "bgmvolume", "1", "volume of background music (such as CD music or replacement files such as sound/cdtracks/track002.ogg)"};
 cvar_t mastervolume = {CVAR_SAVE, "mastervolume", "1", "master volume"};

@@ -37,7 +37,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "ltx_engine.h"			// 26
 #include "ltx_dpmemory.h"		// 17664
 #include "ltx_gameconstants.h"  // 2848
-
 #include "zone.h"				// 23
 #include "fs.h"					// 7
 #include "common.h"				// 21
@@ -46,34 +45,27 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "sys.h"				// 1495
 #include "vid.h"				// 2054
 #include "mathlib.h"			// 405
-
 #include "r_textures.h"			// 17692
-
 #include "crypto.h"				// 10590
-
 #include "draw.h"				// 3236
-
 #include "screen.h"				// 372
-
 #include "netconn.h"			// 8805
 #include "protocol.h"			// 17652 
 #include "cmd.h"				// 338
 #include "sbar.h"				// 6
-#include "sound.h"				// 17643
-// 17705
-
-/*
-#include "model_shared.h"
-// END 005-quakedef.h.2
-
-*/
+//#include "sound.h"				// 17643
 
 #if 1
-#define QUAKEDEF_GAMENAME "005-quakedef.h.2_model_shared.h"
+#define QUAKEDEF_GAMENAME "005-quakedef.h.2.sound.h"
 #endif
 
 #if 0
+// vvv
+#include "sound.h"
+// END 005-quakedef.h.2
+
 #define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake"
 #endif
+
 #endif
 

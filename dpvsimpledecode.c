@@ -1,4 +1,7 @@
 #include "quakedef.h"
+#include "sound.h"
+// END 005-quakedef.h.2
+
 #include "dpvsimpledecode.h"
 
 #define HZREADERROR_OK 0
