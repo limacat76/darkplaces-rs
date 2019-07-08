@@ -1,5 +1,6 @@
 
 #include "quakedef.h"
+#include "bspfile.h"
 #include "mathlib.h"
 // END 010-quakedef.h.3
 
