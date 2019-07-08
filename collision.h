@@ -2,6 +2,7 @@
 #ifndef COLLISION_H
 #define COLLISION_H
 
+#include "cvar.h"
 #include "model_shared.h"
 // END 005-quakedef.h.2
 

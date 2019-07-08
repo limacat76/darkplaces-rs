@@ -4,6 +4,9 @@
 #ifndef UTF8LIB_H__
 #define UTF8LIB_H__
 
+#include "cvar.h"
+ // END 010-quakedef.h.3
+
 #include "qtypes.h"
 
 // types for unicode strings

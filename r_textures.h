@@ -2,6 +2,9 @@
 #ifndef R_TEXTURES_H
 #define R_TEXTURES_H
 
+#include "cvar.h"
+// END 010-quakedef.h.3
+
 // transparent
 #define TEXF_ALPHA 0x00000001
 // mipmapped

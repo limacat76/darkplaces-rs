@@ -1,6 +1,9 @@
 #ifndef LTX_PLATFORM_H
 #define LTX_PLATFORM_H
 
+#include "cvar.h"
+// END 010-quakedef.h.3
+
 extern cvar_t sessionid;
 
 #define STARTCONFIGFILENAME "quake.rc"

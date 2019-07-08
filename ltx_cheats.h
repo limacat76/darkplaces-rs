@@ -1,6 +1,9 @@
 #ifndef LTX_CHEATS_H
 #define LTX_CHEATS_H
 
+#include "cvar.h"
+// END 010-quakedef.h.3
+
 extern bool noclip_anglehack;
 
 extern cvar_t developer;

@@ -40,18 +40,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "zone.h"				// 23
 #include "fs.h"					// 7
 #include "common.h"				// 21
-#include "cvar.h"				// 404
-//#include "bspfile.h"			// 17638
+//#include "cvar.h"				// 404
 
 #if 1
-#define QUAKEDEF_GAMENAME "010-quakedef.h.3.bspfile.h"
+#define QUAKEDEF_GAMENAME "010-quakedef.h.3.cvar.h"
 #endif
 #if 0
 #define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c009"
 #endif
 
 #if 0
-#include "bspfile.h"
+#include "cvar.h"
 // END 010-quakedef.h.3
 
 #define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake"

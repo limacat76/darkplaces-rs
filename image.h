@@ -2,6 +2,7 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
+#include "cvar.h"
 #include "r_textures.h"
 // END 010-quakedef.h.3
 

@@ -22,6 +22,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef PROTOCOL_H
 #define PROTOCOL_H
 
+#include "cvar.h"
+// END 010-quakedef.h.3
+
 // protocolversion_t is defined in common.h
 
 protocolversion_t Protocol_EnumForName(const char *s);

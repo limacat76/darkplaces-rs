@@ -21,6 +21,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef SBAR_H
 #define SBAR_H
 
+#include "cvar.h"
+// END 010-quakedef.h.3
+
 #define	SBAR_HEIGHT		24
 
 extern	int			sb_lines;			///< scan lines to draw

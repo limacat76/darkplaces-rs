@@ -18,6 +18,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
+#ifndef CDAUDIO_H_
+#define CDAUDIO_H_
+
+#include "cvar.h"
+// END 010-quakedef.h.3
+
 typedef struct cl_cdstate_s
 {
 	bool Valid;
@@ -64,3 +70,5 @@ int CDAudio_SysUpdate (void);
 void CDAudio_SysInit (void);
 int CDAudio_SysStartup (void);
 void CDAudio_SysShutdown (void);
+
+#endif

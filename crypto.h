@@ -1,6 +1,9 @@
 #ifndef CRYPTO_H
 #define CRYPTO_H
 
+#include "cvar.h"
+// END 010-quakedef.h.3
+
 extern cvar_t crypto_developer;
 extern cvar_t crypto_aeslevel;
 #define ENCRYPTION_REQUIRED (crypto_aeslevel.integer >= 3)
