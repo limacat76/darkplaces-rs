@@ -1,5 +1,8 @@
 
 #include "quakedef.h"
+#include "vid.h"
+// END 010-quakedef.h.3
+
 #include "cmd.h"
 #include "render.h"
 #include "console.h"
