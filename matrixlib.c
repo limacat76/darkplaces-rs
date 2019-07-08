@@ -1,6 +1,9 @@
 #include "quakedef.h"
 
 #include <math.h>
+#include "mathlib.h"
+// END 010-quakedef.h.3
+
 #include "matrixlib.h"
 
 #ifdef _MSC_VER

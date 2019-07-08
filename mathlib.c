@@ -20,6 +20,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // mathlib.c -- math primitives
 
 #include "quakedef.h"
+#include "mathlib.h"
+// END 010-quakedef.h.3
+
 #include "model_shared.h"
 #include "console.h"
 // END 005-quakedef.h.2

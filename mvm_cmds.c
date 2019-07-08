@@ -1,4 +1,7 @@
 #include "quakedef.h"
+#include "mathlib.h"
+// END 010-quakedef.h.3
+
 #include "render.h"
 #include "server.h"
 #include "input.h"

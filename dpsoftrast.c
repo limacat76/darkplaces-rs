@@ -4,6 +4,9 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "quakedef.h"
+#include "mathlib.h"
+// END 010-quakedef.h.3
+
 #include "glquake.h"
 // END 005-quakedef.h.2
 

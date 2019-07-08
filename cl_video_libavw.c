@@ -26,6 +26,9 @@
 // limaCAT: thanks for the tips, my lord
 
 #include "ltx_clvideo.h"
+#include "mathlib.h"
+// END 010-quakedef.h.3
+
 #include "console.h"
 // END 005-quakedef.h.2
 

@@ -1,5 +1,8 @@
 
 #include "quakedef.h"
+#include "mathlib.h"
+// END 010-quakedef.h.3
+
 #include "client.h"
 #include "console.h"
 #include "ltx_cheats.h"

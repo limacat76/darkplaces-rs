@@ -23,6 +23,9 @@
 
 
 #include "quakedef.h"
+#include "mathlib.h"
+// END 010-quakedef.h.3
+
 #include "console.h"
 #include "ltx_cheats.h"
 // END 005-quakedef.h.2
