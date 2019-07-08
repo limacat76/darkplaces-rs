@@ -2,6 +2,9 @@
 #ifndef CL_DYNTEXTURE_H
 #define CL_DYNTEXTURE_H
 
+#include "r_textures.h"
+// END 010-quakedef.h.3
+
 #define CLDYNTEXTUREPREFIX			"_dynamic/"
 
 // always path fully specified names to the dynamic texture functions! (ie. with the _dynamic/ prefix, etc.!)

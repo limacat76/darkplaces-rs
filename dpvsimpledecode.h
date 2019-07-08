@@ -2,6 +2,9 @@
 #ifndef DPVSIMPLEDECODE_H
 #define DPVSIMPLEDECODE_H
 
+#include "r_textures.h"
+// END 010-quakedef.h.3
+
 #include "cl_video.h"
 
 #define DPVSIMPLEDECODEERROR_NONE 0

@@ -2,6 +2,9 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
+#include "r_textures.h"
+// END 010-quakedef.h.3
+
 extern int image_width, image_height;
 
 

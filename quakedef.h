@@ -45,18 +45,17 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "sys.h"				// 1495
 #include "vid.h"				// 2054
 #include "mathlib.h"			// 405
-#include "r_textures.h"			// 17692
-//#include "crypto.h"				// 10590
+//#include "r_textures.h"			// 17692
 
 #if 1
-#define QUAKEDEF_GAMENAME "010-quakedef.h.3.crypto.h"
+#define QUAKEDEF_GAMENAME "010-quakedef.h.3.r_textures.h"
 #endif
 #if 0
 #define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c009"
 #endif
 
 #if 0
-#include "crypto.h"
+#include "r_textures.h"
 // END 010-quakedef.h.3
 
 #define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake"

@@ -2,6 +2,7 @@
 #ifndef CL_VIDEO_H
 #define CL_VIDEO_H
 
+#include "r_textures.h"
 #include "draw.h"
 // END 010-quakedef.h.3
 
