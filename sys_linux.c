@@ -13,6 +13,9 @@
 #include <signal.h>
 
 #include "quakedef.h"
+#include "sys.h"
+// END 010-quakedef.h.3
+
 #include "console.h"
 #include "ltx_network.h"
 // END 005-quakedef.h.2

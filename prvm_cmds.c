@@ -5,6 +5,7 @@
 // also applies here
 
 #include "quakedef.h"
+#include "sys.h"
 #include "mathlib.h"
 // END 010-quakedef.h.3
 
