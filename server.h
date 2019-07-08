@@ -22,6 +22,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef SERVER_H
 #define SERVER_H
 
+#include "crypto.h"
+// END 010-quakedef.h.3
+
 #include "netconn.h"
 #include "progsvm.h"
 // END 005-quakedef.h.2

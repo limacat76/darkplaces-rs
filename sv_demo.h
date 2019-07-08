@@ -1,6 +1,9 @@
 #ifndef SV_DEMO_H
 #define SV_DEMO_H
 
+#include "crypto.h"
+// END 010-quakedef.h.3
+
 #include "netconn.h"
 #include "progsvm.h"
 #include "server.h"

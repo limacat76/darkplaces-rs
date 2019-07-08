@@ -1,4 +1,7 @@
 #include "quakedef.h"
+#include "draw.h"
+// END 010-quakedef.h.3
+
 #include "utf8lib.h"
 
 /*

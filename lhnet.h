@@ -4,6 +4,9 @@
 #ifndef LHNET_H
 #define LHNET_H
 
+#include "crypto.h"
+// END 010-quakedef.h.3
+
 typedef enum lhnetaddresstype_e
 {
 	LHNETADDRESSTYPE_NONE,

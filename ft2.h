@@ -5,7 +5,8 @@
 #ifndef DP_FREETYPE2_H__
 #define DP_FREETYPE2_H__
 
-//#include <sys/types.h>
+#include "draw.h"
+// END 010-quakedef.h.3
 
 #include "utf8lib.h"
 

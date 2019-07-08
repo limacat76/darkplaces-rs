@@ -2,6 +2,9 @@
 #ifndef CL_VIDEO_H
 #define CL_VIDEO_H
 
+#include "draw.h"
+// END 010-quakedef.h.3
+
 #include "cl_dyntexture.h"
 
 // yields DYNAMIC_TEXTURE_PATH_PREFIX CLVIDEOPREFIX video name for a path
