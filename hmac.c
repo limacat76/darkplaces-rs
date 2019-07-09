@@ -1,4 +1,7 @@
 #include "quakedef.h"
+#include "zone.h"
+// END 010-quakedef.h.3
+
 #include "hmac.h"
 
 bool hmac(

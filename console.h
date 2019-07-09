@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef CONSOLE_H
 #define CONSOLE_H
 
+#include "zone.h"
 #include "crypto.h"
 // END 010-quakedef.h.3
 

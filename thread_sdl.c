@@ -1,6 +1,9 @@
 #include <SDL.h>
 #include <SDL_thread.h>
 #include "quakedef.h"
+#include "zone.h"
+// END 010-quakedef.h.3
+
 #include "thread.h"
 
 int Thread_Init(void)
