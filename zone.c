@@ -898,6 +898,8 @@ Memory_Init
 */
 void Memory_Init (void)
 {
+	// TODO Move into S_INIT because the sound subsystem is the only one dealing in 
+	// endianness
 	static union {unsigned short s;unsigned char b[2];} u;
 	u.s = 0x100;
 	mem_bigendian = u.b[0] != 0;

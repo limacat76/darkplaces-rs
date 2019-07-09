@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <stdbool.h>
 // END 010-quakedef.h.3
 
+// TODO LIMACAT REFACTOR, MEM_BIGENDIAN is used only by the sound subsystem. 
 extern bool mem_bigendian;
 
 // div0: heap overflow detection paranoia

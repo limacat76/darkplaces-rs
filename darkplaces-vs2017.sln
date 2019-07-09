@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Documentation\Notes.md = Documentation\Notes.md
 		README.md = README.md
 		Documentation\Subsystems.md = Documentation\Subsystems.md
+		Documentation\TODO_Files.md = Documentation\TODO_Files.md
 	EndProjectSection
 EndProject
 Global
