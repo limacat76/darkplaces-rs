@@ -29,6 +29,9 @@ The code uses void pointers instead.
 #ifndef PROGSVM_H
 #define PROGSVM_H
 
+#include "common.h"
+// END 010-quakedef.h.3
+
 #include "world.h"
 #include "client.h"
 #include "progs.h"

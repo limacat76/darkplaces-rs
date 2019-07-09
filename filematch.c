@@ -6,6 +6,8 @@
 #endif
 
 #include "quakedef.h"
+#include "common.h"
+// END 010-quakedef.h.3
 
 // LordHavoc: some portable directory listing code I wrote for lmp2pcx, now used in darkplaces to load id1/*.pak and such...
 
