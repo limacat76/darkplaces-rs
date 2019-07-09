@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef CLIENT_H
 #define CLIENT_H
 
+#include <stdbool.h>
 #include "ltx_gameconstants.h"
 #include "common.h"
 #include "fs.h"

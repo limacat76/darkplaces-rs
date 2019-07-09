@@ -1,6 +1,9 @@
 #ifndef HMAC_H
 #define HMAC_H
 
+#include <stdbool.h>
+// END 010-quakedef.h.3
+
 typedef void (*hashfunc_t) (unsigned char *out, const unsigned char *in, int n);
 bool hmac(
 	hashfunc_t hfunc, int hlen, int hblock,

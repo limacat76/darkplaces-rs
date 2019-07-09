@@ -33,6 +33,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <sys/file.h>		///< Needed for FNDELAY
 #endif
 
+#include <stdbool.h>
 #include <stddef.h>
 #include "qtypes.h"
 #include "ltx_dpmemory.h"

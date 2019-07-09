@@ -56,6 +56,7 @@ interface from being ambiguous.
 #ifndef CVAR_H
 #define CVAR_H
 
+#include <stdbool.h>
 #include "fs.h"
 // END 010-quakedef.h.3
 

@@ -25,6 +25,7 @@
 #ifndef FS_H
 #define FS_H
 
+#include <stdbool.h>
 #include <stddef.h>
 #include "ltx_dpmemory.h"
 #include "zone.h"

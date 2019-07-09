@@ -22,6 +22,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef MATHLIB_H
 #define MATHLIB_H
 
+#include <stdbool.h>
+// END 010-quakedef.h.3
+
 #include "qtypes.h"
 
 #ifndef M_PI

@@ -1,5 +1,8 @@
 #ifndef THREAD_H
 
+#include <stdbool.h>
+// END 010-quakedef.h.3
+
 // enable Sys_PrintfToTerminal calls on nearly every threading call
 //#define THREADDEBUG
 //#define THREADDISABLE

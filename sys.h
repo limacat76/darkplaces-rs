@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef SYS_H
 #define SYS_H
 
+#include <stdbool.h>
 #include "cvar.h"
 // END 010-quakedef.h.3
 

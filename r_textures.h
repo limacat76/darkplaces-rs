@@ -2,6 +2,7 @@
 #ifndef R_TEXTURES_H
 #define R_TEXTURES_H
 
+#include <stdbool.h>
 #include "cvar.h"
 // END 010-quakedef.h.3
 
