@@ -21,8 +21,9 @@
 
 */
 
-
 #include "quakedef.h"
+#include <setjmp.h>
+
 #include "sys.h"
 #include "mathlib.h"
 // END 010-quakedef.h.3

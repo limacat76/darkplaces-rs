@@ -26,7 +26,10 @@
 //
 //LordHavoc: rewrote most of this.
 
+
 #include "quakedef.h"
+#include <setjmp.h>
+
 #include "sys.h"
 #include "console.h"
 // END 005-quakedef.h.2
