@@ -19,13 +19,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 // sbar.c -- status bar code
 
+#include "sbar.h"
+#include "view.h"
+// END 011-view.h
+
 #include "sys.h"
 #include "mathlib.h"
 // END 010-quakedef.h.3
 
 #include "screen.h"
 #include "cmd.h"
-#include "sbar.h"
 #include "render.h"
 #include "server.h"
 #include "console.h"
@@ -1344,8 +1347,6 @@ static void Sbar_DrawGauge(float x, float y, cachepic_t *pic, float width, float
 Sbar_Draw
 ===============
 */
-extern float v_dmg_time, v_dmg_roll, v_dmg_pitch;
-extern cvar_t v_kicktime;
 void Sbar_Score (int margin);
 void Sbar_Draw (void)
 {

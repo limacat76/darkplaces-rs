@@ -19,6 +19,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 // r_main.c
 
+#include "view.h"
+// END 011-view.h
+
 #include <stdio.h>
 #include "sys.h"
 #include "vid.h"
@@ -34,7 +37,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "glquake.h"
 #include "palette.h"
 #include "ltx_network.h"
-#include "ltx_chase.h"
 #include "ltx_fractalnoise.h"
 // END 005-quakedef.h.2
 

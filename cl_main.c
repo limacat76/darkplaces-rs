@@ -19,6 +19,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 // cl_main.c  -- client main loop
 
+#include "view.h"
+// END 011-view.h
+
 #include "ltx_engine.h"
 #include "sys.h"
 #include "mathlib.h"
@@ -37,7 +40,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "palette.h"
 #include "ltx_platform.h"
 #include "ltx_network.h"
-#include "ltx_chase.h"
 // END 005-quakedef.h.2
 
 #include "cl_collision.h"

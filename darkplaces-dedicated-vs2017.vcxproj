@@ -323,7 +323,6 @@
     <ClInclude Include="lhfont.h" />
     <ClInclude Include="lhnet.h" />
     <ClInclude Include="libcurl.h" />
-    <ClInclude Include="ltx_chase.h" />
     <ClInclude Include="ltx_cheats.h" />
     <ClInclude Include="ltx_dpmemory.h" />
     <ClInclude Include="ltx_engine.h" />
@@ -384,6 +383,7 @@
     <ClInclude Include="timing.h" />
     <ClInclude Include="utf8lib.h" />
     <ClInclude Include="vid.h" />
+    <ClInclude Include="view.h" />
     <ClInclude Include="wad.h" />
     <ClInclude Include="world.h" />
     <ClInclude Include="zone.h" />

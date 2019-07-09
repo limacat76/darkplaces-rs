@@ -1,5 +1,7 @@
 /*
 Copyright (C) 1996-1997 Id Software, Inc.
+Copyright (C) 2003-2019 Forest Hale & Contributors
+Copyright (C) 2019 Davide Inglima
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -18,6 +20,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 // view.c -- player eye positioning
+
+#include "view.h"
+// END 011-view.h
 
 #include "vid.h"
 #include "mathlib.h"
@@ -103,6 +108,7 @@ cvar_t v_ipitch_level = {0, "v_ipitch_level", "0.3", "v_idlescale pitch amount"}
 
 cvar_t v_idlescale = {0, "v_idlescale", "0", "how much of the quake 'drunken view' effect to use"};
 
+// move into sbar.c
 cvar_t crosshair = {CVAR_SAVE, "crosshair", "0", "selects crosshair to use (0 is none)"};
 
 cvar_t v_centermove = {0, "v_centermove", "0.15", "how long before the view begins to center itself (if freelook/+mlook/+jlook/+klook are off)"};
@@ -128,7 +134,6 @@ cvar_t chase_pitchangle = {CVAR_SAVE, "chase_pitchangle", "55", "chase cam pitch
 cvar_t v_yshearing = {0, "v_yshearing", "0", "be all out of gum (set this to the maximum angle to allow Y shearing for - try values like 75)"};
 
 float	v_dmg_time, v_dmg_roll, v_dmg_pitch;
-
 
 /*
 ===============
@@ -1172,4 +1177,3 @@ void V_Init (void)
 
 	Cvar_RegisterVariable (&v_yshearing);
 }
-

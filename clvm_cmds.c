@@ -1,3 +1,6 @@
+#include "view.h"
+// END 011-view.h
+
 #include "sys.h"
 #include "vid.h"
 #include "mathlib.h"
@@ -12,7 +15,6 @@
 #include "console.h"
 #include "ltx_cheats.h"
 #include "palette.h"
-#include "ltx_chase.h"
 #include "glquake.h"
 // END 005-quakedef.h.2
 
@@ -735,7 +737,6 @@ static void VM_CL_getlight (prvm_prog_t *prog)
 //============================================================================
 //[515]: SCENE MANAGER builtins
 
-extern cvar_t v_yshearing;
 void CSQC_R_RecalcView (void)
 {
 	extern matrix4x4_t viewmodelmatrix_nobob;
@@ -2452,16 +2453,6 @@ static int CL_GetEntityLocalTagMatrix(prvm_prog_t *prog, prvm_edict_t *ent, int 
 	return 0;
 }
 
-// Warnings/errors code:
-// 0 - normal (everything all-right)
-// 1 - world entity
-// 2 - free entity
-// 3 - null or non-precached model
-// 4 - no tags with requested index
-// 5 - runaway loop at attachment chain
-extern cvar_t cl_bob;
-extern cvar_t cl_bobcycle;
-extern cvar_t cl_bobup;
 int CL_GetTagMatrix (prvm_prog_t *prog, matrix4x4_t *out, prvm_edict_t *ent, int tagindex)
 {
 	int ret;

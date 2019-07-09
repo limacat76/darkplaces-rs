@@ -22,6 +22,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // Quake is a trademark of Id Software, Inc., (c) 1996 Id Software, Inc. All
 // rights reserved.
 
+#include "view.h"
+// END 011-view.h
+
 #include "vid.h"
 #include "mathlib.h"
 // END 010-quakedef.h.3
@@ -34,7 +37,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "glquake.h"
 #include "ltx_network.h"
 #include "ltx_cheats.h"
-#include "ltx_chase.h"
 // END 005-quakedef.h.2
 
 #include "csprogs.h"

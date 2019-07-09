@@ -1,8 +1,7 @@
 /*
 Copyright (C) 1996-1997 Id Software, Inc.
-Copyright (C) 2003 Forest Hale
+Copyright (C) 2003-2019 Forest Hale & Contributors
 Copyright (C) 2019 Davide Inglima
-Copyright (C) black, divverent, eihrul, knghtbrd, havoc, molivier, Nikoli, res, vortex
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -28,11 +27,11 @@ rights reserved.
 #ifndef QUAKEDEF_H
 #define QUAKEDEF_H
 
-#if 0
-#define QUAKEDEF_GAMENAME "010-quakedef.h.3.stdbool.h"
-#endif
 #if 1
-#define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c010"
+#define QUAKEDEF_GAMENAME "011-view.h"
+#endif
+#if 0
+#define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c011"
 #endif
 
 #if 0
