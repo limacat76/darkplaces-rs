@@ -1,4 +1,3 @@
-#include "quakedef.h"
 #include "ltx_engine.h"
 #include "sys.h"
 #include "cmd.h"

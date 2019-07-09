@@ -1,4 +1,3 @@
-#include "quakedef.h"
 #include <stdbool.h>
 #include "ltx_engine.h"
 #include "sys.h"

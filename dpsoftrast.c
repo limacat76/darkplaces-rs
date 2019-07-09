@@ -3,7 +3,6 @@
 #include <string.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include "quakedef.h"
 #include <stdlib.h>
 #include "mathlib.h"
 // END 010-quakedef.h.3

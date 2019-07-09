@@ -1,5 +1,4 @@
 
-#include "quakedef.h"
 #include "vid.h"
 // END 010-quakedef.h.3
 

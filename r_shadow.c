@@ -134,7 +134,6 @@ CubeMap, 2D+1D Attenuation Texturing, and Light Projection Filtering, as
 demonstrated by the game Doom3.
 */
 
-#include "quakedef.h"
 #include <stdio.h>
 #include "vid.h"
 #include "mathlib.h"

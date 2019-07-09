@@ -21,7 +21,6 @@
 
 */
 
-#include "quakedef.h"
 #include <setjmp.h>
 
 #include "sys.h"

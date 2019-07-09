@@ -12,7 +12,6 @@
 
 #include <signal.h>
 
-#include "quakedef.h"
 #include <stdio.h>
 #include "common.h"
 #include "sys.h"

@@ -19,7 +19,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 // sv_main.c -- server main program
 
-#include "quakedef.h"
 #include "ltx_engine.h"
 #include "sys.h"
 #include "mathlib.h"

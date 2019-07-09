@@ -39,7 +39,6 @@ double bsplinesample(int dimensions, double t, double *param)
 }
 */
 
-#include "quakedef.h"
 #include "mathlib.h"
 
 #include <math.h>

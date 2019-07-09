@@ -1,4 +1,3 @@
-#include "quakedef.h"
 #include <ctype.h>
 #include "common.h"
 #include "draw.h"

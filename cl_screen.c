@@ -1,4 +1,3 @@
-#include "quakedef.h"
 #include <stdio.h>
 #include "sys.h"
 #include "vid.h"

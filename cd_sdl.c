@@ -19,7 +19,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#include "quakedef.h"
 #include "cdaudio.h"
 
 #if SDL_MAJOR_VERSION == 1 && SDL_MINOR_VERSION == 2

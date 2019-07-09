@@ -26,8 +26,6 @@
 //
 //LordHavoc: rewrote most of this.
 
-
-#include "quakedef.h"
 #include <setjmp.h>
 
 #include "sys.h"
