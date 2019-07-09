@@ -20,6 +20,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 // sv_move.c -- monster movement
 
 #include "quakedef.h"
+#include <stdlib.h>
+#include <stdlib.h>
 #include "mathlib.h"
 // END 010-quakedef.h.3
 

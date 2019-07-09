@@ -23,6 +23,7 @@
 
 
 #include "quakedef.h"
+#include <stdlib.h>
 #include "common.h"
 #include "console.h"
 #include "ltx_cheats.h"
