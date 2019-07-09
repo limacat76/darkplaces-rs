@@ -1,6 +1,9 @@
 #ifndef FT2_PRIVATE_H__
 #define FT2_PRIVATE_H__
 
+#include "fs.h"
+// END 010-quakedef.h.3
+
 // anything should work, but I recommend multiples of 8
 // since the texture size should be a power of 2
 #define FONT_CHARS_PER_LINE 16

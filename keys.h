@@ -27,6 +27,9 @@
 #ifndef __KEYS_H
 #define __KEYS_H
 
+#include "fs.h"
+// END 010-quakedef.h.3
+
 #include "qtypes.h"
 
 //
