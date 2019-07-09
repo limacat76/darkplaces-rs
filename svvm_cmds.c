@@ -10,7 +10,6 @@
 #include "console.h"
 #include "ltx_cheats.h"
 #include "ltx_network.h"
-#include "ltx_chase.h"
 // END 005-quakedef.h.2
 
 #include "prvm_cmds.h"

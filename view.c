@@ -1,5 +1,7 @@
 /*
 Copyright (C) 1996-1997 Id Software, Inc.
+Copyright (C) 2003-2019 Forest Hale & Contributors
+Copyright (C) 2019 Davide Inglima
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -36,8 +38,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "cl_collision.h"
 #include "image.h"
-
-#if 1
 
 /*
 
@@ -1177,5 +1177,3 @@ void V_Init (void)
 
 	Cvar_RegisterVariable (&v_yshearing);
 }
-
-#endif
