@@ -4,7 +4,6 @@
 # endif
 #endif
 
-#include "quakedef.h"
 #include "sys.h"
 // END 010-quakedef.h.3
 

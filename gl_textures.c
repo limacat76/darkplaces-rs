@@ -1,5 +1,4 @@
 
-#include "quakedef.h"
 #include "sys.h"
 #include "vid.h"
 #include "mathlib.h"

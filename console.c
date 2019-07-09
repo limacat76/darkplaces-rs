@@ -24,7 +24,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #endif
 #include <time.h>
 
-#include "quakedef.h"
 #include "ltx_engine.h"
 #include "sys.h"
 #include "mathlib.h"

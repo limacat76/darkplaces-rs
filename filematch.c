@@ -5,7 +5,6 @@
 #include <dirent.h>
 #endif
 
-#include "quakedef.h"
 #include "zone.h"
 #include "common.h"
 // END 010-quakedef.h.3

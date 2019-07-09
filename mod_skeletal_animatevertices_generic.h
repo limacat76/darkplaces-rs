@@ -1,7 +1,6 @@
 #ifndef MOD_SKELETAL_ANIMATEVERTICES_GENERIC_H
 #define MOD_H
 
-#include "quakedef.h"
 #include "client.h"
 // END 005-quakedef.h.2
 

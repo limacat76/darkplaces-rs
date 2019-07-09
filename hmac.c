@@ -1,4 +1,3 @@
-#include "quakedef.h"
 #include <stdlib.h>
 #include "zone.h"
 // END 010-quakedef.h.3

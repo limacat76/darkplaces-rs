@@ -21,8 +21,6 @@
 
 */
 
-
-#include "quakedef.h"
 #include "common.h"
 #include "sys.h"
 #include "mathlib.h"

@@ -1,4 +1,3 @@
-#include "quakedef.h"
 #include "thread.h"
 #include <process.h>
 

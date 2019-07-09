@@ -1,5 +1,3 @@
-
-#include "quakedef.h"
 #include <stdio.h>
 #include "vid.h"
 #include "mathlib.h"

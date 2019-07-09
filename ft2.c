@@ -1,7 +1,6 @@
 /* FreeType 2 and UTF-8 encoding support for
  * DarkPlaces
  */
-#include "quakedef.h"
 #include "sys.h"
 #include "vid.h"
 #include "mathlib.h"

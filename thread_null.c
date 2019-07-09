@@ -1,4 +1,3 @@
-#include "quakedef.h"
 #include <stddef.h>
 #include "thread.h"
 

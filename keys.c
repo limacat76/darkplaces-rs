@@ -20,7 +20,6 @@
 		Boston, MA  02111-1307, USA
 */
 
-#include "quakedef.h"
 #include "sys.h"
 #include "cmd.h"
 #include "keys.h"

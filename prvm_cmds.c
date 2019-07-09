@@ -4,7 +4,6 @@
 // cause large (I think they will) parts are from pr_cmds the same copyright like in pr_cmds
 // also applies here
 
-#include "quakedef.h"
 #include "sys.h"
 #include "mathlib.h"
 // END 010-quakedef.h.3

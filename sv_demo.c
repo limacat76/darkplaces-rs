@@ -1,4 +1,3 @@
-#include "quakedef.h"
 #include "console.h"
 #include "ltx_platform.h"
 // END 005-quakedef.h.2

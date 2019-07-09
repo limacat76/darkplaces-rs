@@ -1,6 +1,5 @@
 // Andreas Kirsch 07
 
-#include "quakedef.h"
 #include <string.h>
 #include "render.h"
 #include "console.h"

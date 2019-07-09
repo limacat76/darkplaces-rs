@@ -27,8 +27,6 @@
 	$Id$
 */
 
-#include "quakedef.h"
-
 #include <string.h>		/* XoXus: needed for memset call */
 #include "mdfour.h"
 

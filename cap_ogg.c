@@ -3,7 +3,6 @@
 #endif
 #include <sys/types.h>
 
-#include "quakedef.h"
 #include <stdio.h>
 #include "sys.h"
 #include "mathlib.h"
