@@ -23,6 +23,7 @@
 
 
 #include "quakedef.h"
+#include <string.h>
 #include <stdlib.h>
 #include "common.h"
 #include "console.h"

@@ -1,4 +1,5 @@
 #include "quakedef.h"
+#include <string.h>
 #include "mathlib.h"
 // END 010-quakedef.h.3
 
