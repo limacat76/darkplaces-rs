@@ -13,6 +13,7 @@
 #include <signal.h>
 
 #include "quakedef.h"
+#include <stdio.h>
 #include "common.h"
 #include "sys.h"
 // END 010-quakedef.h.3

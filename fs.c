@@ -38,6 +38,7 @@
 #endif
 
 #include "quakedef.h"
+#include <stdio.h>
 #include "sys.h"
 #include "vid.h"
 // END 010-quakedef.h.3

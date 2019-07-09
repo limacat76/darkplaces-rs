@@ -135,6 +135,7 @@ demonstrated by the game Doom3.
 */
 
 #include "quakedef.h"
+#include <stdio.h>
 #include "vid.h"
 #include "mathlib.h"
 // END 010-quakedef.h.3
