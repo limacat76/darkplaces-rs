@@ -2459,7 +2459,7 @@ fail:
 		;
 	}
 
-	prog->loaded = TRUE;
+	prog->loaded = true;
 
 	PRVM_UpdateBreakpoints(prog);
 

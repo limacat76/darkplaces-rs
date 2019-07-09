@@ -2202,7 +2202,7 @@ void VM_strdecolorize(prvm_prog_t *prog)
 	// Prepare Strings
 	VM_SAFEPARMCOUNT(1,VM_strdecolorize);
 	szString = PRVM_G_STRING(OFS_PARM0);
-	COM_StringDecolorize(szString, 0, szNewString, sizeof(szNewString), TRUE);
+	COM_StringDecolorize(szString, 0, szNewString, sizeof(szNewString), true);
 	PRVM_G_INT(OFS_RETURN) = PRVM_SetTempString(prog, szNewString);
 }
 
@@ -4872,7 +4872,7 @@ void VM_buf_copy (prvm_prog_t *prog)
 ========================
 VM_buf_sort
 sort buffer by beginnings of strings (cmplength defaults it's length)
-"backward == TRUE" means that sorting goes upside-down
+"backward == true" means that sorting goes upside-down
 void buf_sort(float bufhandle, float cmplength, float backward) = #464;
 ========================
 */
@@ -5011,7 +5011,7 @@ void VM_bufstr_set (prvm_prog_t *prog)
 ========================
 VM_bufstr_add
 adds string to buffer in first free slot and returns its index
-"order == TRUE" means that string will be added after last "full" slot
+"order == true" means that string will be added after last "full" slot
 float bufstr_add(float bufhandle, string str, float order) = #467;
 ========================
 */
@@ -5645,7 +5645,7 @@ void VM_uncolorstring (prvm_prog_t *prog)
 	// Prepare Strings
 	VM_SAFEPARMCOUNT(1, VM_uncolorstring);
 	szString = PRVM_G_STRING(OFS_PARM0);
-	COM_StringDecolorize(szString, 0, szNewString, sizeof(szNewString), TRUE);
+	COM_StringDecolorize(szString, 0, szNewString, sizeof(szNewString), true);
 	PRVM_G_INT(OFS_RETURN) = PRVM_SetTempString(prog, szNewString);
 	
 }

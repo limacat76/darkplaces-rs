@@ -3,14 +3,6 @@
 
 #include <stdbool.h>
 
-#ifndef NULL
-#define NULL ((void *)0)
-#endif
-
-#ifndef FALSE
-#define FALSE false
-#define TRUE true
-#endif
 
 // up / down
 #define	PITCH	0

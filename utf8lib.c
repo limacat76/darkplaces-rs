@@ -696,7 +696,7 @@ UTF-8 aware COM_StringLengthNoColors
 
 calculates the visible width of a color coded string.
 
-*valid is filled with TRUE if the string is a valid colored string (that is, if
+*valid is filled with true if the string is a valid colored string (that is, if
 it does not end with an unfinished color code). If it gets filled with FALSE, a
 fix would be adding a STRING_COLOR_TAG at the end of the string.
 
@@ -727,7 +727,7 @@ u8_COM_StringLengthNoColors(const char *_s, size_t size_s, bool *valid)
 		{
 			case 0:
 				if(valid)
-					*valid = TRUE;
+					*valid = true;
 				return len;
 			case STRING_COLOR_TAG:
 				++s;
@@ -747,7 +747,7 @@ u8_COM_StringLengthNoColors(const char *_s, size_t size_s, bool *valid)
 					case 0: // ends with unfinished color code!
 						++len;
 						if(valid)
-							*valid = FALSE;
+							*valid = false;
 						return len;
 					case STRING_COLOR_TAG: // escaped ^
 						++len;
@@ -785,7 +785,7 @@ u8_COM_StringLengthNoColors(const char *_s, size_t size_s, bool *valid)
 		{
 			// we CAN end up here, if an invalid char is between this one and the end of the string
 			if(valid)
-				*valid = TRUE;
+				*valid = true;
 			return len;
 		}
 
@@ -793,7 +793,7 @@ u8_COM_StringLengthNoColors(const char *_s, size_t size_s, bool *valid)
 		{
 			// string length exceeded by new character
 			if(valid)
-				*valid = TRUE;
+				*valid = true;
 			return len;
 		}
 

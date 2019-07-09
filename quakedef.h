@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define QUAKEDEF_H
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <sys/types.h>
 #include <ctype.h>
 #include <math.h>
@@ -34,10 +35,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <setjmp.h>
 
 #include "qtypes.h"				// 17711
-//#include "ltx_engine.h"			// 26
 
 #if 1
-#define QUAKEDEF_GAMENAME "010-quakedef.h.3.ltx_engine.h"
+#define QUAKEDEF_GAMENAME "010a-boolean-1"
 #endif
 #if 0
 #define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c009"

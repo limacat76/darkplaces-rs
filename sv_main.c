@@ -2051,7 +2051,7 @@ void SV_WriteClientdataToMessage (client_t *client, prvm_edict_t *ent, sizebuf_t
 		MSG_WriteByte (msg, svc_setangle);
 		for (i=0 ; i < 3 ; i++)
 			MSG_WriteAngle (msg, host_client->fixangle_angles[i], sv.protocol);
-		host_client->fixangle_angles_set = FALSE;
+		host_client->fixangle_angles_set = false;
 	}
 
 	// the runes are in serverflags, pack them into the items value, also pack
