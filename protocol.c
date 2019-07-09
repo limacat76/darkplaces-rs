@@ -1,3 +1,6 @@
+#include "view.h"
+// END 011-view.h
+
 #include <string.h>
 #include <stdlib.h>
 #include "mathlib.h"

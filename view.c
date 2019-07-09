@@ -108,6 +108,7 @@ cvar_t v_ipitch_level = {0, "v_ipitch_level", "0.3", "v_idlescale pitch amount"}
 
 cvar_t v_idlescale = {0, "v_idlescale", "0", "how much of the quake 'drunken view' effect to use"};
 
+// move into sbar.c
 cvar_t crosshair = {CVAR_SAVE, "crosshair", "0", "selects crosshair to use (0 is none)"};
 
 cvar_t v_centermove = {0, "v_centermove", "0.15", "how long before the view begins to center itself (if freelook/+mlook/+jlook/+klook are off)"};

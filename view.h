@@ -19,17 +19,30 @@ extern cvar_t cl_bobcycle;
 extern cvar_t cl_bobup;
 
 extern cvar_t chase_active;
-
 extern cvar_t cl_viewmodel_scale;
+
+// TODO Move back to screen or sbar.c
+extern cvar_t crosshair;
 
 extern cvar_t v_kicktime;
 extern cvar_t v_yshearing;
 
 extern float v_dmg_time, v_dmg_roll, v_dmg_pitch;
 
+void V_Init(void);
+
+void V_CalcRefdef(void);
 void V_CalcRefdefUsing(const matrix4x4_t *entrendermatrix, const vec3_t clviewangles, bool teleported, bool clonground, bool clcmdjump, float clstatsviewheight, bool cldead, bool clintermission, const vec3_t clvelocity);
+float V_CalcRoll(const vec3_t angles, const vec3_t velocity);
+void V_CalcViewBlend(void);
 
+void V_StartPitchDrift(void);
+void V_StopPitchDrift(void);
 
+void V_DriftPitch(void);
+void V_FadeViewFlashs(void);
+
+void V_ParseDamage(void);
 
 #endif
 

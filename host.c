@@ -19,6 +19,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 // host.c -- coordinates spawning and killing of local servers
 
+#include "view.h"
+// END 011-view.h
+
 #include <setjmp.h>
 // END 010-quakedef.h.3
 

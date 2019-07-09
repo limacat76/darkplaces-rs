@@ -19,6 +19,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 // sv_user.c -- server code for moving users
 
+#include "view.h"
+// END 011-view.h
+
 #include <string.h>
 #include <stdio.h>
 #include "mathlib.h"

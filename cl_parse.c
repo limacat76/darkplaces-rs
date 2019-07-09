@@ -19,6 +19,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 // cl_parse.c  -- parse a message received from the server
 
+#include "view.h"
+// END 011-view.h
+
 #include <stdio.h>
 #include "sys.h"
 #include "vid.h"
