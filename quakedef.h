@@ -37,7 +37,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "qtypes.h"				// 17711
 
 #if 1
-#define QUAKEDEF_GAMENAME "010a-boolean-1"
+#define QUAKEDEF_GAMENAME "010a-boolean-2"
 #endif
 #if 0
 #define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c009"

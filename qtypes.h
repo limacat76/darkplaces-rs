@@ -1,7 +1,6 @@
 #ifndef QTYPES_H
 #define QTYPES_H
 
-#include <stdbool.h>
 
 
 // up / down
