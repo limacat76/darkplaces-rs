@@ -33,6 +33,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <sys/file.h>		///< Needed for FNDELAY
 #endif
 
+#include "ltx_dpmemory.h"
+// END 010-quakedef.h.3
+
+
 //============================================================================
 
 typedef struct sizebuf_s

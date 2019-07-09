@@ -22,6 +22,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef WORLD_H
 #define WORLD_H
 
+#include "ltx_dpmemory.h"
+// END 010-quakedef.h.3
+
 #include "collision.h"
 
 #define MOVE_NORMAL     0

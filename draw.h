@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef DRAW_H
 #define DRAW_H
 
+#include "ltx_dpmemory.h"
 #include "r_textures.h"
 // END 010-quakedef.h.3
 

@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef NET_H
 #define NET_H
 
+#include "ltx_dpmemory.h"
 #include "common.h"
 #include "crypto.h"
 // END 010-quakedef.h.3

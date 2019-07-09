@@ -2,6 +2,7 @@
 #ifndef CL_VIDEO_H
 #define CL_VIDEO_H
 
+#include "ltx_dpmemory.h"
 #include "cvar.h"
 #include "r_textures.h"
 #include "draw.h"

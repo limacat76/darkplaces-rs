@@ -27,6 +27,7 @@
 #ifndef __KEYS_H
 #define __KEYS_H
 
+#include "ltx_dpmemory.h"
 #include "fs.h"
 // END 010-quakedef.h.3
 

@@ -25,6 +25,7 @@
 #ifndef FS_H
 #define FS_H
 
+#include "ltx_dpmemory.h"
 #include "zone.h"
 // END 010-quakedef.h.3
 

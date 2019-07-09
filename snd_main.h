@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef SND_MAIN_H
 #define SND_MAIN_H
 
+#include "ltx_dpmemory.h"
 #include "cvar.h"
 // END 010-quakedef.h.3
 
