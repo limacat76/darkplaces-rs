@@ -27,10 +27,10 @@ rights reserved.
 #ifndef QUAKEDEF_H
 #define QUAKEDEF_H
 
-#if 1
+#if 0
 #define QUAKEDEF_GAMENAME "011-view.h"
 #endif
-#if 0
+#if 1
 #define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c011"
 #endif
 
