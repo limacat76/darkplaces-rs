@@ -1,4 +1,5 @@
 #include "quakedef.h"
+#include <stddef.h>
 #include "thread.h"
 
 int Thread_Init(void)
