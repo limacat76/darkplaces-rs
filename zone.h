@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define ZONE_H
 
 #include <stdbool.h>
+#include <stddef.h>
 // END 010-quakedef.h.3
 
 // TODO LIMACAT REFACTOR, MEM_BIGENDIAN is used only by the sound subsystem. 
@@ -146,4 +147,3 @@ extern struct cvar_s developer_memorydebug;
 extern struct cvar_s developer_memoryreportlargerthanmb;
 
 #endif
-

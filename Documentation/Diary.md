@@ -21,3 +21,7 @@ as possible).
 * The work on killing quakedef.h stopped momentarily, there are many
 different things I can try to do right now still remaining on the C
 side of the project...
+
+9/7
+* killed quakedef.h
+* started working on mapping the various files

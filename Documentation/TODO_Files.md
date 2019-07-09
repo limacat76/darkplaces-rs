@@ -1,21 +1,3 @@
-### zone.h
-
-* header for zone.c
-* memory allocation and management
-
-#### Todo
-
-* remove mem_bigendian and move it to the sound subsystem (S_INIT). See also zone.c
-
-### zone.c
-
-* body for zone.h
-
-#### Todo
-
-* put zone.h
-* test if removing other headers will import stdbool.h automatically
-
 world.h
 world.c
 wad.h

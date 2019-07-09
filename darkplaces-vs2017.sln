@@ -9,7 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "darkplaces-sdl2-vs2017", "d
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{151B7057-AE28-4546-98CF-170F2D473D32}"
 	ProjectSection(SolutionItems) = preProject
-		Diary.md = Diary.md
+		Documentation\Diary.md = Documentation\Diary.md
+		Documentation\FileMap.md = Documentation\FileMap.md
 		Documentation\Notes.md = Documentation\Notes.md
 		README.md = README.md
 		Documentation\Subsystems.md = Documentation\Subsystems.md

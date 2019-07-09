@@ -63,24 +63,24 @@ in C and RS)
 * Build Darkplaces
 * Run Darkplaces
 
+#### What about code that cannot be translated in Rust? (Platform Dependant Code)
+
+* It will be wrapped in .dll or .so files
+
 ### Phases
 
-This plan will probably change, but this is the initial lowdown.
+This plan will change, but this is the initial lowdown.
 
 * Basic "leaf" Code
 * Core Logic
 * Code Needing I/O
+* 0.9 Release
+* Remove unsafe pointers
 * 1.0 Release
 * Multithreaded logic for the game engine (?)
 * 2.0 Release
 * Add a Vulkan Renderer
 * 3.0 Release
-
-### Groups
-
-* Strings Manipulation
-* Memory Manipulation
-* Networking
 
 ### Non conversion Wishlist
 
