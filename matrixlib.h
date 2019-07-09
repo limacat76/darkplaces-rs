@@ -2,6 +2,9 @@
 #ifndef MATRIXLIB_H
 #define MATRIXLIB_H
 
+#include "qtypes.h"
+// END 010-quakedef.h.3
+
 #ifndef M_PI
 #define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
 #endif
