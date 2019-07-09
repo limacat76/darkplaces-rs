@@ -1,10 +1,12 @@
+#include "view.h"
+// END 011-view.h
+
 #include "bspfile.h"
 #include "mathlib.h"
 // END 010-quakedef.h.3
 
 #include "server.h"
 #include "console.h"
-#include "ltx_chase.h"
 // END 005-quakedef.h.2
 
 #include "cl_collision.h"

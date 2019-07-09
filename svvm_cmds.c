@@ -1,3 +1,6 @@
+#include "view.h"
+// END 011-view.h
+
 #include <string.h>
 #include "mathlib.h"
 // END 010-quakedef.h.3
@@ -2444,16 +2447,6 @@ static int SV_GetEntityLocalTagMatrix(prvm_prog_t *prog, prvm_edict_t *ent, int 
 	return 0;
 }
 
-// Warnings/errors code:
-// 0 - normal (everything all-right)
-// 1 - world entity
-// 2 - free entity
-// 3 - null or non-precached model
-// 4 - no tags with requested index
-// 5 - runaway loop at attachment chain
-extern cvar_t cl_bob;
-extern cvar_t cl_bobcycle;
-extern cvar_t cl_bobup;
 static int SV_GetTagMatrix (prvm_prog_t *prog, matrix4x4_t *out, prvm_edict_t *ent, int tagindex)
 {
 	int ret;

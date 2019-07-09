@@ -19,6 +19,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 // view.c -- player eye positioning
 
+#include "view.h"
+// END 011-view.h
+
 #include "vid.h"
 #include "mathlib.h"
 // END 010-quakedef.h.3
@@ -33,6 +36,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "cl_collision.h"
 #include "image.h"
+
+#if 1
 
 /*
 
@@ -128,7 +133,6 @@ cvar_t chase_pitchangle = {CVAR_SAVE, "chase_pitchangle", "55", "chase cam pitch
 cvar_t v_yshearing = {0, "v_yshearing", "0", "be all out of gum (set this to the maximum angle to allow Y shearing for - try values like 75)"};
 
 float	v_dmg_time, v_dmg_roll, v_dmg_pitch;
-
 
 /*
 ===============
@@ -1173,3 +1177,4 @@ void V_Init (void)
 	Cvar_RegisterVariable (&v_yshearing);
 }
 
+#endif
