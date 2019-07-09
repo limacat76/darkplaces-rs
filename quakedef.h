@@ -28,17 +28,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <ctype.h>
 #include <math.h>
 #include <string.h>
-#include <stdarg.h>
-
 #if 1
-#define QUAKEDEF_GAMENAME "010-quakedef.h.3.stdio.h"
+#define QUAKEDEF_GAMENAME "010-quakedef.h.3.stdarg.h"
 #endif
 #if 0
 #define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake+c009"
 #endif
 
 #if 0
-#include <stdio.h>
+#include <stdarg.h>
 // END 010-quakedef.h.3
 
 #define QUAKEDEF_GAMENAME "Lichtopia-DarkPlaces-Quake"
